@@ -320,7 +320,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--database", type=Path, default=PROJECT_ROOT / "data" / "crawler.db")
     parser.add_argument("--raw-dir", type=Path, default=PROJECT_ROOT / "data" / "raw")
     parser.add_argument("--source", action="append", help="Source id to crawl; repeat to select several")
-    parser.add_argument("--max-pages", type=int, default=100, help="Maximum pages per source in this run")
+    parser.add_argument("--max-pages", type=int, default=10, help="Maximum pages per source in this run")
     parser.add_argument("--delay", type=float, default=1.5, help="Seconds to wait between requests")
     parser.add_argument("--dry-run", action="store_true", help="Fetch and inspect without writing SQLite/raw files")
     return parser.parse_args()
