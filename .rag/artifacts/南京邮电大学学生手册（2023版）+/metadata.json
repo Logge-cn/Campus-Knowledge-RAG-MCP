@@ -1,0 +1,5637 @@
+{
+  "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+  "file_sha256": "95718365ef1ad87df9e4bbd692bada066a4176328f19983534cf73d61682fc30",
+  "imported_at": "2026-08-06T14:39:36.301035+00:00",
+  "extractor": "extract_native_pdf.py",
+  "pages": [
+    {
+      "page": 1,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 479,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3379238243579231,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 2,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 293,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.21409897741370093,
+        "duplicate_line_ratio": 0.058823529411764705,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 3,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 63,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.08579793718420958,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 4,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 93,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.1185838598453284,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 5,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 150,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2001604600092032,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 6,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 508,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.33990060816942586,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 7,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 577,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.4015859926164217,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 8,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 583,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.38828978179253215,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 9,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 574,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.37712104613126723,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 10,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 488,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3202706625897681,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 11,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 232,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.20882335702839241,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 12,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 246,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2871595974998588,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 13,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 279,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3018817563913891,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 14,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 264,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3034882920490707,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 15,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 127,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.15202565564632026,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 16,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 384,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2726344574281933,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 17,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 184,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.11769875554979192,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 18,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 415,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.28540593038935486,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 19,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 471,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3203229397865108,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 20,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 388,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.27333417273188243,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 21,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 483,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.32815629542391866,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 22,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 486,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3262015337034074,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 23,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 476,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.31135638540774513,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 24,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 420,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2795673624073114,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 25,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 450,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.28639879491885767,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 26,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 407,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.27589657377456495,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 27,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 458,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.29927182391331236,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 28,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 494,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.32767678399208117,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 29,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 448,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2974647649075012,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 30,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 433,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.28679601259684395,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 31,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 379,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2577791329263276,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 32,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 446,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3149324623883028,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 33,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 453,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3009803211663288,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 34,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 503,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.33591585143056923,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 35,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 490,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.32779876240541483,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 36,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 157,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.10081779208075502,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 37,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 329,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.24221442294653614,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 38,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 443,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.29245331804463315,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 39,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 425,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2851131196079516,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 40,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 523,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.34595296886743354,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 41,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 503,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.33161986772326546,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 42,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 311,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2183583333062371,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 43,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 402,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.281303926638148,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 44,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 452,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.29735191076258694,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 45,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 493,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.32785516512649493,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 46,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 486,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.34060409816034243,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 47,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 418,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.28151150566732797,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 48,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 459,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3070863396588472,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 49,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 479,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3134765095311998,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 50,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 423,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2766081334806759,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 51,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 438,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.29299447164458153,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 52,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 88,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.053724768784106626,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 53,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 284,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.21090628665902011,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 54,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 442,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.29941038787789087,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 55,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 535,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.35633815548575803,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 56,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 260,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.18164384183676408,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 57,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 216,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.25785294015304394,
+        "duplicate_line_ratio": 0.1276595744680851,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.75
+        },
+        {
+          "index": 2,
+          "method": "pymupdf.find_tables",
+          "score": 0.95
+        }
+      ]
+    },
+    {
+      "page": 58,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 783,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.4460380009483447,
+        "duplicate_line_ratio": 0.1598639455782313,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.89
+        }
+      ]
+    },
+    {
+      "page": 59,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 829,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.4421446164082024,
+        "duplicate_line_ratio": 0.11726384364820847,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.922
+        }
+      ]
+    },
+    {
+      "page": 60,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 141,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.404518749416934,
+        "duplicate_line_ratio": 0.6142857142857143,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [
+        "duplicate_line_ratio"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "camelot.lattice",
+          "score": 1.0
+        },
+        {
+          "index": 2,
+          "method": "camelot.lattice",
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "page": 61,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 241,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.43350749838253855,
+        "duplicate_line_ratio": 0.547945205479452,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [
+        "duplicate_line_ratio"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "camelot.lattice",
+          "score": 1.0
+        },
+        {
+          "index": 2,
+          "method": "camelot.lattice",
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "page": 62,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 467,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.32332296388253445,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 63,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 217,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.13586236330975537,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 64,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 366,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.26006768668998675,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 65,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 512,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3412133463112142,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 66,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 474,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.30923826298847407,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 67,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 420,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3407487562628127,
+        "duplicate_line_ratio": 0.061224489795918366,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "page": 68,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 547,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.35836025683722555,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 69,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 578,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.37584339385811655,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 70,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 425,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.27878445280544567,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 71,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 470,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.31325893234985364,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 72,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 486,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3146984882072741,
+        "duplicate_line_ratio": 0.04,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 73,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 433,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2858578677816494,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 74,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 415,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.29741153344026705,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 75,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 464,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.31569341184186533,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 76,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 522,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3444538955173785,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 77,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 117,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.07948629046400289,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 78,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 410,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.29762902413258474,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 79,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 556,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.37076699281511505,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 80,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 472,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.31106151354969624,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 81,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 438,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3541161902731015,
+        "duplicate_line_ratio": 0.06,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "page": 82,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 569,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3674182119577014,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 83,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 530,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.34738951918268196,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 84,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 435,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.282728298284126,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 85,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 437,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3096881850109874,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 86,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 471,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3205725038035127,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 87,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 520,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.34120882350276716,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 88,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 121,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.08437487979730085,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 89,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 399,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.28526756185388086,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 90,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 519,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3522322478566272,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 91,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 88,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.0512144809754611,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 92,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 418,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.30213094567057797,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 93,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 460,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.31318176494809064,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 94,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 521,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.34271552596754307,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 95,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 441,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2822706563035711,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 96,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 432,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3073901251246489,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 97,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 530,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3463360253293079,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 98,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 508,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3487455969323734,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 99,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 421,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3040238250483781,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 100,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 390,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.28912675695778806,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 101,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 447,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.29894029054722215,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 102,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 554,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.37612368996711215,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 103,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 411,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.28036525683669516,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 104,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 311,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.20485090063877695,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 105,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 341,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.22419083246778904,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 106,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 317,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.21154507127653638,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 107,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 439,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2991313850872193,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 108,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 235,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.16410862466144022,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 109,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 457,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.29841645285348606,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 110,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 504,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.32357574997199307,
+        "duplicate_line_ratio": 0.037037037037037035,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 111,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 333,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.21905286476554267,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 112,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 430,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.29834131430276767,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 113,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 436,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2954710027455312,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 114,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 334,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.21607638638935614,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 115,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 436,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.29988164724928507,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 116,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 487,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3193353673945447,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 117,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 509,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3328232502823796,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 118,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 115,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.07307065570028189,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 119,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 378,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.26147348746724136,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 120,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 425,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2905936728967561,
+        "duplicate_line_ratio": 0.03333333333333333,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.714
+        }
+      ]
+    },
+    {
+      "page": 121,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 534,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3787616415774074,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.6
+        }
+      ]
+    },
+    {
+      "page": 122,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 296,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2008818602369882,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 123,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 399,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.6792302225332534,
+        "duplicate_line_ratio": 0.17857142857142858,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.229
+        },
+        {
+          "index": 2,
+          "method": "pymupdf.find_tables",
+          "score": 0.389
+        },
+        {
+          "index": 3,
+          "method": "pymupdf.find_tables",
+          "score": 0.357
+        }
+      ]
+    },
+    {
+      "page": 124,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 167,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.13120551099006159,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.344
+        }
+      ]
+    },
+    {
+      "page": 125,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 485,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.33295150791942557,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 126,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 530,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3458014830923039,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 127,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 490,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.32181887148105814,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 128,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 453,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.30690461233224653,
+        "duplicate_line_ratio": 0.23728813559322035,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "camelot.lattice",
+          "score": 0.87
+        },
+        {
+          "index": 2,
+          "method": "pymupdf.find_tables",
+          "score": 0.5
+        }
+      ]
+    },
+    {
+      "page": 129,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 65,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.04277441717872233,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 130,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 218,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.11510635835849295,
+        "duplicate_line_ratio": 0.25,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.17
+        }
+      ]
+    },
+    {
+      "page": 131,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 271,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.14861658111911466,
+        "duplicate_line_ratio": 0.22916666666666666,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.17
+        }
+      ]
+    },
+    {
+      "page": 132,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 446,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.30463624713699367,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 133,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 117,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.07837169949412937,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 134,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 421,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.27214230768733894,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 135,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 30,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.020153373746924944,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [
+        "short_text"
+      ],
+      "tables": []
+    },
+    {
+      "page": 136,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 481,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.322078067958696,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 137,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 31,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.020797359073209242,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [
+        "short_text"
+      ],
+      "tables": []
+    },
+    {
+      "page": 138,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 282,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.19359886653107486,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 139,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 432,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.30210027680848406,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 140,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 73,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.04860534522614269,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 141,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 357,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.24170097660861153,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 142,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 417,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3127879150040747,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 143,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 554,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3558951973771615,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 144,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 541,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.35775527879799185,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 145,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 508,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3335580072336861,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 146,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 469,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3032724747101466,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 147,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 453,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.29933169789851993,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 148,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 332,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.22412294491889367,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 149,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 307,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.14093185934655042,
+        "duplicate_line_ratio": 0.10638297872340426,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.7
+        }
+      ]
+    },
+    {
+      "page": 150,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 615,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3417114050013806,
+        "duplicate_line_ratio": 0.2222222222222222,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.667
+        }
+      ]
+    },
+    {
+      "page": 151,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 461,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3221537769211037,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 152,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 491,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3331713087031116,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 153,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 507,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.330804792351679,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 154,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 31,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.021518488943268632,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "short_text",
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 155,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 496,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.34906120261652995,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 156,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 551,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.36807570680367974,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 157,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 471,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3216512380832033,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 158,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 448,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.31185257691411483,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 159,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 48,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.031809924128737635,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [
+        "short_text"
+      ],
+      "tables": []
+    },
+    {
+      "page": 160,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 468,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.32583900184771475,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 161,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 443,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2988237671166883,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 162,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 425,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.30828214950059335,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 163,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 477,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.31702627338096173,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 164,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 426,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.28848839515915015,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 165,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 440,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2981235425771333,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 166,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 430,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2987880095319364,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 167,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 416,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3001710761995458,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 168,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 407,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.28435481830334813,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 169,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 82,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.06122171746707676,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 170,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 124,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.09009928902072803,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 171,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 393,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2827954284093061,
+        "duplicate_line_ratio": 0.04,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 172,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 530,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.36579162935988396,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 173,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 476,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3075243715005408,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 174,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 296,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2005454036326689,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 175,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 299,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2127329060735049,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 176,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 389,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.28313478181090596,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 177,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 34,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.023088704269823304,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [
+        "short_text"
+      ],
+      "tables": []
+    },
+    {
+      "page": 178,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 396,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.27161449772677343,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 179,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 423,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2845723106567914,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 180,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 37,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.025277887117697007,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [
+        "short_text"
+      ],
+      "tables": []
+    },
+    {
+      "page": 181,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 482,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.5445465502601292,
+        "duplicate_line_ratio": 0.037037037037037035,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 182,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 585,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.6004243199339443,
+        "duplicate_line_ratio": 0.10344827586206896,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 183,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 248,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3576744255515378,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 184,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 308,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2651701242081353,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 1.0
+        }
+      ]
+    },
+    {
+      "page": 185,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 498,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.38789186278203186,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 186,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 484,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.40118239399839795,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 187,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 534,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.428601402613875,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 188,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 135,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.09384442556041131,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 189,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 449,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3169384743088131,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 190,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 462,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3148017910549129,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 191,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 451,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3140150972450127,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 192,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 431,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3021623401129229,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 193,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 510,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3309993704959951,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 194,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 205,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.1334822078491445,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 195,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 344,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.20701776015321674,
+        "duplicate_line_ratio": 0.03636363636363636,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.279
+        }
+      ]
+    },
+    {
+      "page": 196,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 412,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.31918584363734326,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 197,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 427,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.34441716102797654,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 198,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 556,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.37501684921025835,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 199,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 372,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2646818349437724,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 200,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 434,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.29822317914970037,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 201,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 91,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.054729301533749324,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 202,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 383,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2732029266907766,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 203,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 440,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.29895609324527084,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 204,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 359,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2574354196898229,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 205,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 404,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.28772288747695596,
+        "duplicate_line_ratio": 0.037037037037037035,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 206,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 329,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.23515751947901103,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 207,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 393,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.284758253359617,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 208,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 413,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.28541979045727506,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 209,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 521,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3518982476774503,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 210,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 504,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.35134408173954124,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 211,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 490,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3379030885571049,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 212,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 439,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2934358040663207,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 213,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 489,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3276606325586232,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 214,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 371,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2700341475987609,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 215,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 463,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3161527409004141,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 216,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 452,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.296071999936932,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 217,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 261,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.1733937740473575,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 218,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 248,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.15193733085065406,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 219,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 399,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.29313481520616713,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 220,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 523,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3526923069584624,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 221,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 483,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.31596296888185593,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 222,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 427,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2836512213972039,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 223,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 368,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.25655356738956275,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 224,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 454,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3158508229708301,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 225,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 326,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2227583181263073,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 226,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 391,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2783534270100725,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 227,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 430,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.28855549398885066,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 228,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 403,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.270373581375647,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 229,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 466,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.30954672622001034,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 230,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 504,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3244988193872317,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 231,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 516,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3347373103426874,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 232,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 534,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3472244770483983,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 233,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 500,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3356412880721763,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 234,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 520,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3324581326974621,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 235,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 514,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3391335748084643,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 236,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 593,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3795338645791871,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 237,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 571,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3730209379416448,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 238,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 296,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.18740742788093084,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 239,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 297,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.305601520846279,
+        "duplicate_line_ratio": 0.1728395061728395,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.52
+        }
+      ]
+    },
+    {
+      "page": 240,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 290,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.30672012769626217,
+        "duplicate_line_ratio": 0.27058823529411763,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.495
+        }
+      ]
+    },
+    {
+      "page": 241,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 324,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3048111063474684,
+        "duplicate_line_ratio": 0.2073170731707317,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.495
+        }
+      ]
+    },
+    {
+      "page": 242,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 360,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3556164279446348,
+        "duplicate_line_ratio": 0.31683168316831684,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "duplicate_line_ratio",
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.514
+        }
+      ]
+    },
+    {
+      "page": 243,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 300,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2537301872508312,
+        "duplicate_line_ratio": 0.2247191011235955,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.54
+        }
+      ]
+    },
+    {
+      "page": 244,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 36,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.05010786819673108,
+        "duplicate_line_ratio": 0.07692307692307693,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [
+        "short_text"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.6
+        }
+      ]
+    },
+    {
+      "page": 245,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 440,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3735510528386542,
+        "duplicate_line_ratio": 0.09836065573770492,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.281
+        }
+      ]
+    },
+    {
+      "page": 246,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 165,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.23140337524320773,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.583
+        }
+      ]
+    },
+    {
+      "page": 247,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 555,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.5250114044714017,
+        "duplicate_line_ratio": 0.047619047619047616,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.111
+        }
+      ]
+    },
+    {
+      "page": 248,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 705,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.41490017153225994,
+        "duplicate_line_ratio": 0.04081632653061224,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.404
+        }
+      ]
+    },
+    {
+      "page": 249,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 522,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.35110529650939026,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 250,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 558,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.36507764047813895,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 251,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 505,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.32730783136392355,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 252,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 590,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3857574325350321,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 253,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 519,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3323865462955327,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 254,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 468,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2956745312667442,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 255,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 274,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.17601501315961698,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 256,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 458,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3136615876659249,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 257,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 504,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3303114943933035,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 258,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 443,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2996870766735109,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 259,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 430,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2865252204262659,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 260,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 466,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3117746765170916,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 261,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 373,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.24040395629373576,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 262,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 401,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2703071258583109,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 263,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 153,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.09822979511853394,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 264,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 330,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2678080746688027,
+        "duplicate_line_ratio": 0.041666666666666664,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 265,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 406,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.27697722090725624,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 266,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 373,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2747820165371383,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 267,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 406,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.28274162837416617,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 268,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 368,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.25618089682724654,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 269,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 534,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3404367347698071,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 270,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 112,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.07596952588824238,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 271,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 332,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.23673944745312717,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 272,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 523,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.35802282124197543,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 273,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 424,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.28507616317452095,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 274,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 471,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3209983590383302,
+        "duplicate_line_ratio": 0.037037037037037035,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 275,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 521,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.34587136617526515,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 276,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 538,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3500948674586633,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 277,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 501,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.34116583900918773,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 278,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 427,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2802772979620925,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 279,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 478,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3159667067215075,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 280,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 101,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.06989016947247088,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 281,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 483,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.334621767150298,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 282,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 434,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.29838731021274684,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 283,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 437,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.304318863832973,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 284,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 424,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2946551653471627,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 285,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 522,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.344758746650497,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 286,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 556,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.36453311087628154,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 287,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 178,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.11796469026246795,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 288,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 450,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.31676048322352035,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 289,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 464,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.32775158904942264,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 290,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 268,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.18709044681864662,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 291,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 405,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2888211384759821,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 292,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 377,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2567303556202955,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 293,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 408,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.28525367743816327,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 294,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 513,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.346411337314959,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 295,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 416,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2759967070989661,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 296,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 456,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.30013582080499035,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 297,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 413,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.28197430106072086,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 298,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 533,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3481926075779395,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 299,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 469,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.30978212613751754,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 300,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 435,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2855221506260203,
+        "duplicate_line_ratio": 0.037037037037037035,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 301,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 426,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.29008301883837945,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 302,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 362,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.24259130664611214,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 303,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 558,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3627822357902856,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 304,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 532,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3583813512096013,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 305,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 527,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.35728532407011515,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 306,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 509,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3398475061137776,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 307,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 428,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.29699724590506066,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 308,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 271,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.20047640880682563,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 309,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 460,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3191394619553124,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 310,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 298,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.19800455288850055,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 311,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 460,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3052325630276453,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 312,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 514,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3355951392754394,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 313,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 528,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3526427315295231,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 314,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 502,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3260279181458517,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 315,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 503,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.34156096541349956,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 316,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 485,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3278037566041824,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 317,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 586,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3795645812120877,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 318,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 280,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.17501305078049378,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 319,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 311,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.21533637143504336,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 320,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 488,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3323046365043572,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 321,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 473,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.34068142399709433,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 322,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 497,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3390647513077735,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 323,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 511,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3351079625529448,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 324,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 530,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.34555924303622476,
+        "duplicate_line_ratio": 0.07142857142857142,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 325,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 474,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3179387308714334,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 326,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 494,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3325661508725187,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 327,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 499,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.33368184224662945,
+        "duplicate_line_ratio": 0.03571428571428571,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 328,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 427,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2800573709324575,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 329,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 384,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.27193649046583435,
+        "duplicate_line_ratio": 0.42105263157894735,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "duplicate_line_ratio",
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.98
+        }
+      ]
+    },
+    {
+      "page": 330,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 446,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2780357257131737,
+        "duplicate_line_ratio": 0.5108695652173914,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "duplicate_line_ratio",
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.982
+        }
+      ]
+    },
+    {
+      "page": 331,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 388,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2585710081729525,
+        "duplicate_line_ratio": 0.4827586206896552,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "duplicate_line_ratio",
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.981
+        }
+      ]
+    },
+    {
+      "page": 332,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 395,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2708192811862554,
+        "duplicate_line_ratio": 0.5164835164835165,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "duplicate_line_ratio",
+        "reading_order_anomaly"
+      ],
+      "tables": [
+        {
+          "index": 1,
+          "method": "pymupdf.find_tables",
+          "score": 0.982
+        }
+      ]
+    },
+    {
+      "page": 333,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 343,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2477003244845234,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 334,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 427,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.27830433020778444,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 335,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 525,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3603530081200991,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 336,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 480,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.5090731611238487,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 337,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 462,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.32199482902142984,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 338,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 452,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.31415488293988847,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 339,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 498,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.32827684660748996,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 340,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 172,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.1056271532729968,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    },
+    {
+      "page": 341,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 262,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.17096984235529677,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 342,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 375,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.2617104677612771,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 343,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 535,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.35237078928026805,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 344,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 515,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3309466681556501,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 345,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 502,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.32856899465496053,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 346,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 514,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3362164949879379,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 347,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 604,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3977839500912839,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 348,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 574,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3763644675461902,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 349,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 596,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.39173309988472743,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 350,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 506,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.34022412754978654,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 351,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 475,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3153399052829881,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 352,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 310,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.20951292190699256,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 353,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 459,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3131012271371835,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 354,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 199,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.12560411499117616,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 355,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 367,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.23023965911106323,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 356,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 557,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.36674899796235255,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 357,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 190,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.11504896926778278,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 358,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 604,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.38706608986672736,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 359,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 385,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.24672050549656438,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 360,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 580,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3721713400189361,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 361,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 480,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.3362850359792307,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 362,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 331,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.23140316697988922,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": true
+      },
+      "quality_warnings": [
+        "reading_order_anomaly"
+      ],
+      "tables": []
+    },
+    {
+      "page": 363,
+      "decision": "native",
+      "metrics": {
+        "alnum_chars": 180,
+        "replacement_ratio": 0.0,
+        "usable_block_ratio": 0.09494513633147025,
+        "duplicate_line_ratio": 0.0,
+        "reading_order_anomaly": false
+      },
+      "quality_warnings": [],
+      "tables": []
+    }
+  ]
+}

@@ -3,6 +3,9 @@ name = "rag"
 version = "0.1.0"
 requires-python = ">=3.12"
 dependencies = [
-    "camelot-py[cv]>=2.0.0",
+    "camelot-py>=2.0.0",
+    "paddleocr>=3.0.0",
+    "paddlepaddle>=3.0.0",
+    "paddlex[ocr]>=3.0.0",
     "pymupdf>=1.28.0",
 ]
