@@ -1,6 +1,6 @@
 data/
 .cache/
-.rag/models/
+.rag/
 .venv/
 __pycache__/
 *.pyc
