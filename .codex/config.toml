@@ -1,0 +1,7 @@
+[mcp_servers.njupt-rag]
+command = "E:\\logge\\Projects\\rag\\.venv\\Scripts\\python.exe"
+args = ["src/rag_mcp_server.py"]
+cwd = "E:\\logge\\Projects\\rag"
+
+[mcp_servers.njupt-rag.tools.search_knowledge_base]
+approval_mode = "approve"
