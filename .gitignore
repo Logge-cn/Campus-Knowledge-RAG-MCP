@@ -1,9 +1,10 @@
 data/
 .cache/
-.rag/
+artifacts/
 .venv/
 __pycache__/
 *.pyc
 .agents
+rag_index/
 
 doc/

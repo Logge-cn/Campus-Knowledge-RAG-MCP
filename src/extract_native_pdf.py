@@ -14,6 +14,7 @@ import camelot
 import fitz
 
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 MIN_ALNUM_CHARS = 50
 MIN_USABLE_BLOCK_RATIO = 0.01
 MAX_REPLACEMENT_RATIO = 0.15
@@ -295,7 +296,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("pdf", nargs="+", type=Path)
     parser.add_argument("--data-root", type=Path, default=Path("data"))
-    parser.add_argument("--output-root", type=Path, default=Path(".rag/artifacts"))
+    parser.add_argument("--output-root", type=Path, default=PROJECT_ROOT / "artifacts")
     args = parser.parse_args()
     for pdf_path in args.pdf:
         metadata = process(pdf_path, args.data_root, args.output_root)
