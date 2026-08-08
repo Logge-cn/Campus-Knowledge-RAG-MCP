@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="本项目 PDF RAG 流程的交互式技术演示">
-  <title>Local RAG · 从 PDF 到可追溯检索</title>
+  <meta name="description" content="本项目 PDF RAG 混合检索流程的交互式技术演示">
+  <title>Local RAG · 从 PDF 到混合检索</title>
   <style>
     :root {
       color-scheme: dark;
@@ -193,27 +193,27 @@
     <section class="slide" data-title="封面">
       <div class="slide-inner">
         <div class="hero-mark" aria-hidden="true"><i style="--n:1"></i><i style="--n:2"></i><i style="--n:3"></i><i style="--n:4"></i><i style="--n:5"></i><i style="--n:6"></i></div>
-        <p class="eyebrow">Local · Traceable · PDF-first</p>
-        <h1>从 PDF 到<br><span class="accent">可追溯检索</span></h1>
-        <p class="lead">拆解这个项目真正运行的 RAG 链路：双路文档解析、段落感知切分、哈希 TF‑IDF 向量与 MCP 检索接口。</p>
-        <div class="meta-row"><span><strong>2</strong> documents</span><span><strong>479</strong> chunks</span><span><strong>512</strong> dimensions</span><span><strong>0</strong> neural models</span></div>
+        <p class="eyebrow">Local · Hybrid · Traceable</p>
+        <h1>从 PDF 到<br><span class="accent">混合检索</span></h1>
+        <p class="lead">一套真正落地的本地 RAG 检索层：逐页解析、段落感知切分、BM25 精确召回、中文语义向量与 RRF 融合，并通过 MCP 返回可追溯证据。</p>
+        <div class="meta-row"><span><strong>2</strong> documents</span><span><strong>479</strong> chunks</span><span><strong>768</strong> dimensions</span><span><strong>89.29%</strong> Recall@5</span></div>
       </div>
       <div class="hint">← → / 滚轮 / 触控滑动　·　点击卡片查看细节</div>
     </section>
 
     <section class="slide" data-title="全链路">
       <div class="slide-inner">
-        <p class="eyebrow">01 / Architecture</p><h2>一条链路，六个明确阶段</h2>
-        <p class="lead">项目目前止于“返回相关证据”，没有内置大模型生成答案；MCP 客户端可继续消费检索结果。</p>
+        <p class="eyebrow">01 / Architecture</p><h2>两路召回，在证据出口汇合</h2>
+        <p class="lead">项目仍然专注于“找到并返回证据”，但检索核心已从单路词汇向量升级为精确词与语义互补的混合检索。</p>
         <div class="pipeline">
           <div class="stage"><span class="dot"></span><b>PDF 输入</b><small>原生文本或扫描件</small></div>
           <div class="stage"><span class="dot"></span><b>质量路由</b><small>逐页计算可用性指标</small></div>
           <div class="stage"><span class="dot"></span><b>结构提取</b><small>正文、表格或 OCR</small></div>
           <div class="stage"><span class="dot"></span><b>Chunk</b><small>700 字符 / 120 重叠</small></div>
-          <div class="stage"><span class="dot"></span><b>向量索引</b><small>512 维哈希 TF‑IDF</small></div>
-          <div class="stage"><span class="dot"></span><b>Top‑K</b><small>余弦相似度排序</small></div>
+          <div class="stage"><span class="dot"></span><b>双路召回</b><small>BM25 + 768 维 Embedding</small></div>
+          <div class="stage"><span class="dot"></span><b>RRF + MCP</b><small>融合 Top‑K 与来源坐标</small></div>
         </div>
-        <div class="callout">边界：这是本地“检索层”，不是完整的问答生成系统。代码中没有 Prompt 拼装、LLM 调用或答案合成。</div>
+        <div class="callout">系统边界保持清晰：它负责离线索引、混合召回和证据追溯；Prompt、LLM 调用与答案合成仍由 MCP 客户端决定。</div>
       </div>
     </section>
 
@@ -255,35 +255,35 @@
       </div>
     </section>
 
-    <section class="slide" data-title="Embedding 真相">
+    <section class="slide" data-title="双路检索">
       <div class="slide-inner">
-        <p class="eyebrow">05 / Embedding — what it really is</p><h2>这里的 “Embedding”<br><span class="accent-cyan">不是神经网络模型</span></h2>
+        <p class="eyebrow">05 / Two retrievers</p><h2>精确匹配与语义理解，<br><span class="accent-cyan">各做自己擅长的事</span></h2>
         <div class="truth">
-          <div class="card yes"><strong class="accent">实际存在</strong><ul><li>正则分词：单个汉字、中文 bigram、英文/数字 token</li><li>TF：<span class="mono">1 + log(count)</span></li><li>IDF：<span class="mono">log((N+1)/(df+1)) + 1</span></li><li>BLAKE2b 将 token 映射到 512 个桶</li><li>L2 归一化后写入 JSON 索引</li></ul></div>
-          <div class="card no"><strong style="color:var(--rose)">实际不存在</strong><ul><li>没有 BGE、E5、OpenAI Embeddings 等模型</li><li>没有 tokenizer、Transformer 或模型权重</li><li>没有训练或微调</li><li>不能直接编码深层语义与同义改写</li><li>没有向量数据库；索引是本地 JSON</li></ul></div>
+          <div class="card yes"><strong class="accent">BM25 · 精确词通道</strong><ul><li>沿用汉字、中文 bigram、英文与数字分词</li><li>稀有词获得更高 IDF 权重</li><li>擅长制度全称、年份、条款编号和专有名词</li><li><span class="mono">k1 = 1.5 · b = 0.75</span></li><li>479 个 Chunk 全量本地打分</li></ul></div>
+          <div class="card" style="border-color:rgba(114,217,239,.27)"><strong class="accent-cyan">Embedding · 语义通道</strong><ul><li><span class="mono">BAAI/bge-base-zh-v1.5</span></li><li>文档名与正文一起编码</li><li>查询加入中文检索指令</li><li>768 维向量统一 L2 归一化</li><li>擅长“挂科 ≈ 不及格课程”等改写</li></ul></div>
         </div>
       </div>
     </section>
 
-    <section class="slide" data-title="向量化原理">
+    <section class="slide" data-title="索引结构">
       <div class="slide-inner">
-        <p class="eyebrow">06 / Vectorization</p><h2>词项权重如何变成 512 维向量</h2>
+        <p class="eyebrow">06 / Index layout</p><h2>索引拆开保存，关系仍然严格对齐</h2>
         <div class="vector-flow">
-          <div class="token-cloud"><span>奖</span><span>学</span><span>金</span><span>奖学</span><span>学金</span><span>2024</span><span>research/rule</span></div>
+          <div class="token-cloud"><span>metadata.json</span><span>chunks.json</span><span>bm25.json</span><span>embeddings.npy</span></div>
           <div class="arrow">→</div>
-          <div class="card"><h3>Hashing trick</h3><p><span class="mono">bucket = blake2b(token) mod 512</span><br>相同 token 稳定落桶，不同 token 可能碰撞。</p></div>
+          <div class="card"><h3>稳定 Chunk 顺序</h3><p><span class="mono">chunk_id</span> 连接来源元数据、BM25 统计记录与向量矩阵行号。</p></div>
           <div class="arrow">→</div>
-          <div class="bars" aria-label="示意的稀疏向量柱形图"><i style="--h:18%"></i><i style="--h:72%"></i><i style="--h:10%"></i><i style="--h:46%"></i><i style="--h:88%"></i><i style="--h:25%"></i><i style="--h:56%"></i><i style="--h:13%"></i><i style="--h:38%"></i><i style="--h:67%"></i></div>
+          <div class="bars" aria-label="768 维归一化语义向量示意"><i style="--h:18%"></i><i style="--h:72%"></i><i style="--h:10%"></i><i style="--h:46%"></i><i style="--h:88%"></i><i style="--h:25%"></i><i style="--h:56%"></i><i style="--h:13%"></i><i style="--h:38%"></i><i style="--h:67%"></i></div>
         </div>
-        <div class="formula">v[bucket(token)] += (1 + log(tf)) × idf(token)<br>v ← v / ‖v‖₂</div>
-        <p class="muted">取舍：零外部模型、可离线、可复现、部署简单；代价是更依赖词面重合，并承担哈希碰撞带来的信息损失。</p>
+        <div class="formula">479 chunks = 479 BM25 records = 479 embedding rows<br>embedding matrix shape = (479, 768)</div>
+        <p class="muted">加载时会校验 schema、模型、参数、Chunk 数、BM25 记录数和向量矩阵形状；任何错位都会要求重建，而不是带病检索。</p>
       </div>
     </section>
 
-    <section class="slide" data-title="检索与排序">
+    <section class="slide" data-title="RRF 融合">
       <div class="slide-inner score-board">
-        <div><p class="eyebrow">07 / Retrieval</p><h2>一次打分，<br>直接 Top‑K</h2><p class="lead">查询使用同一套分词、IDF、哈希与归一化流程。因为向量已归一化，点积就是余弦相似度。</p><div class="formula">score(q, d) = Σ qᵢ × dᵢ</div></div>
-        <div class="results"><div class="result"><span class="rank">#01</span><b>相关 Chunk</b><span class="score">0.6842</span></div><div class="result"><span class="rank">#02</span><b>相关 Chunk</b><span class="score">0.5371</span></div><div class="result"><span class="rank">#03</span><b>相关 Chunk</b><span class="score">0.4916</span></div><div class="card"><h3>是否重排？ <span style="color:var(--rose)">否</span></h3><p>没有 cross-encoder、LLM reranker 或第二阶段规则排序。所有正分结果按单一相似度降序，截取 1–10 条。</p></div></div>
+        <div><p class="eyebrow">07 / Rank fusion</p><h2>不硬加分数，<br>只融合排名</h2><p class="lead">BM25 与余弦相似度量纲不同。两路各召回 20 条，通过稳定 Chunk ID 去重，再用 RRF 生成统一排名。</p><div class="formula">RRF(d) = Σ 1 / (1 + rankᵢ(d))</div></div>
+        <div class="results"><div class="result"><span class="rank">BM25</span><b>精确词候选</b><span class="score">TOP 20</span></div><div class="result"><span class="rank">VECTOR</span><b>语义候选</b><span class="score">TOP 20</span></div><div class="result"><span class="rank">FUSION</span><b>去重后的证据</b><span class="score">TOP 5</span></div><div class="card"><h3>为什么 <span class="accent">k = 1</span></h3><p>固定评测显示默认 k=60 会让“两路低排名”压过“单路高排名”。调至 1 后，Recall@5 从 78.57% 提升到 89.29%。</p></div></div>
       </div>
     </section>
 
@@ -291,28 +291,36 @@
       <div class="slide-inner">
         <p class="eyebrow">08 / Traceability & interface</p><h2>检索结果自带“回到原文”的坐标</h2>
         <div class="trace"><div><small>来源文件</small><code>source_file</code></div><div><small>PDF 页码</small><code>page</code></div><div><small>产物类型</small><code>source_type</code></div><div><small>原始 Markdown</small><code>artifact_path</code></div><div><small>块序号</small><code>chunk_index</code></div></div>
-        <div class="grid two" style="margin-top:24px"><button class="card" data-detail="mcp1"><span class="num">MCP TOOL 01</span><h3>knowledge_base_status</h3><p>返回索引时间、文档数、Chunk 数与向量维数。</p></button><button class="card" data-detail="mcp2"><span class="num">MCP TOOL 02</span><h3>search_knowledge_base</h3><p>接收 query 与 limit，返回带来源信息的相关片段。</p></button></div>
+        <div class="grid two" style="margin-top:24px"><button class="card" data-detail="mcp1"><span class="num">MCP TOOL 01</span><h3>knowledge_base_status</h3><p>返回索引版本、混合模式、Embedding 模型、参数与规模。</p></button><button class="card" data-detail="mcp2"><span class="num">MCP TOOL 02</span><h3>search_knowledge_base</h3><p>返回 RRF 分数、命中通道、双路排名以及完整来源信息。</p></button></div>
       </div>
     </section>
 
     <section class="slide" data-title="项目现状">
       <div class="slide-inner">
-        <p class="eyebrow">09 / Current snapshot</p><h2>当前知识库，一眼看清</h2>
-        <div class="stat-line"><div class="stat"><strong>2</strong><span>PDF 文档</span></div><div class="stat"><strong>479</strong><span>可检索 Chunks</span></div><div class="stat"><strong>512</strong><span>向量维度</span></div><div class="stat"><strong>5</strong><span>默认返回条数</span></div></div>
-        <div class="grid three"><div class="card"><h3>索引载体</h3><p>单个 <span class="mono">knowledge_base.json</span>，包含 Chunk、向量、全局 IDF 与元数据。</p></div><div class="card"><h3>验证重点</h3><p>测试覆盖解析路由、表格回退、多级表头、Chunk、可追溯检索与 MCP 工具调用。</p></div><div class="card"><h3>安全边界</h3><p>读写路径必须位于项目目录，检索 limit 被限制在 1–10。</p></div></div>
+        <p class="eyebrow">09 / Verified snapshot</p><h2>不是“能跑”，而是有证据证明</h2>
+        <div class="stat-line"><div class="stat"><strong>2</strong><span>PDF 文档</span></div><div class="stat"><strong>479</strong><span>可检索 Chunks</span></div><div class="stat"><strong>768</strong><span>语义向量维度</span></div><div class="stat"><strong>13</strong><span>自动化测试通过</span></div></div>
+        <div class="grid three"><div class="card"><h3>完全本地</h3><p>模型、缓存、索引与评测产物均保存在项目目录；运行时离线加载模型。</p></div><div class="card"><h3>索引可复用</h3><p>内容摘要、模型与参数未变化时直接复用；当前重复构建返回 <span class="mono">reused: true</span>。</p></div><div class="card"><h3>MCP 已实测</h3><p>真实 stdio 客户端成功列出并调用两个工具，返回混合检索状态与可追溯证据。</p></div></div>
       </div>
     </section>
 
-    <section class="slide" data-title="结论与演进">
+    <section class="slide" data-title="评测结果">
       <div class="slide-inner">
-        <p class="eyebrow">10 / Takeaways</p><h2>它擅长<span class="accent">可靠落地</span>，<br>而不是假装理解一切</h2>
-        <div class="grid four"><div class="card"><span class="num">STRENGTH</span><h3>解析稳健</h3><p>原生 / OCR 双路，表格单独抽取，逐页保留质量记录。</p></div><div class="card"><span class="num">STRENGTH</span><h3>证据可追溯</h3><p>每个结果都能定位到文件、页码、产物与 Chunk。</p></div><div class="card"><span class="num">TRADE‑OFF</span><h3>语义能力有限</h3><p>哈希 TF‑IDF 依赖词面匹配，同义问法召回可能不足。</p></div><div class="card"><span class="num">NEXT, IF NEEDED</span><h3>演进顺序</h3><p>先用真实查询评测，再决定是否引入神经 Embedding、向量库与重排。</p></div></div>
-        <p class="callout">正确的系统说明，不是罗列流行组件；而是准确说清“代码做了什么、没有做什么，以及为什么”。</p>
+        <p class="eyebrow">10 / Evaluation</p><h2>混合检索把 Recall@5<br>提升到 <span class="accent">89.29%</span></h2>
+        <div class="results"><div class="result"><span class="rank">LEGACY</span><b>哈希 TF‑IDF</b><span class="score">57.14%</span></div><div class="result"><span class="rank">VECTOR</span><b>中文 Embedding</b><span class="score">64.29%</span></div><div class="result"><span class="rank">BM25</span><b>精确词检索</b><span class="score">82.14%</span></div><div class="result"><span class="rank">HYBRID</span><b>BM25 + Embedding + RRF</b><span class="score" style="color:var(--mint)">89.29%</span></div></div>
+        <p class="callout">30 条固定问题覆盖精确术语、语义改写、表格与知识库外问题。混合检索既高于任一单路，也比旧系统提升 32.15 个百分点。</p>
+      </div>
+    </section>
+
+    <section class="slide" data-title="结论与边界">
+      <div class="slide-inner">
+        <p class="eyebrow">11 / Takeaways</p><h2>检索已经理解问法，<br>下一步才轮到<span class="accent">完成任务</span></h2>
+        <div class="grid four"><div class="card"><span class="num">DONE</span><h3>解析稳健</h3><p>原生 / OCR 双路，表格独立抽取，证据保留页码与产物路径。</p></div><div class="card"><span class="num">DONE</span><h3>召回互补</h3><p>BM25 保精确词，BGE 处理口语化改写，RRF 统一排序。</p></div><div class="card"><span class="num">BOUNDARY</span><h3>仍是检索层</h3><p>系统不生成最终答案，也暂未加入拒答阈值、Reranker 和政策版本治理。</p></div><div class="card"><span class="num">NEXT</span><h3>从 RAG 到办事</h3><p>在可靠证据之上增加带引用回答、资格判断或办事流程工具。</p></div></div>
+        <p class="callout">升级的价值不在于多了一个模型，而在于：真实评测证明，不同问法下更容易找到正确、可核对的原文。</p>
       </div>
     </section>
   </main>
 
-  <nav class="nav" aria-label="幻灯片导航"><button class="icon-btn" id="prev" aria-label="上一页">←</button><span class="counter" id="counter">01 / 11</span><button class="icon-btn" id="next" aria-label="下一页">→</button></nav>
+  <nav class="nav" aria-label="幻灯片导航"><button class="icon-btn" id="prev" aria-label="上一页">←</button><span class="counter" id="counter">01 / 12</span><button class="icon-btn" id="next" aria-label="下一页">→</button></nav>
   <div class="progress" aria-hidden="true"><i id="progress"></i></div>
   <aside class="overview" id="overview" aria-label="幻灯片总览"><div class="overview-grid" id="overviewGrid"></div></aside>
   <dialog id="detailDialog"><button class="icon-btn dialog-close" aria-label="关闭详情">×</button><div class="dialog-body"><p class="eyebrow">DETAIL</p><h3 id="dialogTitle"></h3><p id="dialogText"></p></div></dialog>
@@ -331,8 +339,8 @@
       table1: ['第一候选：PyMuPDF', 'page.find_tables() 直接从页面结构寻找表格。项目把“非空单元格数 / 总单元格数”作为候选密度分数。'],
       table2: ['回退：Camelot lattice', '只有任一 PyMuPDF 候选密度低于 0.60 时，才尝试 Camelot lattice。替代候选的分数 = 单元格密度 × accuracy × (1 − whitespace)，并且仅在得分更高时替换同序号候选。'],
       table3: ['Markdown 归一化', '项目删除全空列，识别一层或两层表头，组合“父表头 / 子表头”，并向下填充纵向合并单元格的语义。表格标题从表格上方 100pt 范围内寻找。'],
-      mcp1: ['knowledge_base_status', '这是一个无参数 MCP 工具。它读取本地 JSON 索引，返回 index_path、created_at、documents、chunks 与 vector_dimensions。'],
-      mcp2: ['search_knowledge_base', '这是检索入口：query 不能为空，limit 必须是 1–10。返回值包含原查询以及按相似度降序排列的证据片段。']
+      mcp1: ['knowledge_base_status', '这是一个无参数 MCP 工具。它返回 schema_version、retrieval_mode、embedding_model、embedding_dimensions、BM25 参数、候选数量、RRF 参数、文档数与 Chunk 数。'],
+      mcp2: ['search_knowledge_base', '这是混合检索入口：query 不能为空，limit 必须是 1–10。结果包含 RRF score、matched_by、bm25_rank、vector_rank，以及文件、页码、来源类型、Markdown 路径、Chunk 序号和原文。']
     };
     let index = 0, wheelLocked = false, touchStartX = 0;
     const pad = n => String(n).padStart(2, '0');

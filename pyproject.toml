@@ -9,4 +9,5 @@ dependencies = [
     "paddlepaddle>=3.0.0",
     "paddlex[ocr]>=3.0.0",
     "pymupdf>=1.28.0",
+    "sentence-transformers>=5.7.0",
 ]
