@@ -88,8 +88,8 @@ def _metrics(cases: list[dict], rankings: dict[str, list[list[int]]], chunks: li
 
 def main() -> None:
     cases = json.loads(EVALUATION_PATH.read_text(encoding="utf-8"))
-    if not 30 <= len(cases) <= 50:
-        raise ValueError("The evaluation set must contain 30 to 50 cases")
+    if len(cases) != 100:
+        raise ValueError("The evaluation set must contain exactly 100 cases")
     index = load_index()
     chunks = index["chunks"]
     rankings = {method: [] for method in ("legacy", "bm25", "vector", "hybrid")}

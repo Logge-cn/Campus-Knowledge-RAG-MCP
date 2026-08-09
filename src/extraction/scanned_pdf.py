@@ -12,7 +12,7 @@ from pathlib import Path
 import fitz
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-PADDLEX_CACHE_DIR = PROJECT_ROOT / ".cache" / "paddlex"
+PADDLEX_CACHE_DIR = PROJECT_ROOT / "models" / "paddlex"
 os.environ["PADDLE_PDX_CACHE_HOME"] = str(PADDLEX_CACHE_DIR)
 
 from paddleocr import PaddleOCR
