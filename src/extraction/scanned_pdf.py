@@ -11,7 +11,7 @@ from pathlib import Path
 
 import fitz
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 PADDLEX_CACHE_DIR = PROJECT_ROOT / ".cache" / "paddlex"
 os.environ["PADDLE_PDX_CACHE_HOME"] = str(PADDLEX_CACHE_DIR)
 
@@ -90,7 +90,7 @@ def process(pdf_path: Path, data_root: Path, output_root: Path, start_page: int 
         "source_file": relative_path.as_posix(),
         "file_sha256": sha256(pdf_path),
         "imported_at": datetime.now(UTC).isoformat(),
-        "extractor": "extract_scanned_pdf.py",
+        "extractor": "extraction/scanned_pdf.py",
         "pages": pages,
     }
     artifact_dir.mkdir(parents=True, exist_ok=True)
@@ -102,7 +102,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("pdf", type=Path)
     parser.add_argument("--data-root", type=Path, default=Path("data"))
-    parser.add_argument("--output-root", type=Path, default=PROJECT_ROOT / "artifacts")
+    parser.add_argument("--output-root", type=Path, default=PROJECT_ROOT / "storage" / "artifacts")
     parser.add_argument("--start-page", type=int, default=1)
     parser.add_argument("--end-page", type=int)
     args = parser.parse_args()

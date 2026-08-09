@@ -8,7 +8,7 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 MODEL_NAME = "BAAI/bge-base-zh-v1.5"
-MODEL_PATH = PROJECT_ROOT / "rag_index" / "models" / "bge-base-zh-v1.5"
+MODEL_PATH = PROJECT_ROOT / "models" / "bge-base-zh-v1.5"
 
 
 def main() -> None:

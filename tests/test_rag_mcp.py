@@ -11,7 +11,7 @@ from mcp.client.stdio import StdioServerParameters, stdio_client
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from rag_pipeline import build_index
+from retrieval import build_index
 
 
 class RAGMCPTests(unittest.TestCase):
@@ -23,7 +23,7 @@ class RAGMCPTests(unittest.TestCase):
         async def exercise_server():
             parameters = StdioServerParameters(
                 command=str(PROJECT_ROOT / ".venv" / "Scripts" / "python.exe"),
-                args=["src/rag_mcp_server.py"],
+                args=["src/mcp_server.py"],
                 cwd=PROJECT_ROOT,
             )
             async with stdio_client(parameters) as (read_stream, write_stream):

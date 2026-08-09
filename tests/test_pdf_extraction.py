@@ -7,11 +7,11 @@ import fitz
 
 sys.path.insert(0, str(Path(__file__).parents[1] / "src"))
 
-from extract_native_pdf import calculate_metrics, decision, detect_tables, markdown_table
+from extraction.native_pdf import calculate_metrics, decision, detect_tables, markdown_table
 
 
 DATA = Path(__file__).parents[1] / "data"
-ARTIFACTS = Path(__file__).parents[1] / "artifacts"
+ARTIFACTS = Path(__file__).parents[1] / "storage" / "artifacts"
 
 
 def pdf_by_size(size: int) -> Path:

@@ -6,7 +6,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from rag_pipeline import (
+from retrieval import (
     BM25_PATH_NAME,
     CHUNKS_PATH_NAME,
     DEFAULT_INDEX_PATH,
@@ -63,7 +63,7 @@ class RAGPipelineTests(unittest.TestCase):
         results = search("2024年研究生学业奖学金评审实施细则", limit=3)
         self.assertTrue(results)
         self.assertTrue(all(result["page"] > 0 for result in results))
-        self.assertTrue(all(result["artifact_path"].startswith("artifacts/") for result in results))
+        self.assertTrue(all(result["artifact_path"].startswith("storage/artifacts/") for result in results))
         self.assertTrue(any("奖学金" in result["source_file"] for result in results))
         self.assertTrue(all(result["score_type"] == "rrf" for result in results))
         self.assertTrue(all(result["matched_by"] for result in results))

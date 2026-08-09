@@ -14,7 +14,7 @@ import camelot
 import fitz
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 MIN_ALNUM_CHARS = 50
 MIN_USABLE_BLOCK_RATIO = 0.01
 MAX_REPLACEMENT_RATIO = 0.15
@@ -284,7 +284,7 @@ def process(pdf_path: Path, data_root: Path, output_root: Path) -> dict:
         "source_file": relative_path.as_posix(),
         "file_sha256": sha256(pdf_path),
         "imported_at": datetime.now(UTC).isoformat(),
-        "extractor": "extract_native_pdf.py",
+        "extractor": "extraction/native_pdf.py",
         "pages": pages,
     }
     artifact_dir.mkdir(parents=True, exist_ok=True)
@@ -296,7 +296,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("pdf", nargs="+", type=Path)
     parser.add_argument("--data-root", type=Path, default=Path("data"))
-    parser.add_argument("--output-root", type=Path, default=PROJECT_ROOT / "artifacts")
+    parser.add_argument("--output-root", type=Path, default=PROJECT_ROOT / "storage" / "artifacts")
     args = parser.parse_args()
     for pdf_path in args.pdf:
         metadata = process(pdf_path, args.data_root, args.output_root)

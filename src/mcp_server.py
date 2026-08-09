@@ -1,12 +1,10 @@
 """Expose the local PDF knowledge base through the Model Context Protocol."""
 
-from __future__ import annotations
-
 import asyncio
 
 from mcp.server.mcpserver import MCPServer
 
-from rag_pipeline import search, status
+from retrieval import search, status
 
 
 server = MCPServer(

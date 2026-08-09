@@ -15,11 +15,11 @@ from statistics import mean
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from rag_pipeline import _load_index, _tokens, bm25_search, rrf_fuse, vector_search
+from retrieval import bm25_search, load_index, rrf_fuse, tokenize, vector_search
 
 
-EVALUATION_PATH = PROJECT_ROOT / "test" / "retrieval_evaluation.json"
-REPORT_PATH = PROJECT_ROOT / "artifacts" / "retrieval_evaluation_report.json"
+EVALUATION_PATH = PROJECT_ROOT / "evaluation" / "dataset.json"
+REPORT_PATH = PROJECT_ROOT / "evaluation" / "reports" / "latest.json"
 LEGACY_DIMENSIONS = 512
 TOP_K = 5
 
@@ -32,14 +32,14 @@ def _bucket(token: str) -> int:
 def _legacy_rank(query: str, chunks: list[dict], limit: int) -> list[int]:
     document_frequency: Counter[str] = Counter()
     for chunk in chunks:
-        document_frequency.update(set(_tokens(chunk["text"])))
+        document_frequency.update(set(tokenize(chunk["text"])))
     count = len(chunks)
     idf = {token: math.log((count + 1) / (frequency + 1)) + 1 for token, frequency in document_frequency.items()}
     default_idf = math.log(count + 1) + 1
 
     def vector(text: str) -> list[float]:
         values = [0.0] * LEGACY_DIMENSIONS
-        for token, frequency in Counter(_tokens(text)).items():
+        for token, frequency in Counter(tokenize(text)).items():
             values[_bucket(token)] += (1 + math.log(frequency)) * idf.get(token, default_idf)
         length = math.sqrt(sum(value * value for value in values))
         return [value / length for value in values] if length else values
@@ -90,7 +90,7 @@ def main() -> None:
     cases = json.loads(EVALUATION_PATH.read_text(encoding="utf-8"))
     if not 30 <= len(cases) <= 50:
         raise ValueError("The evaluation set must contain 30 to 50 cases")
-    index = _load_index()
+    index = load_index()
     chunks = index["chunks"]
     rankings = {method: [] for method in ("legacy", "bm25", "vector", "hybrid")}
     timings = {method: [] for method in rankings}
