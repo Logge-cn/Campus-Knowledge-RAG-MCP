@@ -2,6 +2,7 @@
 
 import hashlib
 import json
+import re
 from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
@@ -9,7 +10,7 @@ from typing import Any
 import numpy as np
 
 from retrieval.bm25 import build_bm25
-from retrieval.chunking import split_chunks
+from retrieval.chunking import split_chunks, split_table_chunks
 from retrieval.config import (
     BM25_B,
     BM25_K1,
@@ -17,6 +18,7 @@ from retrieval.config import (
     CANDIDATE_LIMIT,
     CHUNK_OVERLAP,
     CHUNK_SIZE,
+    CHUNK_TARGET_TOKENS,
     CHUNKS_PATH_NAME,
     DEFAULT_ARTIFACTS_ROOT,
     DEFAULT_INDEX_PATH,
@@ -58,31 +60,64 @@ def _frontmatter_and_content(path: Path) -> tuple[dict[str, str], str]:
 
 def _source_records(artifacts_root: Path) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
+    seen_text: set[str] = set()
     paths = sorted(artifacts_root.glob("**/pages/*.md")) + sorted(artifacts_root.glob("**/tables/*.md"))
     for path in paths:
         metadata, text = _frontmatter_and_content(path)
-        for chunk_index, chunk in enumerate(split_chunks(text), 1):
-            records.append(
-                {
-                    "chunk_id": f"{path.relative_to(artifacts_root).as_posix()}#{chunk_index}",
-                    "source_file": metadata.get("source_file", "unknown"),
-                    "page": int(metadata.get("page", "0")),
-                    "source_type": metadata.get("source_type", "pdf"),
-                    "artifact_path": path.relative_to(PROJECT_ROOT).as_posix(),
-                    "chunk_index": chunk_index,
-                    "text": chunk,
-                }
-            )
+        source_type = metadata.get("source_type", "pdf")
+        table_chunks = split_table_chunks(text) if source_type == "table" else []
+        chunks = table_chunks or [{"text": chunk} for chunk in split_chunks(text)]
+        for chunk_index, chunk_data in enumerate(chunks, 1):
+            chunk = str(chunk_data["text"])
+            normalized = re.sub(r"\s+", " ", chunk).strip()
+            if normalized in seen_text:
+                continue
+            seen_text.add(normalized)
+            record = {
+                "chunk_id": f"{path.relative_to(artifacts_root).as_posix()}#{chunk_index}",
+                "source_file": metadata.get("source_file", "unknown"),
+                "page": int(metadata.get("page", "0")),
+                "source_type": source_type,
+                "artifact_path": path.relative_to(PROJECT_ROOT).as_posix(),
+                "chunk_index": chunk_index,
+                "text": chunk,
+            }
+            for key in (
+                "source_sha256",
+                "content_sha256",
+                "imported_at",
+                "quality_warnings",
+                "table_id",
+                "table_title",
+                "extraction_method",
+                "extraction_score",
+                "confidence",
+                "low_confidence",
+                "processing_note",
+            ):
+                if key in metadata:
+                    value: Any = metadata[key]
+                    if key in {"extraction_score", "confidence"}:
+                        value = float(value)
+                    elif key == "low_confidence":
+                        value = value.lower() == "true"
+                    elif key == "quality_warnings":
+                        value = [] if value == "none" else value.split(",")
+                    record[key] = value
+            for key in ("row_start", "row_end", "oversize_row"):
+                if key in chunk_data:
+                    record[key] = chunk_data[key]
+            records.append(record)
     return records
 
 
 def _source_digest(records: list[dict[str, Any]]) -> str:
     digest = hashlib.sha256()
     for record in records:
-        digest.update(record["chunk_id"].encode("utf-8"))
-        digest.update(b"\0")
-        digest.update(record["text"].encode("utf-8"))
-        digest.update(b"\0")
+        digest.update(
+            json.dumps(record, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        )
+        digest.update(b"\n")
     return digest.hexdigest()
 
 
@@ -104,6 +139,7 @@ def _existing_summary(records: list[dict[str, Any]], artifacts_root: Path, index
         or metadata.get("tokenizer_version") != TOKENIZER_VERSION
         or metadata.get("rrf_k") != RRF_K
         or metadata.get("source_digest") != _source_digest(records)
+        or metadata.get("chunk_target_tokens") != CHUNK_TARGET_TOKENS
         or metadata.get("chunks") != len(records)
         or embeddings.ndim != 2
         or embeddings.shape[0] != len(records)
@@ -140,6 +176,7 @@ def build_index(
         "created_at": datetime.now(UTC).isoformat(),
         "artifacts_root": artifacts_root.relative_to(PROJECT_ROOT).as_posix(),
         "chunk_size": CHUNK_SIZE,
+        "chunk_target_tokens": CHUNK_TARGET_TOKENS,
         "chunk_overlap": CHUNK_OVERLAP,
         "documents": len({record["source_file"] for record in records}),
         "chunks": len(records),

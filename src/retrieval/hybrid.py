@@ -4,7 +4,17 @@ from pathlib import Path
 from typing import Any
 
 from retrieval.bm25 import bm25_search as _bm25_search
-from retrieval.config import CANDIDATE_LIMIT, DEFAULT_INDEX_PATH, EMBEDDING_MODEL, PROJECT_ROOT, RRF_K, inside_project
+from retrieval.config import (
+    CANDIDATE_LIMIT,
+    CHUNK_MAX_TOKENS,
+    CHUNK_OVERLAP_TOKENS,
+    CHUNK_TARGET_TOKENS,
+    DEFAULT_INDEX_PATH,
+    EMBEDDING_MODEL,
+    PROJECT_ROOT,
+    RRF_K,
+    inside_project,
+)
 from retrieval.embeddings import vector_search as _vector_search
 from retrieval.index import load_index
 
@@ -55,8 +65,7 @@ def search(query: str, limit: int = 5, index_path: Path = DEFAULT_INDEX_PATH) ->
     results: list[dict[str, Any]] = []
     for item in fused:
         record = index["chunks"][item["record_index"]]
-        results.append(
-            {
+        result = {
                 "score": round(item["score"], 6),
                 "score_type": "rrf",
                 "matched_by": item["matched_by"],
@@ -69,7 +78,25 @@ def search(query: str, limit: int = 5, index_path: Path = DEFAULT_INDEX_PATH) ->
                 "chunk_index": record["chunk_index"],
                 "text": record["text"],
             }
-        )
+        for key in (
+            "source_sha256",
+            "content_sha256",
+            "imported_at",
+            "quality_warnings",
+            "table_id",
+            "table_title",
+            "extraction_method",
+            "extraction_score",
+            "confidence",
+            "low_confidence",
+            "processing_note",
+            "row_start",
+            "row_end",
+            "oversize_row",
+        ):
+            if key in record:
+                result[key] = record[key]
+        results.append(result)
     return results
 
 
@@ -81,6 +108,9 @@ def status(index_path: Path = DEFAULT_INDEX_PATH) -> dict[str, Any]:
         "created_at": metadata["created_at"],
         "documents": metadata["documents"],
         "chunks": metadata["chunks"],
+        "chunk_target_tokens": CHUNK_TARGET_TOKENS,
+        "chunk_max_tokens": CHUNK_MAX_TOKENS,
+        "chunk_overlap_tokens": CHUNK_OVERLAP_TOKENS,
         "retrieval_mode": metadata["retrieval_mode"],
         "embedding_model": EMBEDDING_MODEL,
         "embedding_dimensions": metadata["embedding_dimensions"],

@@ -7,7 +7,15 @@ import fitz
 
 sys.path.insert(0, str(Path(__file__).parents[1] / "src"))
 
-from extraction.native_pdf import calculate_metrics, decision, detect_tables, markdown_table
+from extraction.native_pdf import (
+    TableArtifact,
+    bbox_overlap,
+    calculate_metrics,
+    decision,
+    detect_tables,
+    markdown_table,
+    plausible_stream_table,
+)
 
 
 DATA = Path(__file__).parents[1] / "data"
@@ -54,6 +62,28 @@ class NativePdfExtractionTests(unittest.TestCase):
         rendered = markdown_table([["", "", "10 分"], ["", "学习态度", "不遵守课堂纪律"], ["综合评议", "民主评议", ""]])
         self.assertTrue(rendered.startswith("| 列1 | 列2 | 列3 |"))
         self.assertTrue(rendered.endswith("| 综合评议 | 民主评议 |  |"))
+
+    def test_table_candidates_are_matched_by_page_coordinates(self):
+        self.assertEqual(bbox_overlap((0, 0, 100, 100), (10, 10, 90, 90)), 1.0)
+        self.assertEqual(bbox_overlap((0, 0, 10, 10), (20, 20, 30, 30)), 0.0)
+
+    def test_stream_fallback_rejects_prose_like_candidates(self):
+        good = TableArtifact(
+            rows=[["姓名", "成绩"], ["甲", "90"], ["乙", "80"]],
+            bbox=(0, 0, 100, 100),
+            method="camelot.stream",
+            score=0.9,
+            title="",
+        )
+        prose = TableArtifact(
+            rows=[["这是一段很长的普通正文，并不是表格中的短单元格。"], ["第二段正文"], ["第三段正文"]],
+            bbox=(0, 0, 100, 100),
+            method="camelot.stream",
+            score=0.9,
+            title="",
+        )
+        self.assertTrue(plausible_stream_table(good))
+        self.assertFalse(plausible_stream_table(prose))
 
     def test_generated_artifacts_are_complete(self):
         entries = [(path.parent, json.loads(path.read_text(encoding="utf-8"))) for path in ARTIFACTS.glob("*/metadata.json")]

@@ -26,6 +26,10 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def text_sha256(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
 def write_markdown(path: Path, metadata: dict, content: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     frontmatter = "\n".join(f"{key}: {value}" for key, value in metadata.items())
@@ -38,6 +42,8 @@ def process(pdf_path: Path, data_root: Path, output_root: Path, start_page: int 
     rendered_dir = artifact_dir / "rendered"
     raw_dir = artifact_dir / "ocr_raw"
     document = fitz.open(pdf_path)
+    source_sha256 = sha256(pdf_path)
+    imported_at = datetime.now(UTC).isoformat()
     ocr = PaddleOCR(
         lang="ch",
         device="cpu",
@@ -72,7 +78,11 @@ def process(pdf_path: Path, data_root: Path, output_root: Path, start_page: int 
                 "source_file": relative_path.as_posix(),
                 "page": page_number,
                 "source_type": "ocr",
+                "source_sha256": source_sha256,
+                "content_sha256": text_sha256(text),
+                "imported_at": imported_at,
                 "confidence": f"{confidence:.3f}",
+                "low_confidence": str(confidence < 0.85).lower(),
                 "processing_note": note or "none",
             },
             text,
@@ -88,8 +98,8 @@ def process(pdf_path: Path, data_root: Path, output_root: Path, start_page: int 
         )
     metadata = {
         "source_file": relative_path.as_posix(),
-        "file_sha256": sha256(pdf_path),
-        "imported_at": datetime.now(UTC).isoformat(),
+        "file_sha256": source_sha256,
+        "imported_at": imported_at,
         "extractor": "extraction/scanned_pdf.py",
         "pages": pages,
     }

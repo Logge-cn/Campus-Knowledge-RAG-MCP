@@ -20,6 +20,8 @@ MIN_USABLE_BLOCK_RATIO = 0.01
 MAX_REPLACEMENT_RATIO = 0.15
 MAX_DUPLICATE_LINE_RATIO = 0.30
 MIN_PYMUPDF_TABLE_DENSITY = 0.60
+MIN_TABLE_SCORE = 0.60
+MIN_TABLE_BBOX_OVERLAP = 0.30
 
 
 @dataclass
@@ -110,6 +112,64 @@ def camelot_bbox(table: camelot.core.Table, page_height: float) -> tuple[float, 
     return (x0, page_height - y1, x1, page_height - y0)
 
 
+def bbox_overlap(left: tuple[float, float, float, float], right: tuple[float, float, float, float]) -> float:
+    left_rect, right_rect = fitz.Rect(left), fitz.Rect(right)
+    intersection = left_rect & right_rect
+    minimum_area = min(left_rect.get_area(), right_rect.get_area())
+    if not intersection or minimum_area <= 0:
+        return 0.0
+    return intersection.get_area() / minimum_area
+
+
+def camelot_candidates(pdf_path: Path, page: fitz.Page, page_number: int, flavor: str) -> list[TableArtifact]:
+    candidates = []
+    for table in camelot.read_pdf(str(pdf_path), pages=str(page_number), flavor=flavor):
+        rows = camelot_rows(table)
+        report = table.parsing_report
+        score = cell_density(rows) * (report["accuracy"] / 100) * (1 - report["whitespace"] / 100)
+        candidates.append(
+            TableArtifact(
+                rows=rows,
+                bbox=camelot_bbox(table, page.rect.height),
+                method=f"camelot.{flavor}",
+                score=score,
+                title="",
+            )
+        )
+    return candidates
+
+
+def page_may_contain_borderless_table(page: fitz.Page) -> bool:
+    """Use repeated, widely separated column starts to avoid running stream on prose pages."""
+    if not re.search(r"表\s*\d+", page.get_text("text")):
+        return False
+    lines: dict[int, list[float]] = {}
+    for x0, y0, *_ in page.get_text("words", sort=True):
+        lines.setdefault(round(y0 / 3), []).append(x0)
+    tabular_lines = []
+    for starts in lines.values():
+        starts = sorted(starts)
+        if sum(right - left >= 28 for left, right in zip(starts, starts[1:])) >= 1:
+            tabular_lines.append(starts)
+    if len(tabular_lines) < 3:
+        return False
+    buckets: dict[int, int] = {}
+    for starts in tabular_lines:
+        for bucket in {round(start / 20) for start in starts}:
+            buckets[bucket] = buckets.get(bucket, 0) + 1
+    return sum(count >= 3 for count in buckets.values()) >= 2
+
+
+def plausible_stream_table(table: TableArtifact) -> bool:
+    width = max(map(len, table.rows), default=0)
+    if width < 2 or len(table.rows) < 3 or cell_density(table.rows) < 0.45:
+        return False
+    populated_rows = sum(sum(bool(clean_text(cell)) for cell in row) >= 2 for row in table.rows)
+    nonempty_lengths = sorted(len(clean_text(cell)) for row in table.rows for cell in row if clean_text(cell))
+    median_length = nonempty_lengths[len(nonempty_lengths) // 2] if nonempty_lengths else 0
+    return populated_rows / len(table.rows) >= 0.60 and median_length <= 40
+
+
 def table_title(page: fitz.Page, bbox: tuple[float, float, float, float], fallback: str) -> str:
     lines: dict[int, list[tuple[float, str]]] = {}
     for x0, y0, _, _, word, *_ in page.get_text("words", sort=True):
@@ -123,7 +183,12 @@ def table_title(page: fitz.Page, bbox: tuple[float, float, float, float], fallba
     return max(candidates, default=(0.0, fallback))[1]
 
 
-def detect_tables(pdf_path: Path, page: fitz.Page, page_number: int) -> list[TableArtifact]:
+def detect_tables(
+    pdf_path: Path,
+    page: fitz.Page,
+    page_number: int,
+    failures: list[str] | None = None,
+) -> list[TableArtifact]:
     fitz.TOOLS.mupdf_display_errors(False)
     pymupdf_tables = page.find_tables().tables
     pymupdf_candidates = [
@@ -140,29 +205,35 @@ def detect_tables(pdf_path: Path, page: fitz.Page, page_number: int) -> list[Tab
     lattice_candidates: list[TableArtifact] = []
     if needs_lattice:
         try:
-            for table in camelot.read_pdf(str(pdf_path), pages=str(page_number), flavor="lattice"):
-                rows = camelot_rows(table)
-                report = table.parsing_report
-                score = cell_density(rows) * (report["accuracy"] / 100) * (1 - report["whitespace"] / 100)
-                lattice_candidates.append(
-                    TableArtifact(
-                        rows=rows,
-                        bbox=camelot_bbox(table, page.rect.height),
-                        method="camelot.lattice",
-                        score=score,
-                        title="",
-                    )
-                )
-        except Exception:
-            lattice_candidates = []
+            lattice_candidates = camelot_candidates(pdf_path, page, page_number, "lattice")
+        except Exception as error:
+            if failures is not None:
+                failures.append(f"camelot.lattice: {type(error).__name__}: {error}")
     selected: list[TableArtifact] = []
     for index, candidate in enumerate(pymupdf_candidates):
-        alternative = lattice_candidates[index] if index < len(lattice_candidates) else None
+        alternative = max(
+            lattice_candidates,
+            key=lambda item: bbox_overlap(candidate.bbox, item.bbox),
+            default=None,
+        )
+        if alternative and bbox_overlap(candidate.bbox, alternative.bbox) < MIN_TABLE_BBOX_OVERLAP:
+            alternative = None
         chosen = candidate
         if candidate.score < MIN_PYMUPDF_TABLE_DENSITY and alternative and alternative.score > candidate.score:
             chosen = alternative
         chosen.title = table_title(page, chosen.bbox, f"第 {page_number} 页表 {index + 1}")
         selected.append(chosen)
+    if not pymupdf_candidates and page_may_contain_borderless_table(page):
+        try:
+            stream_candidates = camelot_candidates(pdf_path, page, page_number, "stream")
+            selected = [table for table in stream_candidates if plausible_stream_table(table)]
+            if stream_candidates and not selected and failures is not None:
+                failures.append("camelot.stream: candidates rejected by table quality checks")
+        except Exception as error:
+            if failures is not None:
+                failures.append(f"camelot.stream: {type(error).__name__}: {error}")
+        for index, table in enumerate(selected):
+            table.title = table_title(page, table.bbox, f"第 {page_number} 页表 {index + 1}")
     return selected
 
 
@@ -232,11 +303,17 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def text_sha256(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
 def process(pdf_path: Path, data_root: Path, output_root: Path) -> dict:
     fitz.TOOLS.mupdf_display_errors(False)
     relative_path = pdf_path.relative_to(data_root)
     artifact_dir = output_root / relative_path.with_suffix("")
     document = fitz.open(pdf_path)
+    source_sha256 = sha256(pdf_path)
+    imported_at = datetime.now(UTC).isoformat()
     pages: list[dict] = []
     for page_number, page in enumerate(document, 1):
         metrics = calculate_metrics(page)
@@ -254,36 +331,64 @@ def process(pdf_path: Path, data_root: Path, output_root: Path) -> dict:
             "metrics": asdict(metrics),
             "quality_warnings": warnings,
             "tables": [],
+            "extraction_failures": [],
         }
         if page_decision == "native":
-            tables = detect_tables(pdf_path, page, page_number)
+            tables = detect_tables(pdf_path, page, page_number, page_record["extraction_failures"])
             text = native_text(page, tables)
             write_markdown(
                 artifact_dir / "pages" / f"page-{page_number:03d}.md",
-                {"source_file": relative_path.as_posix(), "page": page_number, "source_type": "pdf"},
+                {
+                    "source_file": relative_path.as_posix(),
+                    "page": page_number,
+                    "source_type": "pdf",
+                    "source_sha256": source_sha256,
+                    "content_sha256": text_sha256(text),
+                    "imported_at": imported_at,
+                    "quality_warnings": ",".join(warnings) or "none",
+                },
                 text,
             )
             for table_index, table in enumerate(tables, 1):
                 table_path = artifact_dir / "tables" / f"page-{page_number:03d}-table-{table_index:02d}.md"
+                table_id = f"{relative_path.as_posix()}#page-{page_number}-table-{table_index}"
+                table_content = f"# {table.title}\n\n{markdown_table(table.rows)}"
+                low_confidence = table.score < MIN_TABLE_SCORE
                 write_markdown(
                     table_path,
                     {
                         "source_file": relative_path.as_posix(),
                         "page": page_number,
                         "source_type": "table",
+                        "source_sha256": source_sha256,
+                        "content_sha256": text_sha256(table_content),
+                        "imported_at": imported_at,
+                        "table_id": table_id,
                         "table_index": table_index,
                         "table_title": table.title,
                         "extraction_method": table.method,
                         "extraction_score": f"{table.score:.3f}",
+                        "low_confidence": str(low_confidence).lower(),
+                        "processing_note": (
+                            f"自动识别，建议核对原 PDF 第 {page_number} 页" if low_confidence else "none"
+                        ),
                     },
-                    f"# {table.title}\n\n{markdown_table(table.rows)}",
+                    table_content,
                 )
-                page_record["tables"].append({"index": table_index, "method": table.method, "score": round(table.score, 3)})
+                page_record["tables"].append(
+                    {
+                        "id": table_id,
+                        "index": table_index,
+                        "method": table.method,
+                        "score": round(table.score, 3),
+                        "low_confidence": low_confidence,
+                    }
+                )
         pages.append(page_record)
     metadata = {
         "source_file": relative_path.as_posix(),
-        "file_sha256": sha256(pdf_path),
-        "imported_at": datetime.now(UTC).isoformat(),
+        "file_sha256": source_sha256,
+        "imported_at": imported_at,
         "extractor": "extraction/native_pdf.py",
         "pages": pages,
     }

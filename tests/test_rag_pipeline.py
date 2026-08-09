@@ -13,12 +13,15 @@ from retrieval import (
     EMBEDDINGS_PATH_NAME,
     bm25_search,
     build_index,
+    load_index,
     rrf_fuse,
     search,
     split_chunks,
     status,
     vector_search,
 )
+from retrieval.chunking import split_table_chunks, token_count
+from retrieval.index import _source_digest
 
 
 class RAGPipelineTests(unittest.TestCase):
@@ -31,6 +34,30 @@ class RAGPipelineTests(unittest.TestCase):
         chunks = split_chunks(text, size=200, overlap=20)
         self.assertGreater(len(chunks), 1)
         self.assertTrue(all(chunks))
+        self.assertTrue(all(token_count(chunk) <= 200 for chunk in chunks))
+        self.assertIn(chunks[0][-10:], chunks[1])
+
+    def test_default_chunking_enforces_the_pdf_token_limits(self):
+        chunks = split_chunks("第一段。" * 600)
+        self.assertGreater(len(chunks), 1)
+        self.assertTrue(all(token_count(chunk) <= 512 for chunk in chunks))
+
+    def test_table_chunking_repeats_headers_and_tracks_row_ranges(self):
+        table = "# 成绩表\n\n| 姓名 | 成绩 |\n| --- | --- |\n" + "\n".join(
+            f"| 学生{index} | {index} |" for index in range(1, 180)
+        )
+        chunks = split_table_chunks(table, target_tokens=80, max_tokens=100)
+        self.assertGreater(len(chunks), 1)
+        self.assertTrue(all("| 姓名 | 成绩 |" in chunk["text"] for chunk in chunks))
+        self.assertTrue(all(token_count(chunk["text"]) <= 100 for chunk in chunks))
+        self.assertEqual(chunks[0]["row_start"], 1)
+        self.assertEqual(chunks[-1]["row_end"], 179)
+        self.assertTrue(all(left["row_end"] + 1 == right["row_start"] for left, right in zip(chunks, chunks[1:])))
+
+    def test_source_digest_changes_when_traceability_metadata_changes(self):
+        record = {"chunk_id": "document/page.md#1", "text": "正文", "low_confidence": False}
+        changed = {**record, "low_confidence": True}
+        self.assertNotEqual(_source_digest([record]), _source_digest([changed]))
 
     def test_index_contains_the_extracted_documents(self):
         self.assertEqual(self.summary["documents"], 2)
@@ -39,6 +66,16 @@ class RAGPipelineTests(unittest.TestCase):
         self.assertTrue((DEFAULT_INDEX_PATH.parent / CHUNKS_PATH_NAME).exists())
         self.assertTrue((DEFAULT_INDEX_PATH.parent / BM25_PATH_NAME).exists())
         self.assertTrue((DEFAULT_INDEX_PATH.parent / EMBEDDINGS_PATH_NAME).exists())
+        records = load_index()["chunks"]
+        table = next(record for record in records if record["source_type"] == "table")
+        ocr = next(record for record in records if record["source_type"] == "ocr")
+        self.assertTrue(table["table_id"])
+        self.assertGreaterEqual(table["row_start"], 1)
+        self.assertGreaterEqual(table["row_end"], table["row_start"])
+        self.assertIsInstance(table["low_confidence"], bool)
+        self.assertEqual(len(table["source_sha256"]), 64)
+        self.assertIsInstance(ocr["confidence"], float)
+        self.assertEqual(len(ocr["content_sha256"]), 64)
 
     def test_bm25_and_vector_retrievers_return_candidates(self):
         bm25_results = bm25_search("研究生学业奖学金", candidate_limit=5)
@@ -72,6 +109,9 @@ class RAGPipelineTests(unittest.TestCase):
         self.assertEqual(status()["chunks"], self.summary["chunks"])
         self.assertEqual(status()["retrieval_mode"], "hybrid_bm25_embedding_rrf")
         self.assertEqual(status()["embedding_model"], "BAAI/bge-base-zh-v1.5")
+        self.assertEqual(status()["chunk_target_tokens"], 410)
+        self.assertEqual(status()["chunk_max_tokens"], 512)
+        self.assertEqual(status()["chunk_overlap_tokens"], 41)
 
     def test_search_rejects_invalid_arguments(self):
         with self.assertRaises(ValueError):
