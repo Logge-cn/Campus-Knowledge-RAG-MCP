@@ -117,6 +117,42 @@ def _category_metrics(cases: list[dict], rankings: dict[str, list[list[int]]], c
     return output
 
 
+def _pdf_type_metrics(cases: list[dict], rankings: dict[str, list[list[int]]], chunks: list[dict]) -> dict:
+    source_types: dict[str, str] = {}
+    for chunk in chunks:
+        source_file = chunk["source_file"]
+        if source_file not in source_types:
+            source_types[source_file] = "scanned" if chunk["source_type"] == "ocr" else "native"
+        elif chunk["source_type"] == "ocr":
+            source_types[source_file] = "scanned"
+    output = {}
+    for method, method_rankings in rankings.items():
+        output[method] = {}
+        for pdf_type in ("native", "scanned"):
+            case_indices = [
+                index
+                for index, case in enumerate(cases)
+                if case["source_file"] is not None and source_types[case["source_file"]] == pdf_type
+            ]
+            ranks = []
+            for case_index in case_indices:
+                case = cases[case_index]
+                relevant = [
+                    rank
+                    for rank, chunk_index in enumerate(method_rankings[case_index], 1)
+                    if _is_relevant(case, chunks[chunk_index])
+                ]
+                ranks.append(min(relevant) if relevant else None)
+            hits = sum(rank is not None and rank <= TOP_K for rank in ranks)
+            output[method][pdf_type] = {
+                "cases": len(case_indices),
+                "hits_at_5": hits,
+                "recall_at_5": round(hits / len(case_indices), 4),
+                "mrr": round(mean(1 / rank if rank is not None else 0 for rank in ranks), 4),
+            }
+    return output
+
+
 def _ranking_diagnostics(details: list[dict]) -> dict:
     output = {}
     for method in ("bm25", "vector", "hybrid"):
@@ -205,6 +241,7 @@ def main() -> None:
         "top_k": TOP_K,
         "metrics": metrics,
         "category_metrics": _category_metrics(cases, rankings, chunks),
+        "pdf_type_metrics": _pdf_type_metrics(cases, rankings, chunks),
         "ranking_diagnostics": _ranking_diagnostics(details),
         "index": index["metadata"],
         "acceptance": {

@@ -22,6 +22,7 @@ from retrieval import (
 )
 from retrieval.chunking import split_table_chunks, token_count
 from retrieval.index import _source_digest
+from retrieval.query_expansion import expand_query
 
 
 class RAGPipelineTests(unittest.TestCase):
@@ -58,6 +59,11 @@ class RAGPipelineTests(unittest.TestCase):
         record = {"chunk_id": "document/page.md#1", "text": "正文", "low_confidence": False}
         changed = {**record, "low_confidence": True}
         self.assertNotEqual(_source_digest([record]), _source_digest([changed]))
+
+    def test_query_expansion_preserves_the_original_question_and_adds_policy_synonyms(self):
+        self.assertEqual(expand_query("普通问题"), "普通问题")
+        self.assertIn("办理手续离校", expand_query("休学后需要离校手续吗"))
+        self.assertIn("评定资格", expand_query("退学研究生能参加奖学金评选吗"))
 
     def test_index_contains_the_extracted_documents(self):
         self.assertEqual(self.summary["documents"], 2)

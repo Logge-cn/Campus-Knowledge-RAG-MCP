@@ -6,6 +6,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -36,6 +37,14 @@ def write_markdown(path: Path, metadata: dict, content: str) -> None:
     path.write_text(f"---\n{frontmatter}\n---\n\n{content}\n", encoding="utf-8")
 
 
+def page_continuation(previous_text: str, text: str) -> str:
+    """Preserve a heading split by a scanned PDF page break in the next page's artifact."""
+    if not re.match(r"^[\u4e00-\u9fff]{1,4}[：:]", text) or not previous_text:
+        return ""
+    previous_tail = re.sub(r"\s+", "", previous_text)[-32:]
+    return f"上页续文：{previous_tail}"
+
+
 def process(pdf_path: Path, data_root: Path, output_root: Path, start_page: int = 1, end_page: int | None = None) -> dict:
     relative_path = pdf_path.relative_to(data_root)
     artifact_dir = output_root / relative_path.with_suffix("")
@@ -44,15 +53,9 @@ def process(pdf_path: Path, data_root: Path, output_root: Path, start_page: int 
     document = fitz.open(pdf_path)
     source_sha256 = sha256(pdf_path)
     imported_at = datetime.now(UTC).isoformat()
-    ocr = PaddleOCR(
-        lang="ch",
-        device="cpu",
-        enable_mkldnn=False,
-        use_doc_orientation_classify=False,
-        use_doc_unwarping=False,
-        use_textline_orientation=False,
-    )
+    ocr: PaddleOCR | None = None
     pages = []
+    previous_text = ""
     for page_number, page in enumerate(document, 1):
         image_path = rendered_dir / f"page-{page_number:03d}.png"
         raw_path = raw_dir / f"page-{page_number:03d}_res.json"
@@ -63,6 +66,15 @@ def process(pdf_path: Path, data_root: Path, output_root: Path, start_page: int 
             image_path.parent.mkdir(parents=True, exist_ok=True)
             page.get_pixmap(matrix=fitz.Matrix(300 / 72, 300 / 72), alpha=False).save(image_path)
             raw_dir.mkdir(parents=True, exist_ok=True)
+            if ocr is None:
+                ocr = PaddleOCR(
+                    lang="ch",
+                    device="cpu",
+                    enable_mkldnn=False,
+                    use_doc_orientation_classify=False,
+                    use_doc_unwarping=False,
+                    use_textline_orientation=False,
+                )
             ocr.predict(str(image_path))[0].save_to_json(save_path=str(raw_dir))
         payload = json.loads(raw_path.read_text(encoding="utf-8"))
         ordered = sorted(
@@ -70,6 +82,8 @@ def process(pdf_path: Path, data_root: Path, output_root: Path, start_page: int 
             key=lambda row: (row[0][1], row[0][0]),
         )
         text = "\n\n".join(item[1] for item in ordered)
+        continuation = page_continuation(previous_text, text)
+        indexed_text = f"{continuation}\n\n{text}" if continuation else text
         confidence = sum(item[2] for item in ordered) / len(ordered) if ordered else 0.0
         note = "自动识别，建议核对原 PDF 第 %d 页" % page_number if confidence < 0.85 else ""
         write_markdown(
@@ -79,13 +93,13 @@ def process(pdf_path: Path, data_root: Path, output_root: Path, start_page: int 
                 "page": page_number,
                 "source_type": "ocr",
                 "source_sha256": source_sha256,
-                "content_sha256": text_sha256(text),
+                "content_sha256": text_sha256(indexed_text),
                 "imported_at": imported_at,
                 "confidence": f"{confidence:.3f}",
                 "low_confidence": str(confidence < 0.85).lower(),
                 "processing_note": note or "none",
             },
-            text,
+            indexed_text,
         )
         pages.append(
             {
@@ -93,9 +107,11 @@ def process(pdf_path: Path, data_root: Path, output_root: Path, start_page: int 
                 "decision": "ocr",
                 "confidence": confidence,
                 "processing_note": note,
+                "continued_from_previous_page": bool(continuation),
                 "raw_result": raw_path.relative_to(artifact_dir).as_posix(),
             }
         )
+        previous_text = text
     metadata = {
         "source_file": relative_path.as_posix(),
         "file_sha256": source_sha256,

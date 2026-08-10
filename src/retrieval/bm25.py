@@ -5,7 +5,8 @@ from collections import Counter
 from typing import Any
 
 from retrieval.chunking import tokenize
-from retrieval.config import BM25_B, BM25_K1, CANDIDATE_LIMIT, TOKENIZER_VERSION
+from retrieval.config import BM25_B, BM25_K1, CANDIDATE_LIMIT, QUERY_EXPANSION_WEIGHT, TOKENIZER_VERSION
+from retrieval.query_expansion import expand_query
 
 
 def build_bm25(records: list[dict[str, Any]]) -> dict[str, Any]:
@@ -37,7 +38,11 @@ def bm25_search(
     if not query.strip():
         raise ValueError("query must not be empty")
     bm25 = index["bm25"]
+    expanded_query = expand_query(query)
     query_tokens = tokenize(query)
+    if expanded_query != query:
+        expansion = expanded_query[len(query) :].strip()
+        query_tokens.extend(tokenize(expansion) * QUERY_EXPANSION_WEIGHT)
     count = len(index["chunks"])
     average_length = bm25["average_document_length"] or 1.0
     k1 = bm25["k1"]

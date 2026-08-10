@@ -22,7 +22,7 @@ class RAGMCPTests(unittest.TestCase):
     def test_mcp_lists_and_calls_knowledge_base_tools(self):
         async def exercise_server():
             parameters = StdioServerParameters(
-                command=str(PROJECT_ROOT / ".venv" / "Scripts" / "python.exe"),
+                command=sys.executable,
                 args=["src/mcp_server.py"],
                 cwd=PROJECT_ROOT,
             )
