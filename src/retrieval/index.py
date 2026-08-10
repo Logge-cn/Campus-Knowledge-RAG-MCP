@@ -25,7 +25,9 @@ from retrieval.config import (
     EMBEDDING_MODEL,
     EMBEDDINGS_PATH_NAME,
     PROJECT_ROOT,
+    RRF_BM25_WEIGHT,
     RRF_K,
+    RRF_VECTOR_WEIGHT,
     SCHEMA_VERSION,
     TOKENIZER_VERSION,
     inside_project,
@@ -138,6 +140,8 @@ def _existing_summary(records: list[dict[str, Any]], artifacts_root: Path, index
         or metadata.get("bm25_b") != BM25_B
         or metadata.get("tokenizer_version") != TOKENIZER_VERSION
         or metadata.get("rrf_k") != RRF_K
+        or metadata.get("rrf_bm25_weight") != RRF_BM25_WEIGHT
+        or metadata.get("rrf_vector_weight") != RRF_VECTOR_WEIGHT
         or metadata.get("source_digest") != _source_digest(records)
         or metadata.get("chunk_target_tokens") != CHUNK_TARGET_TOKENS
         or metadata.get("chunks") != len(records)
@@ -190,6 +194,8 @@ def build_index(
         "tokenizer_version": TOKENIZER_VERSION,
         "candidate_limit": CANDIDATE_LIMIT,
         "rrf_k": RRF_K,
+        "rrf_bm25_weight": RRF_BM25_WEIGHT,
+        "rrf_vector_weight": RRF_VECTOR_WEIGHT,
         "chunks_file": CHUNKS_PATH_NAME,
         "bm25_file": BM25_PATH_NAME,
         "embeddings_file": EMBEDDINGS_PATH_NAME,

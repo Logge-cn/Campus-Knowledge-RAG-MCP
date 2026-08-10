@@ -25,7 +25,7 @@ def load_model() -> Any:
 
 
 def encode_documents(records: list[dict[str, Any]]) -> np.ndarray:
-    texts = [f"{record['source_file']}\n{record['text']}" for record in records]
+    texts = [record["text"] for record in records]
     values = load_model().encode(
         texts,
         batch_size=16,

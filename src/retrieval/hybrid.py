@@ -12,7 +12,9 @@ from retrieval.config import (
     DEFAULT_INDEX_PATH,
     EMBEDDING_MODEL,
     PROJECT_ROOT,
+    RRF_BM25_WEIGHT,
     RRF_K,
+    RRF_VECTOR_WEIGHT,
     inside_project,
 )
 from retrieval.embeddings import vector_search as _vector_search
@@ -33,16 +35,21 @@ def rrf_fuse(
     limit: int,
     *,
     rrf_k: int = RRF_K,
+    bm25_weight: float = 1.0,
+    vector_weight: float = 1.0,
 ) -> list[dict[str, Any]]:
     fused: dict[int, dict[str, Any]] = {}
-    for method, results in (("bm25", bm25_results), ("vector", vector_results)):
+    for method, results, weight in (
+        ("bm25", bm25_results, bm25_weight),
+        ("vector", vector_results, vector_weight),
+    ):
         for rank, result in enumerate(results, 1):
             record_index = result["record_index"]
             item = fused.setdefault(
                 record_index,
                 {"record_index": record_index, "score": 0.0, "matched_by": []},
             )
-            item["score"] += 1 / (rrf_k + rank)
+            item["score"] += weight / (rrf_k + rank)
             item["matched_by"].append(method)
             item[f"{method}_rank"] = rank
             item[f"{method}_score"] = result["score"]
@@ -61,6 +68,8 @@ def search(query: str, limit: int = 5, index_path: Path = DEFAULT_INDEX_PATH) ->
         _bm25_search(query, candidate_limit, index=index),
         _vector_search(query, candidate_limit, index=index),
         limit,
+        bm25_weight=RRF_BM25_WEIGHT,
+        vector_weight=RRF_VECTOR_WEIGHT,
     )
     results: list[dict[str, Any]] = []
     for item in fused:
@@ -118,4 +127,6 @@ def status(index_path: Path = DEFAULT_INDEX_PATH) -> dict[str, Any]:
         "bm25_b": metadata["bm25_b"],
         "candidate_limit": metadata["candidate_limit"],
         "rrf_k": metadata["rrf_k"],
+        "rrf_bm25_weight": metadata["rrf_bm25_weight"],
+        "rrf_vector_weight": metadata["rrf_vector_weight"],
     }

@@ -16,6 +16,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from retrieval import bm25_search, load_index, rrf_fuse, tokenize, vector_search
+from retrieval.config import CANDIDATE_LIMIT, RRF_BM25_WEIGHT, RRF_VECTOR_WEIGHT
 
 
 EVALUATION_PATH = PROJECT_ROOT / "evaluation" / "dataset.json"
@@ -86,6 +87,48 @@ def _metrics(cases: list[dict], rankings: dict[str, list[list[int]]], chunks: li
     return output
 
 
+def _category_metrics(cases: list[dict], rankings: dict[str, list[list[int]]], chunks: list[dict]) -> dict:
+    categories = sorted({case["category"] for case in cases if case["source_file"] is not None})
+    output = {}
+    for method, method_rankings in rankings.items():
+        output[method] = {}
+        for category in categories:
+            case_indices = [
+                index
+                for index, case in enumerate(cases)
+                if case["source_file"] is not None and case["category"] == category
+            ]
+            ranks = []
+            for case_index in case_indices:
+                case = cases[case_index]
+                relevant = [
+                    rank
+                    for rank, chunk_index in enumerate(method_rankings[case_index], 1)
+                    if _is_relevant(case, chunks[chunk_index])
+                ]
+                ranks.append(min(relevant) if relevant else None)
+            hits = sum(rank is not None and rank <= TOP_K for rank in ranks)
+            output[method][category] = {
+                "cases": len(case_indices),
+                "hits_at_5": hits,
+                "recall_at_5": round(hits / len(case_indices), 4),
+                "mrr": round(mean(1 / rank if rank is not None and rank <= TOP_K else 0 for rank in ranks), 4),
+            }
+    return output
+
+
+def _ranking_diagnostics(details: list[dict]) -> dict:
+    output = {}
+    for method in ("bm25", "vector", "hybrid"):
+        ranks = [detail["ranks"][method] for detail in details if detail["expected"]["source_file"] is not None]
+        output[method] = {
+            "not_recalled_at_20": sum(rank is None for rank in ranks),
+            "recalled_at_20_but_missed_at_5": sum(rank is not None and rank > TOP_K for rank in ranks),
+            "hit_at_5_but_not_rank_1": sum(rank is not None and 1 < rank <= TOP_K for rank in ranks),
+        }
+    return output
+
+
 def main() -> None:
     cases = json.loads(EVALUATION_PATH.read_text(encoding="utf-8"))
     if len(cases) != 100:
@@ -110,20 +153,37 @@ def main() -> None:
         timings["vector"].append((time.perf_counter() - started) * 1000)
 
         started = time.perf_counter()
-        hybrid = rrf_fuse(bm25, vector, TOP_K)
+        hybrid = rrf_fuse(
+            bm25,
+            vector,
+            CANDIDATE_LIMIT,
+            bm25_weight=RRF_BM25_WEIGHT,
+            vector_weight=RRF_VECTOR_WEIGHT,
+        )
         fusion_ms = (time.perf_counter() - started) * 1000
         timings["hybrid"].append(timings["bm25"][-1] + timings["vector"][-1] + fusion_ms)
 
-        method_indices = {
+        method_candidates = {
             "legacy": legacy,
-            "bm25": [item["record_index"] for item in bm25[:TOP_K]],
-            "vector": [item["record_index"] for item in vector[:TOP_K]],
+            "bm25": [item["record_index"] for item in bm25],
+            "vector": [item["record_index"] for item in vector],
             "hybrid": [item["record_index"] for item in hybrid],
         }
+        method_indices = {method: indices[:TOP_K] for method, indices in method_candidates.items()}
         for method, indices in method_indices.items():
             rankings[method].append(indices)
+        ranks = {
+            method: next(
+                (rank for rank, chunk_index in enumerate(indices, 1) if _is_relevant(case, chunks[chunk_index])),
+                None,
+            )
+            if case["source_file"] is not None
+            else None
+            for method, indices in method_candidates.items()
+        }
         details.append(
             {
+                "id": case.get("id"),
                 "query": case["query"],
                 "category": case["category"],
                 "expected": {"source_file": case["source_file"], "pages": case["pages"]},
@@ -133,6 +193,7 @@ def main() -> None:
                     else None
                     for method, indices in method_indices.items()
                 },
+                "ranks": ranks,
             }
         )
 
@@ -143,6 +204,9 @@ def main() -> None:
         "no_answer_cases": sum(case["source_file"] is None for case in cases),
         "top_k": TOP_K,
         "metrics": metrics,
+        "category_metrics": _category_metrics(cases, rankings, chunks),
+        "ranking_diagnostics": _ranking_diagnostics(details),
+        "index": index["metadata"],
         "acceptance": {
             "hybrid_recall_not_below_single_retrievers": metrics["hybrid"]["recall_at_5"]
             >= max(metrics["bm25"]["recall_at_5"], metrics["vector"]["recall_at_5"]),
