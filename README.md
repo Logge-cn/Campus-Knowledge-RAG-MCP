@@ -65,7 +65,6 @@ rag/
 │   └── prepare_model.py
 ├── tests/              # 自动化正确性测试
 ├── evaluation/         # 固定评测集、评测程序与生成报告
-├── docs/               # 设计与处理规范
 ├── pyproject.toml
 └── uv.lock
 ```
