@@ -8,3 +8,4 @@ __pycache__/
 models/
 storage/
 evaluation/reports/
+slides/
