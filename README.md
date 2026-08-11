@@ -1,6 +1,6 @@
-# 南京邮电大学文档 RAG
+# 校园文档RAG-MCP
 
-一个面向校内 PDF 文档的本地两阶段检索项目。系统提取原生或扫描 PDF，构建 BM25 与中文 Embedding 索引；先通过加权 RRF 召回候选，再以本地 BGE cross-encoder 精排，并以命令行或 MCP 返回带文件名和页码的证据。
+校园文档RAG-MCP 是一个面向校内 PDF 文档的本地两阶段检索项目。系统提取原生或扫描 PDF，构建 BM25 与中文 Embedding 索引；先通过加权 RRF 召回候选，再以本地 BGE cross-encoder 精排，并通过命令行或 MCP 返回带文件名和页码的证据。
 
 ## Installation
 
