@@ -14,7 +14,7 @@
   {"query":"本人想退学需要经过什么手续","source_file":"南京邮电大学学生手册（2023版）+.pdf","pages":[27],"category":"semantic_rewrite"},
   {"query":"退学后学校发什么学习证明","source_file":"南京邮电大学学生手册（2023版）+.pdf","pages":[28],"category":"semantic_rewrite"},
   {"query":"考试作弊后该门课成绩如何记录","source_file":"南京邮电大学学生手册（2023版）+.pdf","pages":[23],"category":"semantic_rewrite"},
-  {"query":"学生对学校处分有异议可以申诉吗","source_file":"南京邮电大学学生手册（2023版）+.pdf","pages":[20],"category":"semantic_rewrite"},
+  {"query":"学生对学校处分有异议可以申诉吗","source_file":"南京邮电大学学生手册（2023版）+.pdf","pages":[20,34],"category":"semantic_rewrite"},
   {"query":"黄色学业预警的学分标准","source_file":"南京邮电大学学生手册（2023版）+.pdf","pages":[120],"category":"table"},
   {"query":"平均学分绩点低于1.8是什么预警条件","source_file":"南京邮电大学学生手册（2023版）+.pdf","pages":[121],"category":"table"},
   {"query":"研究生学业奖学金哪些人不能申请","source_file":"奖学金细则.pdf","pages":[3],"category":"semantic_rewrite"},

@@ -1,0 +1,802 @@
+[
+  {
+    "id": "holdout-native-001",
+    "query": "高校学生在学习方面应当具备哪些基本态度",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [16],
+    "category": "semantic_rewrite",
+    "source_type": "native",
+    "topic_group": "student-code-learning",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-002",
+    "query": "普通高等学校学生管理规定适用于哪些学校和学生",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [18],
+    "category": "scope",
+    "source_type": "native",
+    "topic_group": "national-student-regulation-scope",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-003",
+    "query": "学生在校园里不得参加哪些违法或有损形象的活动",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [29],
+    "category": "condition_exception",
+    "source_type": "native",
+    "topic_group": "campus-order-prohibited-conduct",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-004",
+    "query": "高校学生安全教育和管理工作的主要任务是什么",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [37],
+    "category": "exact_term",
+    "source_type": "native",
+    "topic_group": "student-safety-management-purpose",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-005",
+    "query": "学校开展学生安全教育应坚持哪些处理原则",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [37],
+    "category": "semantic_rewrite",
+    "source_type": "native",
+    "topic_group": "student-safety-management-principles",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-006",
+    "query": "学生安全教育应当从什么时候持续到什么时候",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [38],
+    "category": "procedure",
+    "source_type": "native",
+    "topic_group": "student-safety-education-timing",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-007",
+    "query": "学生安全教育为什么要重视心理疏导",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [38],
+    "category": "semantic_rewrite",
+    "source_type": "native",
+    "topic_group": "student-safety-mental-health",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-008",
+    "query": "学生组织集体课外活动是否必须经过学校同意",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [39],
+    "category": "condition_exception",
+    "source_type": "native",
+    "topic_group": "student-safety-group-activity",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-009",
+    "query": "学生发生意外事故时学校应当采取什么措施",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [39],
+    "category": "procedure",
+    "source_type": "native",
+    "topic_group": "student-safety-accident-response",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-010",
+    "query": "必修课和限选课学分差距达到多少会被编入下一年级",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [72],
+    "category": "numeric_condition",
+    "source_type": "native",
+    "topic_group": "student-grade-progression",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-011",
+    "query": "学习困难的学生最迟什么时候可以申请编入低年级",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [72],
+    "category": "procedure",
+    "source_type": "native",
+    "topic_group": "student-voluntary-grade-down",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-012",
+    "query": "因病停课超过一学期多少学时应当休学",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [73],
+    "category": "numeric_condition",
+    "source_type": "native",
+    "topic_group": "student-medical-suspension",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-013",
+    "query": "学生因短期工作或者创业能申请休学吗",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [73],
+    "category": "condition_exception",
+    "source_type": "native",
+    "topic_group": "student-voluntary-suspension",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-014",
+    "query": "休学期满后应在开学多久内申请复学",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [74],
+    "category": "numeric_condition",
+    "source_type": "native",
+    "topic_group": "student-resumption-deadline",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-015",
+    "query": "还没有办复学手续可以先去上课吗",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [74],
+    "category": "condition_exception",
+    "source_type": "native",
+    "topic_group": "student-resumption-before-class",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-016",
+    "query": "休学期间严重违法乱纪会不会失去复学资格",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [74],
+    "category": "condition_exception",
+    "source_type": "native",
+    "topic_group": "student-resumption-disqualification",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-017",
+    "query": "获准退学后需要在多长时间内办完离校手续",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [75],
+    "category": "numeric_condition",
+    "source_type": "native",
+    "topic_group": "student-withdrawal-departure",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-018",
+    "query": "退学学生的户口和档案由学校安排去向吗",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [75],
+    "category": "condition_exception",
+    "source_type": "native",
+    "topic_group": "student-withdrawal-records",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-019",
+    "query": "距离培养方案学分还差多少可以进入毕业设计环节",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [75],
+    "category": "numeric_condition",
+    "source_type": "native",
+    "topic_group": "student-thesis-eligibility",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-020",
+    "query": "课程不及格而结业后多久内还能回校重修",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [76],
+    "category": "numeric_condition",
+    "source_type": "native",
+    "topic_group": "student-completion-retake",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-021",
+    "query": "退学前已经读满一学年能拿到什么证书",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [76],
+    "category": "semantic_rewrite",
+    "source_type": "native",
+    "topic_group": "student-withdrawal-certificate",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-022",
+    "query": "入伍新生退役后原入学资格能保留几年",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [79],
+    "category": "numeric_condition",
+    "source_type": "native",
+    "topic_group": "transfer-student-military-admission",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-023",
+    "query": "专转本学生入学后学校在几个月内完成资格复查",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [79],
+    "category": "numeric_condition",
+    "source_type": "native",
+    "topic_group": "transfer-student-admission-review",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-024",
+    "query": "专转本学生未经请假逾期两周未注册会怎样",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [80],
+    "category": "condition_exception",
+    "source_type": "native",
+    "topic_group": "transfer-student-registration",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-025",
+    "query": "普通专转本本科阶段学制和最长在校年限分别多久",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [80],
+    "category": "numeric_condition",
+    "source_type": "native",
+    "topic_group": "transfer-student-study-length",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-026",
+    "query": "专转本学生考试作弊的课程成绩和后续修读如何处理",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [82],
+    "category": "procedure",
+    "source_type": "native",
+    "topic_group": "transfer-student-cheating",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-027",
+    "query": "无故旷课达到课程学时多少比例就不能参加考核",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [82],
+    "category": "numeric_condition",
+    "source_type": "native",
+    "topic_group": "transfer-student-attendance",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-028",
+    "query": "申请免修课程要求前两个学期平均绩点达到多少",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [82],
+    "category": "numeric_condition",
+    "source_type": "native",
+    "topic_group": "transfer-student-course-exemption",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-029",
+    "query": "课程考核期间因病缓考需要哪些审批和证明",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [83],
+    "category": "procedure",
+    "source_type": "native",
+    "topic_group": "transfer-student-exam-deferral",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-030",
+    "query": "休学学生还能享受在校学习学生的待遇吗",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [85],
+    "category": "condition_exception",
+    "source_type": "native",
+    "topic_group": "transfer-student-suspension-treatment",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-031",
+    "query": "复学后原专业下一年级没有招生应如何安排专业",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [85],
+    "category": "condition_exception",
+    "source_type": "native",
+    "topic_group": "transfer-student-resumption-major",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-032",
+    "query": "专转本学生退学决定由哪个会议研究作出",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [86],
+    "category": "exact_term",
+    "source_type": "native",
+    "topic_group": "transfer-student-withdrawal-decision",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-033",
+    "query": "专转本学生对退学处理有异议向哪个机构申诉",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [86],
+    "category": "procedure",
+    "source_type": "native",
+    "topic_group": "transfer-student-withdrawal-appeal",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-034",
+    "query": "专转本学生结业后回校重修通过能否换发毕业证",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [87],
+    "category": "condition_exception",
+    "source_type": "native",
+    "topic_group": "transfer-student-completion-retake",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-035",
+    "query": "普通本科毕业申请学士学位最低平均绩点是多少",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [92],
+    "category": "numeric_condition",
+    "source_type": "native",
+    "topic_group": "bachelor-degree-gpa",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-036",
+    "query": "高水平运动员申请学士学位的平均绩点要求是多少",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [92],
+    "category": "numeric_condition",
+    "source_type": "native",
+    "topic_group": "bachelor-degree-athlete-gpa",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-037",
+    "query": "因考试作弊受到留校察看还能授予学士学位吗",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [93],
+    "category": "condition_exception",
+    "source_type": "native",
+    "topic_group": "bachelor-degree-discipline",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-038",
+    "query": "毕业后一年内回校重修以补授学位最多能重修多少学分",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [94],
+    "category": "numeric_condition",
+    "source_type": "native",
+    "topic_group": "bachelor-degree-remedy-credits",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-039",
+    "query": "学士学位申请人对不授予学位意见应先向哪里申请复议",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [95],
+    "category": "procedure",
+    "source_type": "native",
+    "topic_group": "bachelor-degree-review",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-native-040",
+    "query": "学士学位申请人可以提出几次复议申请",
+    "source_file": "南京邮电大学学生手册（2023版）+.pdf",
+    "pages": [95],
+    "category": "numeric_condition",
+    "source_type": "native",
+    "topic_group": "bachelor-degree-review-count",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-001",
+    "query": "通信学院研究生学业奖学金细则适用于哪类硕博研究生",
+    "source_file": "奖学金细则.pdf",
+    "pages": [2],
+    "category": "scope",
+    "source_type": "scanned",
+    "topic_group": "scholarship-scope",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-002",
+    "query": "不在高质量成果目录但被中文核心或SCD收录的论文每篇多少分",
+    "source_file": "奖学金细则.pdf",
+    "pages": [4],
+    "category": "numeric_condition",
+    "source_type": "scanned",
+    "topic_group": "scholarship-paper-score-core",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-003",
+    "query": "未列入高质量成果目录的EI国际会议论文如何计分",
+    "source_file": "奖学金细则.pdf",
+    "pages": [4],
+    "category": "numeric_condition",
+    "source_type": "scanned",
+    "topic_group": "scholarship-paper-score-ei",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-004",
+    "query": "研究生参与专业著作需要独立撰写多少字才能计分",
+    "source_file": "奖学金细则.pdf",
+    "pages": [5],
+    "category": "numeric_condition",
+    "source_type": "scanned",
+    "topic_group": "scholarship-book-score",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-005",
+    "query": "省部级科研成果二等奖在研究生奖学金中基础分是多少",
+    "source_file": "奖学金细则.pdf",
+    "pages": [5],
+    "category": "numeric_condition",
+    "source_type": "scanned",
+    "topic_group": "scholarship-research-award-score",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-006",
+    "query": "集体获得省部级竞赛一等奖可以计多少分",
+    "source_file": "奖学金细则.pdf",
+    "pages": [6],
+    "category": "numeric_condition",
+    "source_type": "scanned",
+    "topic_group": "scholarship-competition-score",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-007",
+    "query": "发明专利已授权、已公开和已受理分别如何计分",
+    "source_file": "奖学金细则.pdf",
+    "pages": [7],
+    "category": "numeric_condition",
+    "source_type": "scanned",
+    "topic_group": "scholarship-patent-score",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-008",
+    "query": "省级研究生创新计划立项可以加多少分",
+    "source_file": "奖学金细则.pdf",
+    "pages": [7],
+    "category": "numeric_condition",
+    "source_type": "scanned",
+    "topic_group": "scholarship-innovation-plan-score",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-009",
+    "query": "宿舍被查到使用违章电器每次扣多少分",
+    "source_file": "奖学金细则.pdf",
+    "pages": [8],
+    "category": "numeric_condition",
+    "source_type": "scanned",
+    "topic_group": "scholarship-dorm-deduction",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-010",
+    "query": "优秀研究生评选是否面向一年级研究生",
+    "source_file": "奖学金细则.pdf",
+    "pages": [19],
+    "category": "condition_exception",
+    "source_type": "scanned",
+    "topic_group": "excellent-graduate-scope",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-011",
+    "query": "硕博连读学生参加优秀研究生评选时按什么身份认定",
+    "source_file": "奖学金细则.pdf",
+    "pages": [19],
+    "category": "condition_exception",
+    "source_type": "scanned",
+    "topic_group": "excellent-graduate-master-doctor-status",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-012",
+    "query": "哪些研究生干部岗位可以参加优秀研究生干部评选",
+    "source_file": "奖学金细则.pdf",
+    "pages": [22],
+    "category": "scope",
+    "source_type": "scanned",
+    "topic_group": "excellent-graduate-cadre-scope",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-013",
+    "query": "优秀研究生干部的专业成绩排名最低要达到前多少",
+    "source_file": "奖学金细则.pdf",
+    "pages": [22],
+    "category": "numeric_condition",
+    "source_type": "scanned",
+    "topic_group": "excellent-graduate-cadre-grade",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-014",
+    "query": "优秀研究生干部最多占研究生总数的百分之多少",
+    "source_file": "奖学金细则.pdf",
+    "pages": [22],
+    "category": "numeric_condition",
+    "source_type": "scanned",
+    "topic_group": "excellent-graduate-cadre-ratio",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-015",
+    "query": "学习单项奖要求专业成绩排名至少进入前多少",
+    "source_file": "奖学金细则.pdf",
+    "pages": [24],
+    "category": "numeric_condition",
+    "source_type": "scanned",
+    "topic_group": "graduate-single-award-study",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-016",
+    "query": "科研单项奖通常评给哪类研究生",
+    "source_file": "奖学金细则.pdf",
+    "pages": [24],
+    "category": "condition_exception",
+    "source_type": "scanned",
+    "topic_group": "graduate-single-award-research",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-017",
+    "query": "研究生单项奖一般在每年什么时候开始评选",
+    "source_file": "奖学金细则.pdf",
+    "pages": [25],
+    "category": "procedure",
+    "source_type": "scanned",
+    "topic_group": "graduate-single-award-timing",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-018",
+    "query": "学院研究生评优领导小组由哪些人员组成，人数是多少",
+    "source_file": "奖学金细则.pdf",
+    "pages": [25],
+    "category": "procedure",
+    "source_type": "scanned",
+    "topic_group": "graduate-single-award-committee",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-019",
+    "query": "企业奖学金要求综合成绩排名在同专业前多少",
+    "source_file": "奖学金细则.pdf",
+    "pages": [29],
+    "category": "numeric_condition",
+    "source_type": "scanned",
+    "topic_group": "enterprise-scholarship-ranking",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-scan-020",
+    "query": "研究生企业奖学金的名额分配优先考虑什么",
+    "source_file": "奖学金细则.pdf",
+    "pages": [29],
+    "category": "semantic_rewrite",
+    "source_type": "scanned",
+    "topic_group": "enterprise-scholarship-allocation",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-001",
+    "query": "2026年校级奖学金评选的准确开始日期是哪天",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "current-scholarship-date",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-002",
+    "query": "今年通信学院奖学金名额比去年增加了多少",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "current-scholarship-change",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-003",
+    "query": "学生申诉材料应该发送到哪个邮箱",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "appeal-contact",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-004",
+    "query": "学校学生申诉委员会办公室现在位于哪栋楼",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "appeal-location",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-005",
+    "query": "图书馆今天实时还剩多少个空座位",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "library-realtime-seats",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-006",
+    "query": "图书馆今年新增了多少本电子书",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "library-current-collection",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-007",
+    "query": "当前体育课选课系统还有哪些课程有余量",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "course-realtime-capacity",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-008",
+    "query": "本学期补考的具体考场安排是什么",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "exam-current-schedule",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-009",
+    "query": "今年学士学位评定委员会开会时间是哪天",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "degree-current-meeting",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-010",
+    "query": "现任教务处处长的姓名和联系电话是什么",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "current-staff-contact",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-011",
+    "query": "2026年新修订的学生手册从哪天开始执行",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "future-handbook-version",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-012",
+    "query": "学生手册中哪些制度已经被最新文件废止",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "policy-validity",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-013",
+    "query": "明年研究生企业奖学金由哪些公司出资",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "future-enterprise-scholarship",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-014",
+    "query": "今年优秀研究生干部最终入选名单在哪里查看",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "current-award-results",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-015",
+    "query": "校园医保本月报销到账需要几天",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "current-insurance-processing",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-016",
+    "query": "今天办理休学手续需要预约吗",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "current-service-appointment",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-017",
+    "query": "学校今年是否临时放宽了转专业名额",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "current-major-transfer-quota",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-018",
+    "query": "宿舍违章电器检查下次什么时候进行",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "current-dorm-inspection",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-019",
+    "query": "本周学生事务中心窗口的值班老师是谁",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "current-service-duty",
+    "split": "locked_test"
+  },
+  {
+    "id": "holdout-none-020",
+    "query": "学校附近医院周末还能挂到哪些专家号",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "source_type": null,
+    "topic_group": "external-current-hospital",
+    "split": "locked_test"
+  }
+]

@@ -7,6 +7,7 @@ from typing import Any
 import numpy as np
 
 from retrieval.config import DEFAULT_RERANKER_PATH, RERANK_BATCH_SIZE, RERANK_RRF_PRIOR_WEIGHT, inside_project
+from retrieval.query_expansion import expand_query
 
 
 _MODEL: Any | None = None
@@ -37,14 +38,17 @@ def rerank(
     if not candidates:
         return []
     active = candidates
-    pairs = [(query, chunks[item["record_index"]]["text"]) for item in active]
+    reranker_query = expand_query(query)
+    pairs = [(reranker_query, chunks[item["record_index"]]["text"]) for item in active]
     scores = np.asarray((model or load_reranker()).predict(pairs, batch_size=RERANK_BATCH_SIZE, show_progress_bar=False))
-    minimum, maximum = float(scores.min()), float(scores.max())
-    scale = maximum - minimum or 1.0
+    rrf_scores = np.asarray([item["score"] for item in active], dtype=float)
+    rrf_minimum, rrf_maximum = float(rrf_scores.min()), float(rrf_scores.max())
+    rrf_scale = rrf_maximum - rrf_minimum or 1.0
     reranked = []
     for rank, (item, score) in enumerate(zip(active, scores), 1):
         reranker_score = float(score)
-        combined_score = (reranker_score - minimum) / scale + RERANK_RRF_PRIOR_WEIGHT / rank
+        normalized_rrf_score = (float(item["score"]) - rrf_minimum) / rrf_scale
+        combined_score = reranker_score + RERANK_RRF_PRIOR_WEIGHT * normalized_rrf_score
         reranked.append(
             {
                 **item,
