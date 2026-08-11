@@ -4,6 +4,7 @@ from retrieval.chunking import split_chunks, tokenize
 from retrieval.config import BM25_PATH_NAME, CHUNKS_PATH_NAME, DEFAULT_INDEX_PATH, EMBEDDINGS_PATH_NAME
 from retrieval.hybrid import bm25_search, rrf_fuse, search, status, vector_search
 from retrieval.index import build_index, load_index
+from retrieval.reranker import rerank
 
 
 __all__ = [
@@ -15,6 +16,7 @@ __all__ = [
     "build_index",
     "load_index",
     "rrf_fuse",
+    "rerank",
     "search",
     "split_chunks",
     "status",

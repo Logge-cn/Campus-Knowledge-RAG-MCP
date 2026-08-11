@@ -15,7 +15,7 @@ from statistics import mean
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from retrieval import bm25_search, load_index, rrf_fuse, tokenize, vector_search
+from retrieval import bm25_search, load_index, rerank, rrf_fuse, tokenize, vector_search
 from retrieval.config import CANDIDATE_LIMIT, RRF_BM25_WEIGHT, RRF_VECTOR_WEIGHT
 
 
@@ -155,7 +155,7 @@ def _pdf_type_metrics(cases: list[dict], rankings: dict[str, list[list[int]]], c
 
 def _ranking_diagnostics(details: list[dict]) -> dict:
     output = {}
-    for method in ("bm25", "vector", "hybrid"):
+    for method in ("bm25", "vector", "hybrid", "reranker"):
         ranks = [detail["ranks"][method] for detail in details if detail["expected"]["source_file"] is not None]
         output[method] = {
             "not_recalled_at_20": sum(rank is None for rank in ranks),
@@ -171,7 +171,7 @@ def main() -> None:
         raise ValueError("The evaluation set must contain exactly 100 cases")
     index = load_index()
     chunks = index["chunks"]
-    rankings = {method: [] for method in ("legacy", "bm25", "vector", "hybrid")}
+    rankings = {method: [] for method in ("legacy", "bm25", "vector", "hybrid", "reranker")}
     timings = {method: [] for method in rankings}
     details = []
 
@@ -199,11 +199,16 @@ def main() -> None:
         fusion_ms = (time.perf_counter() - started) * 1000
         timings["hybrid"].append(timings["bm25"][-1] + timings["vector"][-1] + fusion_ms)
 
+        started = time.perf_counter()
+        reranked = rerank(case["query"], hybrid, chunks)
+        timings["reranker"].append(timings["hybrid"][-1] + (time.perf_counter() - started) * 1000)
+
         method_candidates = {
             "legacy": legacy,
             "bm25": [item["record_index"] for item in bm25],
             "vector": [item["record_index"] for item in vector],
             "hybrid": [item["record_index"] for item in hybrid],
+            "reranker": [item["record_index"] for item in reranked],
         }
         method_indices = {method: indices[:TOP_K] for method, indices in method_candidates.items()}
         for method, indices in method_indices.items():
@@ -234,6 +239,7 @@ def main() -> None:
         )
 
     metrics = _metrics(cases, rankings, chunks, timings)
+    pdf_type_metrics = _pdf_type_metrics(cases, rankings, chunks)
     report = {
         "evaluation_cases": len(cases),
         "answerable_cases": sum(case["source_file"] is not None for case in cases),
@@ -241,7 +247,7 @@ def main() -> None:
         "top_k": TOP_K,
         "metrics": metrics,
         "category_metrics": _category_metrics(cases, rankings, chunks),
-        "pdf_type_metrics": _pdf_type_metrics(cases, rankings, chunks),
+        "pdf_type_metrics": pdf_type_metrics,
         "ranking_diagnostics": _ranking_diagnostics(details),
         "index": index["metadata"],
         "acceptance": {
@@ -249,6 +255,17 @@ def main() -> None:
             >= max(metrics["bm25"]["recall_at_5"], metrics["vector"]["recall_at_5"]),
             "semantic_upgrade_improves_over_legacy": metrics["hybrid"]["recall_at_5"]
             > metrics["legacy"]["recall_at_5"],
+            "reranker_recall_not_below_hybrid": metrics["reranker"]["recall_at_5"] >= metrics["hybrid"]["recall_at_5"],
+            "reranker_mrr_improves_hybrid": metrics["reranker"]["mrr"] > metrics["hybrid"]["mrr"],
+            "reranker_recall_not_below_hybrid_by_pdf_type": all(
+                pdf_type_metrics["reranker"][pdf_type]["recall_at_5"]
+                >= pdf_type_metrics["hybrid"][pdf_type]["recall_at_5"]
+                for pdf_type in ("native", "scanned")
+            ),
+            "reranker_mrr_improves_hybrid_by_pdf_type": all(
+                pdf_type_metrics["reranker"][pdf_type]["mrr"] > pdf_type_metrics["hybrid"][pdf_type]["mrr"]
+                for pdf_type in ("native", "scanned")
+            ),
         },
         "note": "No-answer cases are labeled but refusal is not scored because this phase implements retrieval, not answer generation or a refusal threshold.",
         "details": details,

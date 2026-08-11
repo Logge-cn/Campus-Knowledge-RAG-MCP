@@ -108,12 +108,15 @@ class RAGPipelineTests(unittest.TestCase):
         self.assertTrue(all(result["page"] > 0 for result in results))
         self.assertTrue(all(result["artifact_path"].startswith("storage/artifacts/") for result in results))
         self.assertTrue(any("奖学金" in result["source_file"] for result in results))
-        self.assertTrue(all(result["score_type"] == "rrf" for result in results))
+        self.assertTrue(all(result["score_type"] == "cross_encoder_rrf_blend" for result in results))
         self.assertTrue(all(result["matched_by"] for result in results))
+        self.assertTrue(all("reranker_score" in result for result in results))
+        self.assertTrue(all("rrf_score" in result for result in results))
 
     def test_status_matches_built_index(self):
         self.assertEqual(status()["chunks"], self.summary["chunks"])
-        self.assertEqual(status()["retrieval_mode"], "hybrid_bm25_embedding_rrf")
+        self.assertEqual(status()["retrieval_mode"], "hybrid_rrf_cross_encoder_rerank")
+        self.assertEqual(status()["rerank_candidate_limit"], 20)
         self.assertEqual(status()["embedding_model"], "BAAI/bge-base-zh-v1.5")
         self.assertEqual(status()["chunk_target_tokens"], 410)
         self.assertEqual(status()["chunk_max_tokens"], 512)

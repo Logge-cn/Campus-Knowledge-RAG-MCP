@@ -12,6 +12,8 @@ from retrieval.config import (
     DEFAULT_INDEX_PATH,
     EMBEDDING_MODEL,
     PROJECT_ROOT,
+    RERANK_CANDIDATE_LIMIT,
+    RERANKER_MODEL,
     RRF_BM25_WEIGHT,
     RRF_K,
     RRF_VECTOR_WEIGHT,
@@ -19,6 +21,7 @@ from retrieval.config import (
 )
 from retrieval.embeddings import vector_search as _vector_search
 from retrieval.index import load_index
+from retrieval.reranker import rerank
 
 
 def bm25_search(query: str, candidate_limit: int = CANDIDATE_LIMIT, *, index: dict[str, Any] | None = None) -> list[dict[str, Any]]:
@@ -67,16 +70,20 @@ def search(query: str, limit: int = 5, index_path: Path = DEFAULT_INDEX_PATH) ->
     fused = rrf_fuse(
         _bm25_search(query, candidate_limit, index=index),
         _vector_search(query, candidate_limit, index=index),
-        limit,
+        min(RERANK_CANDIDATE_LIMIT, candidate_limit),
         bm25_weight=RRF_BM25_WEIGHT,
         vector_weight=RRF_VECTOR_WEIGHT,
     )
+    reranked = rerank(query, fused, index["chunks"])
     results: list[dict[str, Any]] = []
-    for item in fused:
+    for item in reranked[:limit]:
         record = index["chunks"][item["record_index"]]
         result = {
                 "score": round(item["score"], 6),
-                "score_type": "rrf",
+                "score_type": "cross_encoder_rrf_blend",
+                "reranker_score": round(item["reranker_score"], 6),
+                "rrf_score": round(item["rrf_score"], 6),
+                "retrieval_rank": item["retrieval_rank"],
                 "matched_by": item["matched_by"],
                 "bm25_rank": item.get("bm25_rank"),
                 "vector_rank": item.get("vector_rank"),
@@ -120,7 +127,7 @@ def status(index_path: Path = DEFAULT_INDEX_PATH) -> dict[str, Any]:
         "chunk_target_tokens": CHUNK_TARGET_TOKENS,
         "chunk_max_tokens": CHUNK_MAX_TOKENS,
         "chunk_overlap_tokens": CHUNK_OVERLAP_TOKENS,
-        "retrieval_mode": metadata["retrieval_mode"],
+        "retrieval_mode": "hybrid_rrf_cross_encoder_rerank",
         "embedding_model": EMBEDDING_MODEL,
         "embedding_dimensions": metadata["embedding_dimensions"],
         "bm25_k1": metadata["bm25_k1"],
@@ -129,4 +136,6 @@ def status(index_path: Path = DEFAULT_INDEX_PATH) -> dict[str, Any]:
         "rrf_k": metadata["rrf_k"],
         "rrf_bm25_weight": metadata["rrf_bm25_weight"],
         "rrf_vector_weight": metadata["rrf_vector_weight"],
+        "reranker_model": RERANKER_MODEL,
+        "rerank_candidate_limit": RERANK_CANDIDATE_LIMIT,
     }
