@@ -5,7 +5,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parents[1] / "src"))
 
-from extraction.scanned_pdf import page_continuation
+from extraction.scanned_pdf import page_continuation, process
 
 
 class ScannedPdfContinuationTests(unittest.TestCase):
@@ -15,6 +15,10 @@ class ScannedPdfContinuationTests(unittest.TestCase):
 
     def test_does_not_add_context_to_a_complete_heading(self):
         self.assertEqual(page_continuation("上页结束。", "三、奖励比例和标准"), "")
+
+    def test_rejects_non_positive_render_dpi(self):
+        with self.assertRaisesRegex(ValueError, "render_dpi must be positive"):
+            process(Path("missing.pdf"), Path("data"), Path("storage"), render_dpi=0)
 
 
 if __name__ == "__main__":

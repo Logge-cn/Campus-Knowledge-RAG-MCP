@@ -33,14 +33,17 @@ def rerank(
     chunks: list[dict[str, Any]],
     *,
     model: Any | None = None,
+    batch_size: int = RERANK_BATCH_SIZE,
 ) -> list[dict[str, Any]]:
     """Score query-chunk pairs and return a stable descending relevance order."""
+    if batch_size < 1:
+        raise ValueError("batch_size must be at least 1")
     if not candidates:
         return []
     active = candidates
     reranker_query = expand_query(query)
     pairs = [(reranker_query, chunks[item["record_index"]]["text"]) for item in active]
-    scores = np.asarray((model or load_reranker()).predict(pairs, batch_size=RERANK_BATCH_SIZE, show_progress_bar=False))
+    scores = np.asarray((model or load_reranker()).predict(pairs, batch_size=batch_size, show_progress_bar=False))
     rrf_scores = np.asarray([item["score"] for item in active], dtype=float)
     rrf_minimum, rrf_maximum = float(rrf_scores.min()), float(rrf_scores.max())
     rrf_scale = rrf_maximum - rrf_minimum or 1.0

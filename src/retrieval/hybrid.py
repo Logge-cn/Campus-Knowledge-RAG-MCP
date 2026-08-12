@@ -132,7 +132,7 @@ def status(index_path: Path = DEFAULT_INDEX_PATH) -> dict[str, Any]:
         "embedding_dimensions": metadata["embedding_dimensions"],
         "bm25_k1": metadata["bm25_k1"],
         "bm25_b": metadata["bm25_b"],
-        "candidate_limit": metadata["candidate_limit"],
+        "candidate_limit": CANDIDATE_LIMIT,
         "rrf_k": metadata["rrf_k"],
         "rrf_bm25_weight": metadata["rrf_bm25_weight"],
         "rrf_vector_weight": metadata["rrf_vector_weight"],

@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "frozen_at": "2026-08-12T00:32:24.9417083+08:00",
+  "branch": "codex/rag-evaluation-optimization",
+  "base_commit": "68df58450ef6eda5552397bc27f223f6518edb6d",
+  "purpose": "Freeze retrieval and reranking behavior before labeling or evaluating the new locked-test documents.",
+  "locked_test_policy": {
+    "configuration_frozen_before_locked_labeling": true,
+    "locked_index_not_used_for_parameter_selection": true,
+    "per_case_locked_results_must_not_drive_code_or_parameter_changes": true,
+    "allowed_after_locked_evaluation": [
+      "fix a demonstrable implementation defect and invalidate the entire locked run",
+      "report the result without changing the frozen configuration",
+      "build a later, separately versioned development and locked-test cycle"
+    ]
+  },
+  "retrieval_configuration": {
+    "chunk_target_tokens": 410,
+    "chunk_max_tokens": 512,
+    "chunk_overlap_tokens": 41,
+    "bm25_k1": 1.5,
+    "bm25_b": 0.75,
+    "candidate_limit": 20,
+    "rrf_k": 1,
+    "rrf_bm25_weight": 3.0,
+    "rrf_vector_weight": 1.0,
+    "embedding_model": "BAAI/bge-base-zh-v1.5",
+    "reranker_model": "BAAI/bge-reranker-base",
+    "rerank_candidate_limit": 20,
+    "rerank_batch_size": 16,
+    "rerank_rrf_prior_weight": 0.05,
+    "rerank_formula": "cross_encoder_score + 0.05 * minmax(rrf_score)",
+    "tokenizer_version": "char-bigram-v1"
+  },
+  "frozen_file_sha256": {
+    "src/retrieval/config.py": "329a20e83ea0fd9209b756a7c5dd42ff694fbc9077e24160f140563680037556",
+    "src/retrieval/hybrid.py": "4d064d04515293fa695e037cdce73d81dd2a8d24a5c5617809dac6c2a9855aea",
+    "src/retrieval/reranker.py": "75b5a4625671f50daa5d186d0aeb4fd89b9e68d06d44303a960cc75d86947066",
+    "src/retrieval/query_expansion.py": "9af7298709ebf6026153df89291df2f8c633096ae49e78e50ae09bd5109d71a2",
+    "evaluation/dataset_expanded_development_new.json": "b664d5dba5c337cdd4976968383d3563fef41e32b2bacd5e09667f000e815313"
+  },
+  "reranker_artifact": {
+    "path": "models/bge-reranker-base/model.safetensors",
+    "bytes": 1112206140,
+    "sha256": "ced967c45fd1902eb92716c9ceeca7c95a936770ea9db611f5a841b926e33fbd"
+  },
+  "locked_labels_sealed_at": "2026-08-12T00:49:59.7294259+08:00",
+  "sealed_evaluation_artifacts": {
+    "evaluation/dataset_expanded_locked_answerable.json": "d387ffb032cd0d0248adf4c0125d9527c4e27658d28f1976967ccb17a00713d1",
+    "evaluation/dataset_expanded_locked_no_answer.json": "5fb4a02e1141b2fe0fde0d19ec5dc6f84ae30b6b67b198fef1e443f37f13d8b3"
+  }
+}

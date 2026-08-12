@@ -116,6 +116,7 @@ class RAGPipelineTests(unittest.TestCase):
     def test_status_matches_built_index(self):
         self.assertEqual(status()["chunks"], self.summary["chunks"])
         self.assertEqual(status()["retrieval_mode"], "hybrid_rrf_cross_encoder_rerank")
+        self.assertEqual(status()["candidate_limit"], 20)
         self.assertEqual(status()["rerank_candidate_limit"], 20)
         self.assertEqual(status()["embedding_model"], "BAAI/bge-base-zh-v1.5")
         self.assertEqual(status()["chunk_target_tokens"], 410)

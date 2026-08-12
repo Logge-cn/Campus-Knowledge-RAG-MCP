@@ -1,0 +1,31 @@
+[
+  {
+    "id": "development-native-02-001",
+    "query": "<natural user question>",
+    "source_file": "<exact PDF filename>",
+    "source_type": "native",
+    "pages": [
+      1
+    ],
+    "category": "exact_term",
+    "topic_group": "<stable topic name used to detect near-duplicate cases>",
+    "split": "development",
+    "relevant_chunk_ids": [
+      "<human-verified chunk id>"
+    ],
+    "gold_answer": "<complete answer supported by the cited page and chunks>",
+    "required_facts": [
+      "<independently checkable fact 1>",
+      "<independently checkable fact 2>"
+    ]
+  },
+  {
+    "id": "locked-no-answer-001",
+    "query": "<question that the complete evaluation corpus cannot answer>",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "outside_corpus",
+    "split": "locked_test"
+  }
+]

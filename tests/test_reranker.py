@@ -33,6 +33,7 @@ class RerankerTests(unittest.TestCase):
         self.assertEqual(results[0]["rrf_score"], 0.2)
         self.assertEqual(results[0]["reranker_score"], 0.9)
         self.assertAlmostEqual(results[0]["score"], 0.925)
+        self.assertEqual(model.kwargs["batch_size"], 16)
 
     def test_reranker_reuses_query_expansion_terms(self):
         candidates = [{"record_index": 0, "score": 1.0}]
@@ -44,6 +45,19 @@ class RerankerTests(unittest.TestCase):
         expanded_query, _ = model.pairs[0]
         self.assertIn("学校处分异议申诉", expanded_query)
         self.assertIn("提出申诉", expanded_query)
+
+    def test_reranker_accepts_an_experimental_batch_size(self):
+        candidates = [{"record_index": 0, "score": 1.0}]
+        chunks = [{"text": "测试内容"}]
+        model = FakeCrossEncoder()
+
+        rerank("问题", candidates, chunks, model=model, batch_size=32)
+
+        self.assertEqual(model.kwargs["batch_size"], 32)
+
+    def test_reranker_rejects_invalid_batch_size(self):
+        with self.assertRaisesRegex(ValueError, "batch_size"):
+            rerank("问题", [], [], batch_size=0)
 
 
 if __name__ == "__main__":

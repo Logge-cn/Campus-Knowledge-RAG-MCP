@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "required_categories": [
+    "exact_term",
+    "semantic_rewrite",
+    "numeric_condition",
+    "condition_exception",
+    "scope",
+    "procedure",
+    "table"
+  ],
+  "require_document_disjoint_splits": true,
+  "require_relevant_chunk_ids": true,
+  "require_gold_answer": true,
+  "require_required_facts": true,
+  "splits": {
+    "development": {
+      "minimum_documents": {
+        "native": 3,
+        "scanned": 3
+      },
+      "minimum_answerable_cases": {
+        "native": 60,
+        "scanned": 60
+      },
+      "minimum_no_answer_cases": 30,
+      "minimum_cases_per_category": 5,
+      "minimum_answerable_cases_per_document": 10
+    },
+    "locked_test": {
+      "minimum_documents": {
+        "native": 2,
+        "scanned": 2
+      },
+      "minimum_answerable_cases": {
+        "native": 40,
+        "scanned": 40
+      },
+      "minimum_no_answer_cases": 20,
+      "minimum_cases_per_category": 3,
+      "minimum_answerable_cases_per_document": 10
+    }
+  }
+}

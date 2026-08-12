@@ -45,7 +45,16 @@ def page_continuation(previous_text: str, text: str) -> str:
     return f"上页续文：{previous_tail}"
 
 
-def process(pdf_path: Path, data_root: Path, output_root: Path, start_page: int = 1, end_page: int | None = None) -> dict:
+def process(
+    pdf_path: Path,
+    data_root: Path,
+    output_root: Path,
+    start_page: int = 1,
+    end_page: int | None = None,
+    render_dpi: int = 300,
+) -> dict:
+    if render_dpi <= 0:
+        raise ValueError("render_dpi must be positive")
     relative_path = pdf_path.relative_to(data_root)
     artifact_dir = output_root / relative_path.with_suffix("")
     rendered_dir = artifact_dir / "rendered"
@@ -64,7 +73,7 @@ def process(pdf_path: Path, data_root: Path, output_root: Path, start_page: int 
             if page_number < start_page or (end_page is not None and page_number > end_page):
                 continue
             image_path.parent.mkdir(parents=True, exist_ok=True)
-            page.get_pixmap(matrix=fitz.Matrix(300 / 72, 300 / 72), alpha=False).save(image_path)
+            page.get_pixmap(matrix=fitz.Matrix(render_dpi / 72, render_dpi / 72), alpha=False).save(image_path)
             raw_dir.mkdir(parents=True, exist_ok=True)
             if ocr is None:
                 ocr = PaddleOCR(
@@ -98,6 +107,7 @@ def process(pdf_path: Path, data_root: Path, output_root: Path, start_page: int 
                 "confidence": f"{confidence:.3f}",
                 "low_confidence": str(confidence < 0.85).lower(),
                 "processing_note": note or "none",
+                "render_dpi": render_dpi,
             },
             indexed_text,
         )
@@ -108,6 +118,7 @@ def process(pdf_path: Path, data_root: Path, output_root: Path, start_page: int 
                 "confidence": confidence,
                 "processing_note": note,
                 "continued_from_previous_page": bool(continuation),
+                "render_dpi": render_dpi,
                 "raw_result": raw_path.relative_to(artifact_dir).as_posix(),
             }
         )
@@ -117,6 +128,7 @@ def process(pdf_path: Path, data_root: Path, output_root: Path, start_page: int 
         "file_sha256": source_sha256,
         "imported_at": imported_at,
         "extractor": "extraction/scanned_pdf.py",
+        "render_dpi": render_dpi,
         "pages": pages,
     }
     artifact_dir.mkdir(parents=True, exist_ok=True)
@@ -131,8 +143,9 @@ def main() -> None:
     parser.add_argument("--output-root", type=Path, default=PROJECT_ROOT / "storage" / "artifacts")
     parser.add_argument("--start-page", type=int, default=1)
     parser.add_argument("--end-page", type=int)
+    parser.add_argument("--render-dpi", type=int, default=300)
     args = parser.parse_args()
-    metadata = process(args.pdf, args.data_root, args.output_root, args.start_page, args.end_page)
+    metadata = process(args.pdf, args.data_root, args.output_root, args.start_page, args.end_page, args.render_dpi)
     print(f"{args.pdf}: ocr_pages={len(metadata['pages'])}")
 
 

@@ -1,0 +1,182 @@
+[
+  {
+    "id": "locked-no-answer-001",
+    "query": "南邮校医院门诊报销需要提交哪些材料，报销比例是多少？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "outside_corpus",
+    "split": "locked_test"
+  },
+  {
+    "id": "locked-no-answer-002",
+    "query": "学生宿舍水电费按什么标准计费，剩余电费毕业时如何退还？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "outside_corpus",
+    "split": "locked_test"
+  },
+  {
+    "id": "locked-no-answer-003",
+    "query": "学校食堂怎样为食物过敏学生提供特殊餐食，需要提前多久申请？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "outside_corpus",
+    "split": "locked_test"
+  },
+  {
+    "id": "locked-no-answer-004",
+    "query": "仙林校区体育馆羽毛球场怎样预约，每小时收费多少？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "outside_corpus",
+    "split": "locked_test"
+  },
+  {
+    "id": "locked-no-answer-005",
+    "query": "校园班车遗失物品应去哪里领取，需要出示什么证明？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "outside_corpus",
+    "split": "locked_test"
+  },
+  {
+    "id": "locked-no-answer-006",
+    "query": "今天仙林校区哪个校门因临时施工关闭？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "time_sensitive_information",
+    "split": "locked_test"
+  },
+  {
+    "id": "locked-no-answer-007",
+    "query": "现在仙林图书馆还有多少个空闲座位？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "time_sensitive_information",
+    "split": "locked_test"
+  },
+  {
+    "id": "locked-no-answer-008",
+    "query": "电子凭证平台今天晚上是否正在维护，预计几点恢复？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "time_sensitive_information",
+    "split": "locked_test"
+  },
+  {
+    "id": "locked-no-answer-009",
+    "query": "本周图书馆有哪些临时新增的讲座，现场还有没有名额？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "time_sensitive_information",
+    "split": "locked_test"
+  },
+  {
+    "id": "locked-no-answer-010",
+    "query": "此刻三牌楼校区户籍窗口是哪位老师值班？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "time_sensitive_information",
+    "split": "locked_test"
+  },
+  {
+    "id": "locked-no-answer-011",
+    "query": "南京大学仙林校区图书馆本科生一次最多可以借多少本书？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "wrong_entity_or_school",
+    "split": "locked_test"
+  },
+  {
+    "id": "locked-no-answer-012",
+    "query": "东南大学学生会主席团候选人的报名截止时间是什么时候？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "wrong_entity_or_school",
+    "split": "locked_test"
+  },
+  {
+    "id": "locked-no-answer-013",
+    "query": "北京邮电大学研究生国家奖学金的评审分数怎样计算？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "wrong_entity_or_school",
+    "split": "locked_test"
+  },
+  {
+    "id": "locked-no-answer-014",
+    "query": "河海大学可信电子成绩单使用哪个网址验证真伪？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "wrong_entity_or_school",
+    "split": "locked_test"
+  },
+  {
+    "id": "locked-no-answer-015",
+    "query": "南京工业大学寒假期间机动车进校预约要由谁审批？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "wrong_entity_or_school",
+    "split": "locked_test"
+  },
+  {
+    "id": "locked-no-answer-016",
+    "query": "学生会工作人员三个月试用期满后自动获得的奖学金是多少？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "unsupported_premise",
+    "split": "locked_test"
+  },
+  {
+    "id": "locked-no-answer-017",
+    "query": "电子凭证通过真伪验证后，学校会在几天内自动邮寄纸质原件？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "unsupported_premise",
+    "split": "locked_test"
+  },
+  {
+    "id": "locked-no-answer-018",
+    "query": "寒假安全通知规定留校学生消防考试的及格分数是多少？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "unsupported_premise",
+    "split": "locked_test"
+  },
+  {
+    "id": "locked-no-answer-019",
+    "query": "教师没有参加师德大讲堂时，学院要扣减多少绩效工资？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "unsupported_premise",
+    "split": "locked_test"
+  },
+  {
+    "id": "locked-no-answer-020",
+    "query": "专业学位实践由学校统一分配企业时，学生选企业的先后顺序是什么？",
+    "source_file": null,
+    "pages": [],
+    "category": "no_answer",
+    "no_answer_type": "unsupported_premise",
+    "split": "locked_test"
+  }
+]

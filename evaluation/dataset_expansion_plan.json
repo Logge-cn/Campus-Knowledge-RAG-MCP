@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "status": "all_140_cases_labeled_and_sealed_evaluation_pending",
+  "document_manifest": "evaluation/document_manifest.json",
+  "config_freeze": "evaluation/config_freeze.json",
+  "labeled_development_addition": "evaluation/dataset_expanded_development_new.json",
+  "labeled_locked_answerable": "evaluation/dataset_expanded_locked_answerable.json",
+  "labeled_locked_no_answer": "evaluation/dataset_expanded_locked_no_answer.json",
+  "strategy": {
+    "existing_development": "Keep as development data.",
+    "existing_locked_test": "Declassify to the development diagnostic pool because its source documents overlap development and it has already been used during optimization.",
+    "new_locked_test": "Build only from new PDFs that are never used for threshold selection, parameter tuning, prompt tuning, or error-driven development."
+  },
+  "minimum_new_data": {
+    "pdfs": 8,
+    "answerable_cases": 120,
+    "no_answer_cases": 20,
+    "total_cases": 140
+  },
+  "document_slots": [
+    {
+      "slot": "development-native-02",
+      "split": "development",
+      "source_type": "native",
+      "minimum_answerable_cases": 10,
+      "layout_requirement": "multi_column_or_table_heavy",
+      "topic_requirement": "different_from_all_existing_documents"
+    },
+    {
+      "slot": "development-native-03",
+      "split": "development",
+      "source_type": "native",
+      "minimum_answerable_cases": 10,
+      "layout_requirement": "mixed_text_and_tables",
+      "topic_requirement": "different_from_all_existing_documents"
+    },
+    {
+      "slot": "development-scanned-02",
+      "split": "development",
+      "source_type": "scanned",
+      "minimum_answerable_cases": 10,
+      "layout_requirement": "clean_high_resolution_scan",
+      "topic_requirement": "different_from_all_existing_documents"
+    },
+    {
+      "slot": "development-scanned-03",
+      "split": "development",
+      "source_type": "scanned",
+      "minimum_answerable_cases": 10,
+      "layout_requirement": "low_contrast_skew_or_noise",
+      "topic_requirement": "different_from_all_existing_documents"
+    },
+    {
+      "slot": "locked-native-01",
+      "split": "locked_test",
+      "source_type": "native",
+      "minimum_answerable_cases": 20,
+      "layout_requirement": "single_column_regulation",
+      "topic_requirement": "disjoint_from_development"
+    },
+    {
+      "slot": "locked-native-02",
+      "split": "locked_test",
+      "source_type": "native",
+      "minimum_answerable_cases": 20,
+      "layout_requirement": "multi_column_or_table_heavy",
+      "topic_requirement": "disjoint_from_development"
+    },
+    {
+      "slot": "locked-scanned-01",
+      "split": "locked_test",
+      "source_type": "scanned",
+      "minimum_answerable_cases": 20,
+      "layout_requirement": "clean_high_resolution_scan",
+      "topic_requirement": "disjoint_from_development"
+    },
+    {
+      "slot": "locked-scanned-02",
+      "split": "locked_test",
+      "source_type": "scanned",
+      "minimum_answerable_cases": 20,
+      "layout_requirement": "degraded_or_mixed_layout_scan",
+      "topic_requirement": "disjoint_from_development"
+    }
+  ],
+  "answerable_case_matrix": {
+    "development-native-02": {
+      "exact_term": 2,
+      "semantic_rewrite": 1,
+      "numeric_condition": 2,
+      "condition_exception": 2,
+      "scope": 1,
+      "procedure": 1,
+      "table": 1
+    },
+    "development-native-03": {
+      "exact_term": 2,
+      "semantic_rewrite": 1,
+      "numeric_condition": 2,
+      "condition_exception": 1,
+      "scope": 1,
+      "procedure": 1,
+      "table": 2
+    },
+    "development-scanned-02": {
+      "exact_term": 2,
+      "semantic_rewrite": 1,
+      "numeric_condition": 2,
+      "condition_exception": 1,
+      "scope": 2,
+      "procedure": 2,
+      "table": 0
+    },
+    "development-scanned-03": {
+      "exact_term": 1,
+      "semantic_rewrite": 1,
+      "numeric_condition": 3,
+      "condition_exception": 1,
+      "scope": 1,
+      "procedure": 2,
+      "table": 1
+    },
+    "locked-native-01": {
+      "exact_term": 3,
+      "semantic_rewrite": 4,
+      "numeric_condition": 4,
+      "condition_exception": 3,
+      "scope": 2,
+      "procedure": 2,
+      "table": 2
+    },
+    "locked-native-02": {
+      "exact_term": 3,
+      "semantic_rewrite": 4,
+      "numeric_condition": 4,
+      "condition_exception": 3,
+      "scope": 2,
+      "procedure": 2,
+      "table": 2
+    },
+    "locked-scanned-01": {
+      "exact_term": 2,
+      "semantic_rewrite": 3,
+      "numeric_condition": 3,
+      "condition_exception": 3,
+      "scope": 3,
+      "procedure": 3,
+      "table": 3
+    },
+    "locked-scanned-02": {
+      "exact_term": 2,
+      "semantic_rewrite": 3,
+      "numeric_condition": 3,
+      "condition_exception": 3,
+      "scope": 3,
+      "procedure": 3,
+      "table": 3
+    }
+  },
+  "new_no_answer_cases": {
+    "split": "locked_test",
+    "total": 20,
+    "types": {
+      "outside_corpus": 5,
+      "time_sensitive_information": 5,
+      "wrong_entity_or_school": 5,
+      "unsupported_premise": 5
+    }
+  },
+  "labeling_gate": {
+    "required_for_every_answerable_case": [
+      "id",
+      "query",
+      "source_file",
+      "source_type",
+      "pages",
+      "category",
+      "topic_group",
+      "split",
+      "relevant_chunk_ids",
+      "gold_answer",
+      "required_facts"
+    ],
+    "human_checks": [
+      "The question can be answered using only the labeled PDF pages.",
+      "Every relevant chunk actually supports the gold answer.",
+      "required_facts contains every fact needed for a complete answer.",
+      "The query is not a near duplicate of a case in the other split.",
+      "Locked-test content was not inspected while selecting the system configuration."
+    ]
+  }
+}
