@@ -48,5 +48,15 @@
   "sealed_evaluation_artifacts": {
     "evaluation/dataset_expanded_locked_answerable.json": "d387ffb032cd0d0248adf4c0125d9527c4e27658d28f1976967ccb17a00713d1",
     "evaluation/dataset_expanded_locked_no_answer.json": "5fb4a02e1141b2fe0fde0d19ec5dc6f84ae30b6b67b198fef1e443f37f13d8b3"
+  },
+  "portable_text_hashing": "Normalize CRLF and CR line endings to LF before hashing; original byte hashes remain recorded above.",
+  "portable_text_sha256": {
+    "src/retrieval/config.py": "1cd1dca68f95a58511940d5da1511d0527f5efce934a9f859a0552bf8649908b",
+    "src/retrieval/hybrid.py": "e213cbded268bf5c792441f824d96162018024e96d83cda796f9eca32c21d25c",
+    "src/retrieval/reranker.py": "6a4456f47791c512a01f1032b8180b2cab61212f55d93f156ad5eefdff39321c",
+    "src/retrieval/query_expansion.py": "267d8bcaec4dd148b4e7c8d56971ec2e1eced9302e78ea1904ba64cdfcdf6383",
+    "evaluation/dataset_expanded_development_new.json": "b664d5dba5c337cdd4976968383d3563fef41e32b2bacd5e09667f000e815313",
+    "evaluation/dataset_expanded_locked_answerable.json": "d387ffb032cd0d0248adf4c0125d9527c4e27658d28f1976967ccb17a00713d1",
+    "evaluation/dataset_expanded_locked_no_answer.json": "5fb4a02e1141b2fe0fde0d19ec5dc6f84ae30b6b67b198fef1e443f37f13d8b3"
   }
 }

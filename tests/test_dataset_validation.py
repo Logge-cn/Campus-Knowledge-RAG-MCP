@@ -1,8 +1,11 @@
 import copy
+import tempfile
 import unittest
+from pathlib import Path
 
 
 from evaluation.validate_dataset import (
+    _sha256_frozen_file,
     summarize_report,
     validate_datasets,
     validate_document_manifest,
@@ -83,6 +86,20 @@ class DatasetValidationTests(unittest.TestCase):
         self.assertTrue(report["valid"])
         self.assertEqual(report["errors"], [])
         self.assertEqual(report["stats"]["development"]["documents"], {"native": 1, "scanned": 1})
+
+    def test_frozen_text_hash_is_independent_of_line_endings(self):
+        with tempfile.TemporaryDirectory() as directory:
+            lf_path = Path(directory) / "lf.json"
+            crlf_path = Path(directory) / "crlf.json"
+            binary_lf_path = Path(directory) / "lf.safetensors"
+            binary_crlf_path = Path(directory) / "crlf.safetensors"
+            lf_path.write_bytes(b'{\n  "value": 1\n}\n')
+            crlf_path.write_bytes(b'{\r\n  "value": 1\r\n}\r\n')
+            binary_lf_path.write_bytes(b"one\ntwo\n")
+            binary_crlf_path.write_bytes(b"one\r\ntwo\r\n")
+
+            self.assertEqual(_sha256_frozen_file(lf_path), _sha256_frozen_file(crlf_path))
+            self.assertNotEqual(_sha256_frozen_file(binary_lf_path), _sha256_frozen_file(binary_crlf_path))
 
     def test_document_overlap_is_rejected(self):
         locked = copy.deepcopy(self.locked)

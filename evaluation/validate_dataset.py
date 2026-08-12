@@ -29,6 +29,7 @@ DEFAULT_LOCKED_CHUNKS_PATH = (
     PROJECT_ROOT / "storage" / "evaluation_splits" / "locked_test" / "index" / "chunks.json"
 )
 PDF_TYPES = ("native", "scanned")
+PORTABLE_TEXT_HASH_SUFFIXES = {".json", ".md", ".py", ".toml", ".txt", ".yaml", ".yml"}
 
 
 def _non_empty_string(value: Any) -> bool:
@@ -49,10 +50,22 @@ def _sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _sha256_frozen_file(path: Path) -> str:
+    """Hash frozen text independently of the checkout's line-ending policy."""
+    if path.suffix.lower() not in PORTABLE_TEXT_HASH_SUFFIXES:
+        return _sha256_file(path)
+    content = path.read_bytes().replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return hashlib.sha256(content).hexdigest()
+
+
 def validate_config_freeze(freeze: dict[str, Any]) -> dict[str, Any]:
     """Verify frozen retrieval code, development labels, sealed labels, and reranker bytes."""
     errors: list[dict[str, Any]] = []
     verified: list[str] = []
+    portable_text_hashes = freeze.get("portable_text_sha256", {})
+    if not isinstance(portable_text_hashes, dict):
+        errors.append({"code": "invalid_portable_text_hash_map"})
+        portable_text_hashes = {}
 
     def verify_relative_file(relative_path: Any, expected_sha256: Any, *, expected_bytes: Any = None) -> None:
         if not _non_empty_string(relative_path):
@@ -79,13 +92,20 @@ def validate_config_freeze(freeze: dict[str, Any]) -> dict[str, Any]:
                     "actual": path.stat().st_size,
                 }
             )
-        actual_sha256 = _sha256_file(path)
-        if actual_sha256 != expected_sha256:
+        portable_sha256 = portable_text_hashes.get(relative_path)
+        if portable_sha256 is not None and not (
+            isinstance(portable_sha256, str) and re.fullmatch(r"[0-9a-f]{64}", portable_sha256)
+        ):
+            errors.append({"code": "invalid_portable_text_sha256", "path": relative_path})
+            return
+        comparison_sha256 = portable_sha256 or expected_sha256
+        actual_sha256 = _sha256_frozen_file(path) if portable_sha256 else _sha256_file(path)
+        if actual_sha256 != comparison_sha256:
             errors.append(
                 {
                     "code": "frozen_file_sha256_mismatch",
                     "path": relative_path,
-                    "expected": expected_sha256,
+                    "expected": comparison_sha256,
                     "actual": actual_sha256,
                 }
             )
