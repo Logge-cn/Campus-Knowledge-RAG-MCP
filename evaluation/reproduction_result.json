@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "completed_at": "2026-08-14T00:57:59+08:00",
+  "completed_at": "2026-08-14T01:40:54+08:00",
   "worktree_branch": "codex/rag-production-readiness",
-  "frozen_commit": "89298fecaec50bdc4c608ffd3313fc91dd6caaed",
-  "release_manifest_commit": "ccd1e12",
+  "frozen_commit": "ac98ddf613ba89c0c47482e8a09a7ad0bb6a1c84",
+  "release_manifest_commit": "729dfcc3eaca0c4944758f3ce29198e0a5cc6dfc",
   "environment": {
     "platform": "Windows-11-10.0.26200-SP0",
     "processor": "AMD64 Family 25 Model 97 Stepping 2, AuthenticAMD",
@@ -13,20 +13,20 @@
   },
   "result": {
     "valid": true,
-    "duration_seconds": 1544.14,
+    "duration_seconds": 1628.15,
     "documents": 2,
     "pages": 393,
     "chunks": 731,
     "render_dpi": 160,
-    "tests_passed": 87,
+    "tests_passed": 90,
     "tests_failed": 0
   },
   "steps": [
-    {"id": "rebuild-index-from-pdfs", "passed": true, "duration_seconds": 1158.53},
-    {"id": "unit-tests", "passed": true, "duration_seconds": 43.21},
-    {"id": "evidence-development", "passed": true, "duration_seconds": 246.75},
-    {"id": "evidence-locked-no-answer", "passed": true, "duration_seconds": 60.77},
-    {"id": "runtime-benchmark", "passed": true, "duration_seconds": 34.88}
+    {"id": "rebuild-index-from-pdfs", "passed": true, "duration_seconds": 1237.17},
+    {"id": "unit-tests", "passed": true, "duration_seconds": 42.99},
+    {"id": "evidence-development", "passed": true, "duration_seconds": 247.29},
+    {"id": "evidence-locked-no-answer", "passed": true, "duration_seconds": 61.86},
+    {"id": "runtime-benchmark", "passed": true, "duration_seconds": 38.84}
   ],
   "evidence_development": {
     "answerable_cases": 90,
@@ -45,26 +45,34 @@
   },
   "runtime": {
     "index_bytes": 5817345,
-    "peak_working_set_mb": 1859.33,
-    "cold_initialization_ms": 8065.03,
-    "uncached_p50_ms": 2401.07,
-    "uncached_p95_ms": 3397.42,
-    "cached_p50_ms": 1.26,
-    "cached_p95_ms": 1.38,
-    "reranker_mean_ms": 2499.07
+    "peak_working_set_mb": 1861.54,
+    "cold_initialization_ms": 10156.27,
+    "uncached_p50_ms": 2526.14,
+    "uncached_p95_ms": 3430.72,
+    "cached_p50_ms": 1.29,
+    "cached_p95_ms": 1.5,
+    "reranker_mean_ms": 2675.54
+  },
+  "ingest_quality": {
+    "extraction_failures": 0,
+    "extraction_diagnostics": 1,
+    "low_confidence_pages": 0,
+    "quality_warnings": 347,
+    "passed": true
   },
   "artifact_sha256": {
-    "full_report": "9a7216e4e43bcc63f4011d8bba2c76b380ce0d731650eae425f861c75e3db746",
+    "full_report": "ae538b3a99341e1a3ad39f4dbf2a01b4f8af35de959748de04430a2969782db3",
     "evidence_development_report": "771832f1cf8e265d0f6a518e6e215d88dc8680c87f1d94969bf81f8820f84a55",
     "evidence_locked_report": "8d871f200983d97277b3d0126225c8b8e2f8b8d14a5703779fab1a902868c070",
-    "runtime_report": "8ec7f0cfe7adeed48f173c0f485c22e49c65c5146f9fa2a4d57810badba21de6",
-    "index_metadata": "e27be868c3cbe1e073993041a9d258da72238aba025b0492604e7f09ca44f94e",
-    "native_extraction_metadata": "efa6a5d5ce944db8a5c697f65775ca7f9076b59eb6b9e5ad777fca346b2d87f6",
-    "scanned_extraction_metadata": "8f2d7eb0a74016f2b7f749e4a30f3e293294df6d54679a3ca73808ef05ab7032"
+    "runtime_report": "9044bfc2e701d0f86c50c2483464008a50cc5a3abfaa58c8212285117a2d7848",
+    "index_metadata": "47bfbfd89bcdb2b020739fe2bedc48ad4a837b67910e9b363f794dffa2358a62",
+    "native_extraction_metadata": "381bee425122acb1db3e763c63994319e6178588fc4a51af3f7a768dfc695db0",
+    "scanned_extraction_metadata": "bb3226c932ee906b81297711a73bd2beab0907c70820f27800f61ef2497b088b"
   },
   "notes": [
     "The full report and detailed reports remain ignored generated artifacts; their SHA-256 values are recorded above.",
     "One Camelot stream candidate on native PDF page 55 was rejected by table quality checks; the page body was extracted and all release gates passed.",
+    "The 347 non-blocking heuristic warnings comprise 333 reading-order anomalies, 7 duplicate-line-ratio warnings and 7 short-text warnings; they are reported for review and are not extraction failures.",
     "A prior 300 DPI run exceeded 30 minutes at 23/30 OCR pages; its failed transaction preserved the previous index."
   ]
 }

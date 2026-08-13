@@ -115,7 +115,7 @@ uv run python evaluation/benchmark_runtime.py `
   --output evaluation/reports/runtime.json
 ```
 
-本机单并发基准（Windows 11、AMD64 24 逻辑处理器、Python 3.12.13、2 份文档/731 chunks）为：索引约 5.82 MB、进程峰值工作集约 1.86 GB、冷初始化 8.07 秒，非缓存查询 P50 2.40 秒、P95 3.40 秒，缓存查询 P50 1.26 毫秒、P95 1.38 毫秒。分阶段结果表明主要瓶颈是 reranker（平均 2.50 秒），不是 BM25 或向量召回。
+本机单并发基准（Windows 11、AMD64 24 逻辑处理器、Python 3.12.13、2 份文档/731 chunks）为：索引约 5.82 MB、进程峰值工作集约 1.86 GB、冷初始化 10.16 秒，非缓存查询 P50 2.53 秒、P95 3.43 秒，缓存查询 P50 1.29 毫秒、P95 1.50 毫秒。分阶段结果表明主要瓶颈是 reranker（平均 2.68 秒），不是 BM25 或向量召回。
 
 ## v2 检索基线
 
