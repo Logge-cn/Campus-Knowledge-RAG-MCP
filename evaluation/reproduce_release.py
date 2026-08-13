@@ -8,6 +8,7 @@ import json
 import os
 import subprocess
 import sys
+import time
 from pathlib import Path
 from typing import Any
 
@@ -92,6 +93,7 @@ def reproduce(
                     errors.append({"code": "release_manifest_invalid", "details": manifest_report["errors"]})
 
     steps = []
+    run_started = time.perf_counter()
     if execute and not errors:
         replacements = {
             "{python}": str(python.resolve()),
@@ -102,9 +104,21 @@ def reproduce(
         env["RAG_ASSET_ROOT"] = str(asset_root)
         for item in plan.get("steps", []):
             argv = expand_argv(item["argv"], replacements)
+            print(f"[reproduce] START {item['id']}", flush=True)
+            started = time.perf_counter()
             result = subprocess.run(argv, cwd=project_root, env=env, check=False)
-            step = {"id": item["id"], "returncode": result.returncode, "passed": result.returncode == 0}
+            step = {
+                "id": item["id"],
+                "returncode": result.returncode,
+                "passed": result.returncode == 0,
+                "duration_seconds": round(time.perf_counter() - started, 2),
+            }
             steps.append(step)
+            print(
+                f"[reproduce] {'PASS' if step['passed'] else 'FAIL'} {item['id']} "
+                f"({step['duration_seconds']:.2f}s)",
+                flush=True,
+            )
             if result.returncode != 0:
                 errors.append({"code": "reproduction_step_failed", **step})
                 break
@@ -113,6 +127,7 @@ def reproduce(
         "mode": "execute" if execute else "check",
         "release_manifest": manifest_report,
         "steps": steps,
+        "duration_seconds": round(time.perf_counter() - run_started, 2),
         "errors": errors,
     }
 

@@ -36,7 +36,7 @@
   "steps": [
     {
       "id": "rebuild-index-from-pdfs",
-      "argv": ["{python}", "src/ingest.py", "{asset_root}/data/南京邮电大学学生手册（2023版）+.pdf", "{asset_root}/data/奖学金细则.pdf", "--data-root", "{asset_root}/data"]
+      "argv": ["{python}", "src/ingest.py", "{asset_root}/data/南京邮电大学学生手册（2023版）+.pdf", "{asset_root}/data/奖学金细则.pdf", "--data-root", "{asset_root}/data", "--render-dpi", "160"]
     },
     {
       "id": "unit-tests",

@@ -69,6 +69,7 @@ def process(
     pages = []
     previous_text = ""
     for page_number, page in enumerate(document, 1):
+        print(f"[ocr] {relative_path.as_posix()}: page {page_number}/{len(document)}", flush=True)
         image_path = rendered_dir / f"page-{page_number:03d}.png"
         raw_path = raw_dir / f"page-{page_number:03d}_res.json"
         markdown_path = artifact_dir / "pages" / f"page-{page_number:03d}.md"

@@ -316,6 +316,8 @@ def process(pdf_path: Path, data_root: Path, output_root: Path) -> dict:
     imported_at = datetime.now(UTC).isoformat()
     pages: list[dict] = []
     for page_number, page in enumerate(document, 1):
+        if page_number == 1 or page_number % 25 == 0 or page_number == len(document):
+            print(f"[native] {relative_path.as_posix()}: page {page_number}/{len(document)}", flush=True)
         metrics = calculate_metrics(page)
         page_decision = decision(metrics)
         warnings = []

@@ -11,10 +11,26 @@ import numpy as np
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
-from retrieval.index import _artifacts_digest, _index_paths, _write_index_atomically
+from retrieval.index import _artifacts_digest, _index_paths, _source_records, _write_index_atomically
 
 
 class AtomicIndexTests(unittest.TestCase):
+    def test_staged_artifacts_publish_stable_paths(self):
+        with tempfile.TemporaryDirectory(dir=PROJECT_ROOT) as directory:
+            root = Path(directory)
+            staging = root / "staging"
+            published = root / "published"
+            page = staging / "document" / "pages" / "page-001.md"
+            page.parent.mkdir(parents=True)
+            page.write_text(
+                "---\nsource_file: document.pdf\npage: 1\nsource_type: pdf\n---\n\nevidence\n",
+                encoding="utf-8",
+            )
+
+            record = _source_records(staging, published)[0]
+
+            self.assertEqual(record["artifact_path"], f"{published.relative_to(PROJECT_ROOT).as_posix()}/document/pages/page-001.md")
+
     def test_artifact_digest_changes_with_indexable_content(self):
         with tempfile.TemporaryDirectory(dir=PROJECT_ROOT) as directory:
             root = Path(directory)

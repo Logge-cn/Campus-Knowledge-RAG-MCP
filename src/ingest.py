@@ -14,7 +14,13 @@ from typing import Any
 import pymupdf
 
 from retrieval import build_index
-from retrieval.config import DEFAULT_ARTIFACTS_ROOT, DEFAULT_INDEX_PATH, PROJECT_ROOT, inside_project
+from retrieval.config import (
+    DEFAULT_ARTIFACTS_ROOT,
+    DEFAULT_INDEX_PATH,
+    PROJECT_ROOT,
+    inside_project,
+    relative_asset_path,
+)
 
 
 def _sha256(path: Path) -> str:
@@ -56,6 +62,35 @@ def _load_manifest(artifacts_root: Path) -> dict[str, Any]:
     if payload.get("schema_version") != 1 or not isinstance(payload.get("documents"), list):
         raise ValueError(f"Invalid document manifest: {path}")
     return payload
+
+
+def _change_summary(existing: dict[str, Any], plans: list[dict[str, Any]]) -> dict[str, list[str]]:
+    records = {item["source_file"]: item for item in existing.get("documents", [])}
+    incoming = {plan["source_file"] for plan in plans}
+    added = sorted(source for source in incoming if source not in records)
+    modified = sorted(
+        plan["source_file"]
+        for plan in plans
+        if plan["source_file"] in records and records[plan["source_file"]].get("sha256") != plan["sha256"]
+    )
+    unchanged = sorted(incoming - set(added) - set(modified))
+    return {"added": added, "modified": modified, "unchanged": unchanged, "removed": []}
+
+
+def _quality_summary(extracted: list[dict[str, Any]]) -> dict[str, Any]:
+    pages = [page for document in extracted for page in document.get("pages", [])]
+    failures = sum(len(page.get("extraction_failures", [])) for page in pages)
+    low_confidence_pages = sum(
+        page.get("decision") == "ocr" and float(page.get("confidence", 0.0)) < 0.85 for page in pages
+    )
+    warnings = sum(len(page.get("quality_warnings", [])) for page in pages)
+    return {
+        "pages": len(pages),
+        "extraction_failures": failures,
+        "low_confidence_pages": low_confidence_pages,
+        "quality_warnings": warnings,
+        "passed": failures == 0 and low_confidence_pages == 0,
+    }
 
 
 def _promote_directories(pairs: list[tuple[Path, Path]], backup_root: Path) -> None:
@@ -122,14 +157,17 @@ def ingest_documents(
             }
         )
     public_plans = [{key: value for key, value in plan.items() if key not in {"path", "relative", "artifact_relative"}} for plan in plans]
+    existing_manifest = _load_manifest(artifacts_root) if artifacts_root.exists() else {"schema_version": 1, "documents": []}
+    changes = _change_summary(existing_manifest, plans)
     if dry_run:
-        return {"dry_run": True, "documents": public_plans, "index_rebuilt": False}
+        return {"dry_run": True, "documents": public_plans, "changes": changes, "index_rebuilt": False}
 
     storage_root = artifacts_root.parent
     storage_root.mkdir(parents=True, exist_ok=True)
     transaction_root = Path(tempfile.mkdtemp(prefix=".ingest-staging-", dir=storage_root))
     staging_artifacts = transaction_root / "artifacts"
     staging_index = transaction_root / "index"
+    extracted: list[dict[str, Any]] = []
     try:
         if artifacts_root.exists():
             shutil.copytree(artifacts_root, staging_artifacts)
@@ -140,9 +178,11 @@ def ingest_documents(
             if staged_document.exists():
                 shutil.rmtree(staged_document)
             if plan["source_type"] == "native":
-                native_process(plan["path"], data_root, staging_artifacts)
+                extracted.append(native_process(plan["path"], data_root, staging_artifacts))
             else:
-                scanned_process(plan["path"], data_root, staging_artifacts, render_dpi=render_dpi)
+                extracted.append(scanned_process(plan["path"], data_root, staging_artifacts, render_dpi=render_dpi))
+
+        quality = _quality_summary(extracted)
 
         manifest = _load_manifest(staging_artifacts)
         incoming_ids = {plan["document_id"] for plan in plans}
@@ -166,14 +206,27 @@ def ingest_documents(
             encoding="utf-8",
         )
         staged_index_path = staging_index / index_path.name
-        index_result = build_index(staging_artifacts, staged_index_path, force=True)
+        index_result = build_index(
+            staging_artifacts,
+            staged_index_path,
+            force=True,
+            published_artifacts_root=artifacts_root,
+        )
+        index_result["index_path"] = relative_asset_path(index_path).as_posix()
         _promote_directories(
             [(staging_artifacts, artifacts_root), (staging_index, index_path.parent)],
             transaction_root / "backup",
         )
     finally:
         shutil.rmtree(transaction_root, ignore_errors=True)
-    return {"dry_run": False, "documents": public_plans, "index_rebuilt": True, "index": index_result}
+    return {
+        "dry_run": False,
+        "documents": public_plans,
+        "changes": changes,
+        "quality": quality,
+        "index_rebuilt": True,
+        "index": index_result,
+    }
 
 
 def _parse_args() -> argparse.Namespace:

@@ -153,6 +153,7 @@ uv run python evaluation/reproduce_release.py `
 ```
 
 `--execute` 会更新所指定资产目录下的 `storage/`；需要保留现有运行索引时，应传入单独准备的资产目录。
+固定复现计划使用 160 DPI 重新 OCR 当前扫描 PDF，并输出原生 PDF 页级进度、OCR 页级进度和每个步骤耗时。日常高质量导入仍默认 300 DPI；如果目标硬件允许，也可以直接用 `src/ingest.py --render-dpi 300` 做更高成本的发布演练。
 
 ## 项目结构
 

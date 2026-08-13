@@ -67,8 +67,12 @@ def _frontmatter_and_content(path: Path) -> tuple[dict[str, str], str]:
     return metadata, content.strip()
 
 
-def _source_records(artifacts_root: Path) -> list[dict[str, Any]]:
+def _source_records(
+    artifacts_root: Path,
+    published_artifacts_root: Path | None = None,
+) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
+    published_artifacts_root = published_artifacts_root or artifacts_root
     seen_text: set[str] = set()
     manifest_path = artifacts_root / "documents.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.exists() else {"documents": []}
@@ -90,7 +94,9 @@ def _source_records(artifacts_root: Path) -> list[dict[str, Any]]:
                 "source_file": metadata.get("source_file", "unknown"),
                 "page": int(metadata.get("page", "0")),
                 "source_type": source_type,
-                "artifact_path": relative_asset_path(path).as_posix(),
+                "artifact_path": relative_asset_path(
+                    published_artifacts_root / path.relative_to(artifacts_root)
+                ).as_posix(),
                 "chunk_index": chunk_index,
                 "text": chunk,
             }
@@ -156,7 +162,13 @@ def _artifacts_digest(artifacts_root: Path) -> str:
     return digest.hexdigest()
 
 
-def _existing_summary(records: list[dict[str, Any]], artifacts_root: Path, index_path: Path) -> dict[str, Any] | None:
+def _existing_summary(
+    records: list[dict[str, Any]],
+    artifacts_root: Path,
+    index_path: Path,
+    published_artifacts_root: Path | None = None,
+) -> dict[str, Any] | None:
+    published_artifacts_root = published_artifacts_root or artifacts_root
     paths = _index_paths(index_path)
     if not all(path.exists() for path in paths.values()):
         return None
@@ -167,7 +179,7 @@ def _existing_summary(records: list[dict[str, Any]], artifacts_root: Path, index
         return None
     if (
         metadata.get("schema_version") != SCHEMA_VERSION
-        or metadata.get("artifacts_root") != relative_asset_path(artifacts_root).as_posix()
+        or metadata.get("artifacts_root") != relative_asset_path(published_artifacts_root).as_posix()
         or metadata.get("embedding_model") != EMBEDDING_MODEL
         or metadata.get("bm25_k1") != BM25_K1
         or metadata.get("bm25_b") != BM25_B
@@ -195,13 +207,17 @@ def build_index(
     index_path: Path = DEFAULT_INDEX_PATH,
     *,
     force: bool = False,
+    published_artifacts_root: Path | None = None,
 ) -> dict[str, Any]:
     artifacts_root = inside_project(artifacts_root)
+    published_artifacts_root = inside_project(published_artifacts_root or artifacts_root)
     paths = _index_paths(index_path)
-    records = _source_records(artifacts_root)
+    records = _source_records(artifacts_root, published_artifacts_root)
     if not records:
         raise ValueError(f"No extracted Markdown files found in {artifacts_root}")
-    if not force and (summary := _existing_summary(records, artifacts_root, index_path)) is not None:
+    if not force and (
+        summary := _existing_summary(records, artifacts_root, index_path, published_artifacts_root)
+    ) is not None:
         return summary
 
     bm25 = build_bm25(records)
@@ -211,7 +227,7 @@ def build_index(
     metadata = {
         "schema_version": SCHEMA_VERSION,
         "created_at": datetime.now(UTC).isoformat(),
-        "artifacts_root": relative_asset_path(artifacts_root).as_posix(),
+        "artifacts_root": relative_asset_path(published_artifacts_root).as_posix(),
         "chunk_size": CHUNK_SIZE,
         "chunk_target_tokens": CHUNK_TARGET_TOKENS,
         "chunk_overlap": CHUNK_OVERLAP,

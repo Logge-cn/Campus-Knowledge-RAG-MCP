@@ -52,6 +52,7 @@ class IngestTests(unittest.TestCase):
             )
 
             self.assertEqual(result["documents"][0]["source_type"], "native")
+            self.assertEqual(result["changes"]["added"], ["document.pdf"])
             self.assertFalse(artifacts_root.exists())
 
     def test_promotes_extraction_and_marks_old_version_inactive(self):
@@ -72,7 +73,8 @@ class IngestTests(unittest.TestCase):
                 (target / "metadata.json").write_text('{"pages": []}', encoding="utf-8")
                 return {"source_file": relative.as_posix(), "pages": []}
 
-            def fake_build(active_artifacts_root, active_index_path, force):
+            def fake_build(active_artifacts_root, active_index_path, force, published_artifacts_root):
+                self.assertEqual(published_artifacts_root, artifacts_root)
                 active_index_path.parent.mkdir(parents=True)
                 active_index_path.write_text('{"schema_version": 4}', encoding="utf-8")
                 return {"rebuilt": True}
@@ -102,6 +104,8 @@ class IngestTests(unittest.TestCase):
             self.assertFalse(records["rules-2023.pdf"]["active"])
             self.assertTrue(records["rules-2024.pdf"]["active"])
             self.assertEqual(result["documents"][0]["version"], "2024")
+            self.assertEqual(result["quality"]["pages"], 0)
+            self.assertTrue(result["quality"]["passed"])
             self.assertEqual(build.call_count, 2)
 
     def test_failed_index_build_keeps_previous_artifacts_and_index(self):
@@ -122,6 +126,7 @@ class IngestTests(unittest.TestCase):
                 target = output_root / pdf_path.relative_to(active_data_root).with_suffix("")
                 target.mkdir(parents=True)
                 (target / "metadata.json").write_text('{"pages": []}', encoding="utf-8")
+                return {"pages": []}
 
             with patch("ingest.native_process", side_effect=fake_process), patch(
                 "ingest.build_index", side_effect=RuntimeError("simulated build failure")
