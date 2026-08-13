@@ -27,6 +27,24 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def _tree_sha256(path: Path) -> str:
+    """Hash every file name and byte in a directory using a stable order."""
+    digest = hashlib.sha256()
+    files = sorted(
+        (item for item in path.rglob("*") if item.is_file()),
+        key=lambda item: item.relative_to(path).as_posix(),
+    )
+    for file_path in files:
+        relative = file_path.relative_to(path).as_posix().encode("utf-8")
+        digest.update(len(relative).to_bytes(4, "big"))
+        digest.update(relative)
+        digest.update(file_path.stat().st_size.to_bytes(8, "big"))
+        with file_path.open("rb") as stream:
+            for block in iter(lambda: stream.read(1024 * 1024), b""):
+                digest.update(block)
+    return digest.hexdigest()
+
+
 def check_prerequisites(
     prerequisites: list[dict[str, Any]],
     project_root: Path,
@@ -47,11 +65,17 @@ def check_prerequisites(
         except ValueError:
             errors.append({"code": "prerequisite_outside_root", "path": relative_path})
             continue
-        if not path.is_file():
+        kind = item.get("kind", "file")
+        if kind not in {"file", "tree"}:
+            errors.append({"code": "invalid_prerequisite_kind", "path": relative_path, "kind": kind})
+            continue
+        exists = path.is_file() if kind == "file" else path.is_dir()
+        if not exists:
             errors.append({"code": "missing_prerequisite", "root": root_name, "path": relative_path})
             continue
         expected = item.get("sha256")
-        if expected and _sha256(path) != expected:
+        actual = _sha256(path) if kind == "file" else _tree_sha256(path)
+        if expected and actual != expected:
             errors.append({"code": "prerequisite_sha256_mismatch", "root": root_name, "path": relative_path})
     return errors
 

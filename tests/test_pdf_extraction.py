@@ -1,7 +1,9 @@
 import json
+import os
 import sys
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 import fitz
 
@@ -18,8 +20,10 @@ from extraction.native_pdf import (
 )
 
 
-DATA = Path(__file__).parents[1] / "data"
-ARTIFACTS = Path(__file__).parents[1] / "storage" / "artifacts"
+PROJECT_ROOT = Path(__file__).parents[1]
+ASSET_ROOT = Path(os.environ.get("RAG_ASSET_ROOT", PROJECT_ROOT)).resolve()
+DATA = ASSET_ROOT / "data"
+ARTIFACTS = ASSET_ROOT / "storage" / "artifacts"
 
 
 def pdf_by_size(size: int) -> Path:
@@ -84,6 +88,27 @@ class NativePdfExtractionTests(unittest.TestCase):
         )
         self.assertTrue(plausible_stream_table(good))
         self.assertFalse(plausible_stream_table(prose))
+
+    @patch("extraction.native_pdf.page_may_contain_borderless_table", return_value=True)
+    @patch("extraction.native_pdf.camelot_candidates")
+    def test_rejected_stream_candidate_is_a_diagnostic_not_a_failure(self, candidates, _may_contain):
+        candidates.return_value = [
+            TableArtifact(
+                rows=[["普通正文"], ["不是表格"], ["仍是正文"]],
+                bbox=(0, 0, 100, 100),
+                method="camelot.stream",
+                score=0.9,
+                title="",
+            )
+        ]
+        failures = []
+        diagnostics = []
+
+        tables = detect_tables(self.manual_path, self.manual[0], 1, failures, diagnostics)
+
+        self.assertEqual(tables, [])
+        self.assertEqual(failures, [])
+        self.assertEqual(diagnostics, ["camelot.stream: candidates rejected by table quality checks"])
 
     def test_generated_artifacts_are_complete(self):
         entries = [(path.parent, json.loads(path.read_text(encoding="utf-8"))) for path in ARTIFACTS.glob("*/metadata.json")]

@@ -188,6 +188,7 @@ def detect_tables(
     page: fitz.Page,
     page_number: int,
     failures: list[str] | None = None,
+    diagnostics: list[str] | None = None,
 ) -> list[TableArtifact]:
     fitz.TOOLS.mupdf_display_errors(False)
     pymupdf_tables = page.find_tables().tables
@@ -227,8 +228,8 @@ def detect_tables(
         try:
             stream_candidates = camelot_candidates(pdf_path, page, page_number, "stream")
             selected = [table for table in stream_candidates if plausible_stream_table(table)]
-            if stream_candidates and not selected and failures is not None:
-                failures.append("camelot.stream: candidates rejected by table quality checks")
+            if stream_candidates and not selected and diagnostics is not None:
+                diagnostics.append("camelot.stream: candidates rejected by table quality checks")
         except Exception as error:
             if failures is not None:
                 failures.append(f"camelot.stream: {type(error).__name__}: {error}")
@@ -334,9 +335,16 @@ def process(pdf_path: Path, data_root: Path, output_root: Path) -> dict:
             "quality_warnings": warnings,
             "tables": [],
             "extraction_failures": [],
+            "extraction_diagnostics": [],
         }
         if page_decision == "native":
-            tables = detect_tables(pdf_path, page, page_number, page_record["extraction_failures"])
+            tables = detect_tables(
+                pdf_path,
+                page,
+                page_number,
+                page_record["extraction_failures"],
+                page_record["extraction_diagnostics"],
+            )
             text = native_text(page, tables)
             write_markdown(
                 artifact_dir / "pages" / f"page-{page_number:03d}.md",

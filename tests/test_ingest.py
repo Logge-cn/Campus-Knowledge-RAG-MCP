@@ -143,6 +143,39 @@ class IngestTests(unittest.TestCase):
             self.assertEqual(index_path.read_text(encoding="utf-8"), "old-index")
             self.assertFalse((artifacts_root / "new").exists())
 
+    def test_quality_gate_keeps_previous_artifacts_and_index(self):
+        with tempfile.TemporaryDirectory(dir=PROJECT_ROOT) as directory:
+            root = Path(directory)
+            data_root = root / "data"
+            artifacts_root = root / "storage" / "artifacts"
+            index_path = root / "storage" / "index" / "metadata.json"
+            data_root.mkdir()
+            artifacts_root.mkdir(parents=True)
+            index_path.parent.mkdir(parents=True)
+            (artifacts_root / "sentinel.txt").write_text("old-artifacts", encoding="utf-8")
+            index_path.write_text("old-index", encoding="utf-8")
+            pdf = data_root / "new.pdf"
+            self._pdf(pdf, "new rules " * 20)
+
+            def fake_process(pdf_path, active_data_root, output_root):
+                target = output_root / pdf_path.relative_to(active_data_root).with_suffix("")
+                target.mkdir(parents=True)
+                return {"pages": [{"decision": "native", "extraction_failures": ["broken table"]}]}
+
+            with patch("ingest.native_process", side_effect=fake_process), patch("ingest.build_index") as build:
+                with self.assertRaisesRegex(RuntimeError, "quality gate failed"):
+                    ingest_documents(
+                        [pdf],
+                        data_root=data_root,
+                        artifacts_root=artifacts_root,
+                        index_path=index_path,
+                    )
+
+            self.assertEqual((artifacts_root / "sentinel.txt").read_text(encoding="utf-8"), "old-artifacts")
+            self.assertEqual(index_path.read_text(encoding="utf-8"), "old-index")
+            self.assertFalse((artifacts_root / "new").exists())
+            build.assert_not_called()
+
     def test_document_id_is_unambiguous_for_batch_ingest(self):
         with self.assertRaisesRegex(ValueError, "one PDF"):
             ingest_documents(

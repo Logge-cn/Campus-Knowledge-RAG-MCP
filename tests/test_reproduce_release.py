@@ -8,7 +8,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from evaluation.reproduce_release import check_prerequisites, expand_argv, reproduce
+from evaluation.reproduce_release import _tree_sha256, check_prerequisites, expand_argv, reproduce
 
 
 class ReproduceReleaseTests(unittest.TestCase):
@@ -36,6 +36,32 @@ class ReproduceReleaseTests(unittest.TestCase):
             ]
 
             self.assertEqual(check_prerequisites(prerequisites, project, assets), [])
+
+    def test_checks_complete_model_directory(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            project = root / "project"
+            assets = root / "assets"
+            model = assets / "model"
+            project.mkdir()
+            model.mkdir(parents=True)
+            (model / "config.json").write_text("config", encoding="utf-8")
+            (model / "weights.bin").write_bytes(b"weights")
+            prerequisites = [
+                {
+                    "root": "assets",
+                    "path": "model",
+                    "kind": "tree",
+                    "sha256": _tree_sha256(model),
+                }
+            ]
+
+            self.assertEqual(check_prerequisites(prerequisites, project, assets), [])
+            (model / "config.json").write_text("changed", encoding="utf-8")
+            self.assertEqual(
+                check_prerequisites(prerequisites, project, assets)[0]["code"],
+                "prerequisite_sha256_mismatch",
+            )
 
     def test_check_mode_reports_hash_mismatch_without_running_steps(self):
         with tempfile.TemporaryDirectory() as temporary:

@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "completed_at": "2026-08-14T00:57:59+08:00",
+  "worktree_branch": "codex/rag-production-readiness",
+  "frozen_commit": "89298fecaec50bdc4c608ffd3313fc91dd6caaed",
+  "release_manifest_commit": "ccd1e12",
+  "environment": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "processor": "AMD64 Family 25 Model 97 Stepping 2, AuthenticAMD",
+    "logical_cpus": 24,
+    "python": "3.12.13",
+    "concurrency": 1
+  },
+  "result": {
+    "valid": true,
+    "duration_seconds": 1544.14,
+    "documents": 2,
+    "pages": 393,
+    "chunks": 731,
+    "render_dpi": 160,
+    "tests_passed": 87,
+    "tests_failed": 0
+  },
+  "steps": [
+    {"id": "rebuild-index-from-pdfs", "passed": true, "duration_seconds": 1158.53},
+    {"id": "unit-tests", "passed": true, "duration_seconds": 43.21},
+    {"id": "evidence-development", "passed": true, "duration_seconds": 246.75},
+    {"id": "evidence-locked-no-answer", "passed": true, "duration_seconds": 60.77},
+    {"id": "runtime-benchmark", "passed": true, "duration_seconds": 34.88}
+  ],
+  "evidence_development": {
+    "answerable_cases": 90,
+    "no_answer_cases": 10,
+    "false_refusals": 1,
+    "false_answers": 0,
+    "false_refusal_rate": 0.0111,
+    "false_answer_rate": 0.0,
+    "balanced_accuracy": 0.9944
+  },
+  "evidence_locked_no_answer": {
+    "cases": 20,
+    "false_answers": 0,
+    "false_answer_rate": 0.0,
+    "refusal_recall": 1.0
+  },
+  "runtime": {
+    "index_bytes": 5817345,
+    "peak_working_set_mb": 1859.33,
+    "cold_initialization_ms": 8065.03,
+    "uncached_p50_ms": 2401.07,
+    "uncached_p95_ms": 3397.42,
+    "cached_p50_ms": 1.26,
+    "cached_p95_ms": 1.38,
+    "reranker_mean_ms": 2499.07
+  },
+  "artifact_sha256": {
+    "full_report": "9a7216e4e43bcc63f4011d8bba2c76b380ce0d731650eae425f861c75e3db746",
+    "evidence_development_report": "771832f1cf8e265d0f6a518e6e215d88dc8680c87f1d94969bf81f8820f84a55",
+    "evidence_locked_report": "8d871f200983d97277b3d0126225c8b8e2f8b8d14a5703779fab1a902868c070",
+    "runtime_report": "8ec7f0cfe7adeed48f173c0f485c22e49c65c5146f9fa2a4d57810badba21de6",
+    "index_metadata": "e27be868c3cbe1e073993041a9d258da72238aba025b0492604e7f09ca44f94e",
+    "native_extraction_metadata": "efa6a5d5ce944db8a5c697f65775ca7f9076b59eb6b9e5ad777fca346b2d87f6",
+    "scanned_extraction_metadata": "8f2d7eb0a74016f2b7f749e4a30f3e293294df6d54679a3ca73808ef05ab7032"
+  },
+  "notes": [
+    "The full report and detailed reports remain ignored generated artifacts; their SHA-256 values are recorded above.",
+    "One Camelot stream candidate on native PDF page 55 was rejected by table quality checks; the page body was extracted and all release gates passed.",
+    "A prior 300 DPI run exceeded 30 minutes at 23/30 OCR pages; its failed transaction preserved the previous index."
+  ]
+}

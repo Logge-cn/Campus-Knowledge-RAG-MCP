@@ -39,7 +39,7 @@ uv run python src/ingest.py "data/制度-2026.pdf" `
   --effective-date 2026-09-01
 ```
 
-导入会在临时目录完成全部文档提取、版本清单和新索引构建，三者全部成功后才一起切换；任一步失败都会保留旧产物、旧版本清单和旧索引。首次建库失败也不会留下半套索引文件。
+导入会在临时目录完成全部文档提取、质量检查、版本清单和新索引构建，全部成功后才一起切换；任一步失败都会保留旧产物、旧版本清单和旧索引。真实提取失败或低置信 OCR 默认不能发布；只有经过人工复核并明确接受风险时，才应使用 `--allow-quality-failures`。首次建库失败也不会留下半套索引文件。
 
 ## 检索和 MCP
 
@@ -115,7 +115,7 @@ uv run python evaluation/benchmark_runtime.py `
   --output evaluation/reports/runtime.json
 ```
 
-本机单并发基准（Windows 11、AMD64 24 逻辑处理器、Python 3.12.13、2 份文档/731 chunks）为：索引约 5.74 MB、进程峰值工作集约 1.86 GB、冷初始化 8.70 秒，非缓存查询 P50 2.38 秒、P95 3.90 秒，缓存查询 P50 1.21 毫秒、P95 1.34 毫秒。分阶段结果表明主要瓶颈是 reranker（平均 2.63 秒），不是 BM25 或向量召回。
+本机单并发基准（Windows 11、AMD64 24 逻辑处理器、Python 3.12.13、2 份文档/731 chunks）为：索引约 5.82 MB、进程峰值工作集约 1.86 GB、冷初始化 8.07 秒，非缓存查询 P50 2.40 秒、P95 3.40 秒，缓存查询 P50 1.26 毫秒、P95 1.38 毫秒。分阶段结果表明主要瓶颈是 reranker（平均 2.50 秒），不是 BM25 或向量召回。
 
 ## v2 检索基线
 
@@ -140,7 +140,7 @@ uv run python evaluation/release_manifest.py verify evaluation/release_manifest.
 
 文本文件按 LF 归一化后计算哈希，二进制文件按原始字节计算；校验同时检查规范化大小。任何冻结输入变化都必须开启新的评测周期。
 
-单一复现入口会先校验发布清单、两份 PDF 和两个模型的 SHA-256，然后从 PDF 原子重建索引，依次运行测试、固定阈值证据评测和性能基准：
+单一复现入口会先校验发布清单、两份 PDF，以及 Embedding、reranker、OCR 检测和 OCR 识别四个完整模型目录的 SHA-256。目录哈希同时覆盖模型权重、配置和 tokenizer；随后从 PDF 原子重建索引，依次运行测试、固定阈值证据评测和性能基准：
 
 ```powershell
 uv run python evaluation/reproduce_release.py `
@@ -154,6 +154,8 @@ uv run python evaluation/reproduce_release.py `
 
 `--execute` 会更新所指定资产目录下的 `storage/`；需要保留现有运行索引时，应传入单独准备的资产目录。
 固定复现计划使用 160 DPI 重新 OCR 当前扫描 PDF，并输出原生 PDF 页级进度、OCR 页级进度和每个步骤耗时。日常高质量导入仍默认 300 DPI；如果目标硬件允许，也可以直接用 `src/ingest.py --render-dpi 300` 做更高成本的发布演练。
+
+当前周期的精简复现证据保存在 `evaluation/reproduction_result.json`；详细生成报告继续保持忽略，只在该文件中记录其 SHA-256。2026-08-14 的完整演练从两份 PDF 重建了 393 页、731 chunks，并通过测试、两组证据评测和性能基准。此前一次 300 DPI 演练在 30 分钟内完成 23/30 个 OCR 页面后超时，事务回滚成功且旧索引未被覆盖，因此 300 DPI 仍被视为本机 CPU 上的高成本模式。
 
 ## 项目结构
 

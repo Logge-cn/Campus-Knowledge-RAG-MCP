@@ -80,6 +80,7 @@ def _change_summary(existing: dict[str, Any], plans: list[dict[str, Any]]) -> di
 def _quality_summary(extracted: list[dict[str, Any]]) -> dict[str, Any]:
     pages = [page for document in extracted for page in document.get("pages", [])]
     failures = sum(len(page.get("extraction_failures", [])) for page in pages)
+    diagnostics = sum(len(page.get("extraction_diagnostics", [])) for page in pages)
     low_confidence_pages = sum(
         page.get("decision") == "ocr" and float(page.get("confidence", 0.0)) < 0.85 for page in pages
     )
@@ -87,6 +88,7 @@ def _quality_summary(extracted: list[dict[str, Any]]) -> dict[str, Any]:
     return {
         "pages": len(pages),
         "extraction_failures": failures,
+        "extraction_diagnostics": diagnostics,
         "low_confidence_pages": low_confidence_pages,
         "quality_warnings": warnings,
         "passed": failures == 0 and low_confidence_pages == 0,
@@ -128,6 +130,7 @@ def ingest_documents(
     effective_date: str | None = None,
     render_dpi: int = 300,
     dry_run: bool = False,
+    allow_quality_failures: bool = False,
 ) -> dict[str, Any]:
     if not pdf_paths:
         raise ValueError("At least one PDF is required")
@@ -183,6 +186,11 @@ def ingest_documents(
                 extracted.append(scanned_process(plan["path"], data_root, staging_artifacts, render_dpi=render_dpi))
 
         quality = _quality_summary(extracted)
+        if not quality["passed"] and not allow_quality_failures:
+            raise RuntimeError(
+                "Extraction quality gate failed; existing artifacts and index were preserved: "
+                + json.dumps(quality, ensure_ascii=False)
+            )
 
         manifest = _load_manifest(staging_artifacts)
         incoming_ids = {plan["document_id"] for plan in plans}
@@ -239,6 +247,11 @@ def _parse_args() -> argparse.Namespace:
     parser.add_argument("--effective-date", type=date.fromisoformat)
     parser.add_argument("--render-dpi", type=int, default=300)
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--allow-quality-failures",
+        action="store_true",
+        help="Publish despite extraction failures or low-confidence OCR pages",
+    )
     return parser.parse_args()
 
 
@@ -253,6 +266,7 @@ def main() -> None:
         effective_date=args.effective_date.isoformat() if args.effective_date else None,
         render_dpi=args.render_dpi,
         dry_run=args.dry_run,
+        allow_quality_failures=args.allow_quality_failures,
     )
     print(json.dumps(result, ensure_ascii=False, indent=2))
 

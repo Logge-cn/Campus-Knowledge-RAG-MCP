@@ -21,6 +21,9 @@ os.environ["PADDLE_PDX_CACHE_HOME"] = str(PADDLEX_CACHE_DIR)
 
 from paddleocr import PaddleOCR
 
+OCR_DETECTION_MODEL = "PP-OCRv6_medium_det"
+OCR_RECOGNITION_MODEL = "PP-OCRv6_medium_rec"
+
 
 def sha256(path: Path) -> str:
     digest = hashlib.sha256()
@@ -84,6 +87,8 @@ def process(
                     lang="ch",
                     device="cpu",
                     enable_mkldnn=False,
+                    text_detection_model_name=OCR_DETECTION_MODEL,
+                    text_recognition_model_name=OCR_RECOGNITION_MODEL,
                     use_doc_orientation_classify=False,
                     use_doc_unwarping=False,
                     use_textline_orientation=False,
@@ -132,6 +137,10 @@ def process(
         "file_sha256": source_sha256,
         "imported_at": imported_at,
         "extractor": "extraction/scanned_pdf.py",
+        "ocr_models": {
+            "text_detection": OCR_DETECTION_MODEL,
+            "text_recognition": OCR_RECOGNITION_MODEL,
+        },
         "render_dpi": render_dpi,
         "pages": pages,
     }
