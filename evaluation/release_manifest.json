@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "created_at": "2026-08-13T15:49:47.731047+00:00",
-  "commit": "24932134c5211e18b0701822bf21ec58f0a67f63",
+  "created_at": "2026-08-13T16:32:01.631288+00:00",
+  "commit": "89298fecaec50bdc4c608ffd3313fc91dd6caaed",
   "hash_policy": "LF-normalized UTF-8-compatible text; raw bytes for binary files",
   "files": {
     ".codex/config.toml": {
@@ -20,13 +20,13 @@
       "portable_text": true
     },
     "README.md": {
-      "sha256": "8674f2d2231607aae5c4193be9da8af8fb2b670b6de5238ce941df321a66259e",
-      "bytes": 7687,
+      "sha256": "9d0242d781ddbf053a1968e7674e58b5950f084060ba10d11bece87360d4dcb0",
+      "bytes": 7979,
       "portable_text": true
     },
     "docs/RAG_ISSUES_AND_SOLUTIONS.md": {
-      "sha256": "40e27f5fe94fbdcf3a2216d69dc314c87481e5c9c173a4602ad02c85dec15464",
-      "bytes": 25146,
+      "sha256": "3ac087915d338c846f152376e7098b76374f3be2d0c7bc441d9ff8354cf24155",
+      "bytes": 25361,
       "portable_text": true
     },
     "evaluation/answer_prediction_template.json": {
@@ -150,13 +150,13 @@
       "portable_text": true
     },
     "evaluation/reproduce_release.py": {
-      "sha256": "ea8af07c83e3fe959772f3b9f9586d47f3002162ff7cd91d350b83df228d6ec4",
-      "bytes": 5345,
+      "sha256": "9af3e1ce5a21799ee517bf3a184cae772634cc893f9dddd758c257996e13f224",
+      "bytes": 5914,
       "portable_text": true
     },
     "evaluation/reproduction_plan.json": {
-      "sha256": "322c86cee6655eff9687bb7352a010daa403c80ff64ff6e5da4cccdce948a38e",
-      "bytes": 2581,
+      "sha256": "9d6afc4777258b4007ba89825227d9c5b4f0c6f0710cbcfb54957e5a12695f62",
+      "bytes": 2604,
       "portable_text": true
     },
     "evaluation/test_case_template.json": {
@@ -185,18 +185,18 @@
       "portable_text": true
     },
     "src/extraction/native_pdf.py": {
-      "sha256": "c7b070844821e128e54b3172c42d30db9a1be10d64cf80027a5a85b1662672b1",
-      "bytes": 17049,
+      "sha256": "a258c9bd64b0ac0eb19c974c42e9a8f7384b405e31a8bc6aef0fc5fa876a9fa0",
+      "bytes": 17241,
       "portable_text": true
     },
     "src/extraction/scanned_pdf.py": {
-      "sha256": "8969b1dc76c7de9363fd2d7e2501dd44ee0388b23c72e4369fdfe19b2ad66dd6",
-      "bytes": 6119,
+      "sha256": "e117dfaba38d855c7f04b564625a46d644cc5997ac6521ce9ee41c0b27b67cc2",
+      "bytes": 6218,
       "portable_text": true
     },
     "src/ingest.py": {
-      "sha256": "82905aaf1fb12ffd03788c69b6b335866b3088c1adfe7f4a86e5fb53c88cab19",
-      "bytes": 8093,
+      "sha256": "a43579285632e2c503bf9ae93f4d8e75237952a535fbdf6335fb68ef242dd1e5",
+      "bytes": 10094,
       "portable_text": true
     },
     "src/mcp_server.py": {
@@ -245,8 +245,8 @@
       "portable_text": true
     },
     "src/retrieval/index.py": {
-      "sha256": "13f89401690de120df311b424ddd5f737c4dddcab0d231fee0d7c6c5a2186dc5",
-      "bytes": 14851,
+      "sha256": "1f87ca0da68ddf2a8a8e5e76ccc19b25332d0c7195428e68a31c541f58782f99",
+      "bytes": 15440,
       "portable_text": true
     },
     "src/retrieval/query_expansion.py": {
@@ -295,13 +295,13 @@
       "portable_text": true
     },
     "tests/test_index_atomic.py": {
-      "sha256": "273683af201cd955f0fb291c7690b96ce6d5c22798051a23602fe57ed4bb7e69",
-      "bytes": 3987,
+      "sha256": "8f90f6859564480916f93dc422a05c2f3936167f1540ecaa180999cb54da97cc",
+      "bytes": 4732,
       "portable_text": true
     },
     "tests/test_ingest.py": {
-      "sha256": "d7bf26edeab07697ce19cdfe87f15c07f3f4ab5f26a35dbb7ef748460c026925",
-      "bytes": 6451,
+      "sha256": "989debd795fb810f18c8a888bd0a6c50b2763a4708ca0edf132fa1a5b4dc5453",
+      "bytes": 6781,
       "portable_text": true
     },
     "tests/test_pdf_extraction.py": {
