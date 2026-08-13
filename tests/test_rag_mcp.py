@@ -41,7 +41,12 @@ class RAGMCPTests(unittest.TestCase):
                     self.assertEqual(payload["query"], "奖学金")
                     self.assertTrue(payload["results"])
                     self.assertTrue(all("page" in result for result in payload["results"]))
-                    self.assertTrue(all(result["score_type"] == "cross_encoder_rrf_blend" for result in payload["results"]))
+                    self.assertTrue(
+                        all(
+                            result["score_type"] == "cross_encoder_rank_rrf_blend"
+                            for result in payload["results"]
+                        )
+                    )
                     self.assertTrue(all("reranker_score" in result for result in payload["results"]))
                     self.assertTrue(all(result["matched_by"] for result in payload["results"]))
 

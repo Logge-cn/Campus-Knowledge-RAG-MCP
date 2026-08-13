@@ -9,9 +9,50 @@ from evaluation.evaluate import (
     _refusal_metrics,
     _top1_diagnostics,
 )
+from evaluation.experiment_reranker_grid import relevant_rank as grid_relevant_rank
+from evaluation.compare_retrieval_strategies import _baseline_rerank_from_scores, _metric_delta
 
 
 class EvaluationMetricsTests(unittest.TestCase):
+    def test_frozen_baseline_reranker_reproduces_raw_score_plus_rrf_prior(self):
+        candidates = [
+            {"record_index": 0, "score": 0.4},
+            {"record_index": 1, "score": 0.2},
+        ]
+
+        result = _baseline_rerank_from_scores(candidates, [0.5, 0.54])
+
+        self.assertEqual([item["record_index"] for item in result], [0, 1])
+        self.assertAlmostEqual(result[0]["score"], 0.55)
+        self.assertAlmostEqual(result[1]["score"], 0.54)
+
+    def test_strategy_comparison_reports_optimized_minus_baseline(self):
+        baseline = {
+            "recall_at_1": 0.5,
+            "recall_at_3": 0.7,
+            "recall_at_5": 0.9,
+            "mrr_at_5": 0.65,
+            "ndcg_at_5": 0.6,
+        }
+        optimized = {
+            "recall_at_1": 0.6,
+            "recall_at_3": 0.75,
+            "recall_at_5": 0.9,
+            "mrr_at_5": 0.7,
+            "ndcg_at_5": 0.64,
+        }
+
+        self.assertEqual(
+            _metric_delta(baseline, optimized),
+            {
+                "recall_at_1": 0.1,
+                "recall_at_3": 0.05,
+                "recall_at_5": 0.0,
+                "mrr_at_5": 0.05,
+                "ndcg_at_5": 0.04,
+            },
+        )
+
     def test_chunk_labels_take_precedence_over_page_labels(self):
         case = {
             "source_file": "guide.pdf",
@@ -21,6 +62,19 @@ class EvaluationMetricsTests(unittest.TestCase):
 
         self.assertFalse(_is_relevant(case, {"chunk_id": "other", "source_file": "guide.pdf", "page": 1}))
         self.assertTrue(_is_relevant(case, {"chunk_id": "target", "source_file": "guide.pdf", "page": 2}))
+
+    def test_reranker_grid_uses_exact_chunk_labels_when_available(self):
+        case = {
+            "source_file": "guide.pdf",
+            "pages": [1],
+            "relevant_chunk_ids": ["target"],
+        }
+        chunks = [
+            {"chunk_id": "same-page-noise", "source_file": "guide.pdf", "page": 1},
+            {"chunk_id": "target", "source_file": "guide.pdf", "page": 2},
+        ]
+
+        self.assertEqual(grid_relevant_rank(case, [0, 1], chunks), 2)
 
     def test_metrics_report_recall_at_1_3_5_and_mrr_at_5(self):
         cases = [
