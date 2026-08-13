@@ -3,5 +3,9 @@ command = "E:\\logge\\Projects\\rag\\.venv\\Scripts\\python.exe"
 args = ["src/mcp_server.py"]
 cwd = "E:\\logge\\Projects\\rag"
 
+[mcp_servers.njupt-rag.env]
+PYTHONUTF8 = "1"
+PYTHONIOENCODING = "utf-8"
+
 [mcp_servers.njupt-rag.tools.search_knowledge_base]
 approval_mode = "approve"
