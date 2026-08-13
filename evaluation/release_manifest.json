@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "created_at": "2026-08-13T17:12:44.821225+00:00",
-  "commit": "ac98ddf613ba89c0c47482e8a09a7ad0bb6a1c84",
+  "created_at": "2026-08-13T17:43:42.627013+00:00",
+  "commit": "8cbdeb53f975aec9995bc3dc359c622022eb2858",
   "hash_policy": "LF-normalized UTF-8-compatible text; raw bytes for binary files",
   "files": {
     ".codex/config.toml": {
@@ -20,13 +20,13 @@
       "portable_text": true
     },
     "README.md": {
-      "sha256": "9df7d3acc87af4599440494eeaebc148fb9c775bef7391a85671e86af773fc44",
-      "bytes": 8741,
+      "sha256": "ddf0f9e02b39bf933c7d5caf4a3bb226d021a1fb0d71fb4f0c3de43665026e06",
+      "bytes": 8742,
       "portable_text": true
     },
     "docs/RAG_ISSUES_AND_SOLUTIONS.md": {
-      "sha256": "802b86cf61148eb04578457c5c9e7508ae43cdda302bdbeac3600031af8fc85e",
-      "bytes": 26175,
+      "sha256": "1c8a6fcdebe2a40e05bee02996e940ef455d51fc4f14f84ba32e7111fcc7357c",
+      "bytes": 26425,
       "portable_text": true
     },
     "evaluation/answer_prediction_template.json": {
@@ -160,8 +160,8 @@
       "portable_text": true
     },
     "evaluation/reproduction_result.json": {
-      "sha256": "3ed0434450fa15e91ce38f8d3cfa52e55459b64e8c68b8cf0c278a7a9eac19cc",
-      "bytes": 2800,
+      "sha256": "1f3932406430487c63948b9a9f3b6e4b3719679f0a08552509b020ee34966661",
+      "bytes": 3208,
       "portable_text": true
     },
     "evaluation/test_case_template.json": {
