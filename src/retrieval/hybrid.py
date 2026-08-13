@@ -14,6 +14,10 @@ from retrieval.config import (
     PROJECT_ROOT,
     RERANK_CANDIDATE_LIMIT,
     RERANKER_MODEL,
+    RERANK_RRF_PRIOR_METHOD,
+    RERANK_RRF_PRIOR_WEIGHT,
+    RERANK_SCORE_NORMALIZATION,
+    RERANK_TOP5_PROTECTION_SCORE,
     RRF_BM25_WEIGHT,
     RRF_K,
     RRF_VECTOR_WEIGHT,
@@ -80,7 +84,7 @@ def search(query: str, limit: int = 5, index_path: Path = DEFAULT_INDEX_PATH) ->
         record = index["chunks"][item["record_index"]]
         result = {
                 "score": round(item["score"], 6),
-                "score_type": "cross_encoder_rrf_blend",
+                "score_type": "cross_encoder_rank_rrf_blend",
                 "reranker_score": round(item["reranker_score"], 6),
                 "rrf_score": round(item["rrf_score"], 6),
                 "retrieval_rank": item["retrieval_rank"],
@@ -138,4 +142,8 @@ def status(index_path: Path = DEFAULT_INDEX_PATH) -> dict[str, Any]:
         "rrf_vector_weight": metadata["rrf_vector_weight"],
         "reranker_model": RERANKER_MODEL,
         "rerank_candidate_limit": RERANK_CANDIDATE_LIMIT,
+        "rerank_score_normalization": RERANK_SCORE_NORMALIZATION,
+        "rerank_rrf_prior_method": RERANK_RRF_PRIOR_METHOD,
+        "rerank_rrf_prior_weight": RERANK_RRF_PRIOR_WEIGHT,
+        "rerank_top5_protection_score": RERANK_TOP5_PROTECTION_SCORE,
     }

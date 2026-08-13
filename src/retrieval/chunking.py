@@ -178,6 +178,48 @@ def split_table_chunks(
     return chunks
 
 
+def _markdown_cells(line: str) -> list[str]:
+    stripped = line.strip().strip("|")
+    return [cell.replace(r"\|", "|").strip() for cell in re.split(r"(?<!\\)\|", stripped)]
+
+
+def table_retrieval_text(text: str, max_tokens: int = CHUNK_MAX_TOKENS) -> str:
+    """Convert a Markdown table chunk into compact field-value text for retrieval."""
+    lines = [line.rstrip() for line in text.strip().splitlines()]
+    separator_index = next(
+        (
+            index
+            for index, line in enumerate(lines)
+            if index > 0
+            and line.lstrip().startswith("|")
+            and re.fullmatch(r"\s*\|(?:\s*:?-+:?\s*\|)+\s*", line)
+            and lines[index - 1].lstrip().startswith("|")
+        ),
+        None,
+    )
+    if separator_index is None:
+        return re.sub(r"\s+", " ", text).strip()
+
+    title_lines = [re.sub(r"^#+\s*", "", line).strip() for line in lines[: separator_index - 1]]
+    title = " ".join(line for line in title_lines if line)
+    headers = _markdown_cells(lines[separator_index - 1])
+    rows = [_markdown_cells(line) for line in lines[separator_index + 1 :] if line.lstrip().startswith("|")]
+
+    output = []
+    if title:
+        output.append(f"表名：{title}")
+    output.append(f"字段：{'、'.join(header for header in headers if header)}")
+    for row in rows:
+        padded = row + [""] * (len(headers) - len(row))
+        fields = [f"{header}：{value}" for header, value in zip(headers, padded) if header and value]
+        if fields:
+            output.append("；".join(fields))
+    semantic_text = "\n".join(output)
+    if token_count(semantic_text) <= max_tokens:
+        return semantic_text
+    return text
+
+
 def tokenize(text: str) -> list[str]:
     raw_tokens = re.findall(r"[\u4e00-\u9fff]|[A-Za-z0-9]+(?:[._/-][A-Za-z0-9]+)*", text.lower())
     chinese = [token for token in raw_tokens if len(token) == 1 and "\u4e00" <= token <= "\u9fff"]

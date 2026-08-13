@@ -514,7 +514,7 @@ def main() -> None:
                     for method, indices in method_candidates.items()
                 },
                 "ranks": ranks,
-                "top_reranker_score": reranked[0]["score"] if reranked else None,
+                "top_reranker_score": reranked[0]["reranker_score"] if reranked else None,
             }
         )
 

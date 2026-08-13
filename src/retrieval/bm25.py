@@ -14,7 +14,7 @@ def build_bm25(records: list[dict[str, Any]]) -> dict[str, Any]:
     document_frequency: Counter[str] = Counter()
     document_lengths: list[int] = []
     for record in records:
-        counts = Counter(tokenize(record["text"]))
+        counts = Counter(tokenize(record.get("retrieval_text", record["text"])))
         term_frequencies.append(dict(counts))
         document_frequency.update(counts.keys())
         document_lengths.append(sum(counts.values()))

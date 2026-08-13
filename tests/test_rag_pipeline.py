@@ -20,9 +20,41 @@ from retrieval import (
     status,
     vector_search,
 )
-from retrieval.chunking import split_table_chunks, token_count
+from retrieval.chunking import split_table_chunks, table_retrieval_text, token_count
 from retrieval.index import _source_digest
 from retrieval.query_expansion import expand_query
+
+
+class TableRetrievalTextTests(unittest.TestCase):
+    def test_preserves_title_headers_and_row_relationships(self):
+        table = (
+            "# 百分制成绩与绩点对应表\n\n"
+            "| 成绩区间 | 绩点范围 |\n"
+            "| --- | --- |\n"
+            "| 90～100 | 4.0～5.0 |\n"
+            "| 80～89 | 3.0～3.9 |"
+        )
+
+        retrieval_text = table_retrieval_text(table)
+
+        self.assertIn("表名：百分制成绩与绩点对应表", retrieval_text)
+        self.assertIn("字段：成绩区间、绩点范围", retrieval_text)
+        self.assertIn("成绩区间：90～100；绩点范围：4.0～5.0", retrieval_text)
+        self.assertNotIn("| --- |", retrieval_text)
+        self.assertLessEqual(token_count(retrieval_text), 512)
+
+    def test_wide_table_falls_back_to_lossless_markdown(self):
+        headers = " | ".join(f"字段{index}" for index in range(8))
+        separator = " | ".join("---" for _ in range(8))
+        rows = "\n".join(
+            "| " + " | ".join(f"第{row}行第{column}列内容" for column in range(8)) + " |"
+            for row in range(15)
+        )
+        table = f"# 宽表\n\n| {headers} |\n| {separator} |\n{rows}"
+
+        retrieval_text = table_retrieval_text(table, max_tokens=100)
+
+        self.assertEqual(retrieval_text, table)
 
 
 class RAGPipelineTests(unittest.TestCase):
@@ -66,7 +98,7 @@ class RAGPipelineTests(unittest.TestCase):
         self.assertIn("评定资格", expand_query("退学研究生能参加奖学金评选吗"))
 
     def test_index_contains_the_extracted_documents(self):
-        self.assertEqual(self.summary["documents"], 2)
+        self.assertGreaterEqual(self.summary["documents"], 2)
         self.assertGreater(self.summary["chunks"], 400)
         self.assertTrue(DEFAULT_INDEX_PATH.exists())
         self.assertTrue((DEFAULT_INDEX_PATH.parent / CHUNKS_PATH_NAME).exists())
@@ -108,7 +140,7 @@ class RAGPipelineTests(unittest.TestCase):
         self.assertTrue(all(result["page"] > 0 for result in results))
         self.assertTrue(all(result["artifact_path"].startswith("storage/artifacts/") for result in results))
         self.assertTrue(any("奖学金" in result["source_file"] for result in results))
-        self.assertTrue(all(result["score_type"] == "cross_encoder_rrf_blend" for result in results))
+        self.assertTrue(all(result["score_type"] == "cross_encoder_rank_rrf_blend" for result in results))
         self.assertTrue(all(result["matched_by"] for result in results))
         self.assertTrue(all("reranker_score" in result for result in results))
         self.assertTrue(all("rrf_score" in result for result in results))

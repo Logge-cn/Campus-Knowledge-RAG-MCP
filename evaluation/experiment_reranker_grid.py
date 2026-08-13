@@ -18,18 +18,20 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from retrieval import bm25_search, load_index, rrf_fuse, vector_search
-from retrieval.config import RRF_BM25_WEIGHT, RRF_K, RRF_VECTOR_WEIGHT
+from retrieval.config import RERANK_BATCH_SIZE, RRF_BM25_WEIGHT, RRF_K, RRF_VECTOR_WEIGHT
 from retrieval.query_expansion import expand_query
-from retrieval.reranker import load_reranker
+from retrieval.reranker import load_reranker, protect_hybrid_top_five
 
 
-DATASET_PATH = PROJECT_ROOT / "evaluation" / "dataset.json"
 REPORTS_ROOT = PROJECT_ROOT / "evaluation" / "reports"
 TOP_K = 5
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--dataset", type=Path, action="append")
+    parser.add_argument("--index-path", type=Path)
+    parser.add_argument("--name", default="development")
     parser.add_argument("--candidate-limit", type=int, default=20)
     parser.add_argument("--channel-limit", type=int, default=20)
     parser.add_argument("--input-variant", choices=("plain", "source"), default="plain")
@@ -54,17 +56,38 @@ def sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def dataset_paths(args: argparse.Namespace) -> list[Path]:
+    return args.dataset or [PROJECT_ROOT / "evaluation" / "dataset.json"]
+
+
+def load_cases(args: argparse.Namespace) -> list[dict[str, Any]]:
+    return [
+        case
+        for path in dataset_paths(args)
+        for case in json.loads(path.read_text(encoding="utf-8"))
+        if case["source_file"] is not None
+    ]
+
+
+def dataset_sha256(args: argparse.Namespace) -> str:
+    digest = hashlib.sha256()
+    for path in dataset_paths(args):
+        digest.update(path.resolve().as_posix().encode("utf-8"))
+        digest.update(path.read_bytes())
+    return digest.hexdigest()
+
+
 def cache_path(args: argparse.Namespace) -> Path:
     query_suffix = "" if args.query_variant == "plain" else f"-q{args.query_variant}"
     return REPORTS_ROOT / (
-        f"reranker-cache-{args.input_variant}{query_suffix}-c{args.candidate_limit}-r{args.channel_limit}.json"
+        f"reranker-cache-{args.name}-{args.input_variant}{query_suffix}-c{args.candidate_limit}-r{args.channel_limit}.json"
     )
 
 
 def report_path(args: argparse.Namespace) -> Path:
     query_suffix = "" if args.query_variant == "plain" else f"-q{args.query_variant}"
     return REPORTS_ROOT / (
-        f"reranker-grid-{args.input_variant}{query_suffix}-c{args.candidate_limit}-r{args.channel_limit}.json"
+        f"reranker-grid-{args.name}-{args.input_variant}{query_suffix}-c{args.candidate_limit}-r{args.channel_limit}.json"
     )
 
 
@@ -81,8 +104,8 @@ def input_text(record: dict[str, Any], variant: str) -> str:
 def build_cache(args: argparse.Namespace) -> dict[str, Any]:
     if args.candidate_limit > args.channel_limit * 2:
         raise ValueError("candidate-limit cannot exceed the union of both channels")
-    cases = json.loads(DATASET_PATH.read_text(encoding="utf-8"))
-    index = load_index()
+    cases = load_cases(args)
+    index = load_index(args.index_path) if args.index_path else load_index()
     chunks = index["chunks"]
     model = load_reranker()
     entries = []
@@ -99,7 +122,7 @@ def build_cache(args: argparse.Namespace) -> dict[str, Any]:
         )
         reranker_query = expand_query(case["query"]) if args.query_variant == "expanded" else case["query"]
         pairs = [(reranker_query, input_text(chunks[item["record_index"]], args.input_variant)) for item in fused]
-        scores = model.predict(pairs, show_progress_bar=False).tolist()
+        scores = model.predict(pairs, batch_size=RERANK_BATCH_SIZE, show_progress_bar=False).tolist()
         if len(scores) != len(fused):
             raise ValueError(f"Reranker returned {len(scores)} scores for {len(fused)} candidates")
         entries.append(
@@ -120,7 +143,8 @@ def build_cache(args: argparse.Namespace) -> dict[str, Any]:
         print(f"scored {case_index}/{len(cases)}", flush=True)
     cache = {
         "metadata": {
-            "dataset_sha256": sha256(DATASET_PATH),
+            "dataset_sha256": dataset_sha256(args),
+            "datasets": [path.resolve().as_posix() for path in dataset_paths(args)],
             "index_source_digest": index["metadata"]["source_digest"],
             "candidate_limit": args.candidate_limit,
             "channel_limit": args.channel_limit,
@@ -142,11 +166,11 @@ def load_cache(args: argparse.Namespace) -> dict[str, Any]:
     if args.rebuild_cache or not path.exists():
         return build_cache(args)
     cache = json.loads(path.read_text(encoding="utf-8"))
-    if cache["metadata"]["dataset_sha256"] != sha256(DATASET_PATH):
-        cases = json.loads(DATASET_PATH.read_text(encoding="utf-8"))
+    if cache["metadata"]["dataset_sha256"] != dataset_sha256(args):
+        cases = load_cases(args)
         if [entry["query"] for entry in cache["entries"]] != [case["query"] for case in cases]:
             raise ValueError("Dataset queries changed; rebuild the reranker cache")
-    index = load_index()
+    index = load_index(args.index_path) if args.index_path else load_index()
     if cache["metadata"]["index_source_digest"] != index["metadata"]["source_digest"]:
         raise ValueError("Index changed; rebuild the reranker cache")
     return cache
@@ -217,8 +241,12 @@ def relevant_rank(case: dict[str, Any], ranking: list[int], chunks: list[dict[st
         (
             rank
             for rank, record_index in enumerate(ranking, 1)
-            if chunks[record_index]["source_file"] == case["source_file"]
-            and chunks[record_index]["page"] in case["pages"]
+            if (
+                chunks[record_index]["chunk_id"] in case["relevant_chunk_ids"]
+                if case.get("relevant_chunk_ids")
+                else chunks[record_index]["source_file"] == case["source_file"]
+                and chunks[record_index]["page"] in case["pages"]
+            )
         ),
         None,
     )
@@ -238,8 +266,8 @@ def metrics(ranks: list[int | None]) -> dict[str, float | int]:
 
 
 def evaluate(cache: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
-    cases = json.loads(DATASET_PATH.read_text(encoding="utf-8"))
-    index = load_index()
+    cases = load_cases(args)
+    index = load_index(args.index_path) if args.index_path else load_index()
     chunks = index["chunks"]
     answerable = [index for index, case in enumerate(cases) if case["source_file"] is not None]
     source_types: dict[str, str] = {}
@@ -259,6 +287,19 @@ def evaluate(cache: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
                 )
                 for case_index in range(len(cases))
             ]
+            rankings = [
+                protect_hybrid_top_five(
+                    cases[case_index]["query"],
+                    [item["record_index"] for item in cache["entries"][case_index]["candidates"]],
+                    ranking,
+                    chunks,
+                    {
+                        item["record_index"]: item["reranker_score"]
+                        for item in cache["entries"][case_index]["candidates"]
+                    },
+                )
+                for case_index, ranking in enumerate(rankings)
+            ]
             ranks = {
                 case_index: relevant_rank(cases[case_index], rankings[case_index], chunks)
                 for case_index in answerable
@@ -270,6 +311,9 @@ def evaluate(cache: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
                 groups["overall"].append(rank)
                 groups[f"category:{case['category']}"] .append(rank)
                 groups[f"source_type:{source_types[case['source_file']]}"] .append(rank)
+                groups[
+                    "label_type:exact_chunk" if case.get("relevant_chunk_ids") else "label_type:page_fallback"
+                ].append(rank)
             hybrid_ranks = {
                 case_index: relevant_rank(
                     cases[case_index],
@@ -319,6 +363,19 @@ def evaluate(cache: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
         )
         for entry in cache["entries"]
     ]
+    best_rankings = [
+        protect_hybrid_top_five(
+            cases[case_index]["query"],
+            [item["record_index"] for item in cache["entries"][case_index]["candidates"]],
+            ranking,
+            chunks,
+            {
+                item["record_index"]: item["reranker_score"]
+                for item in cache["entries"][case_index]["candidates"]
+            },
+        )
+        for case_index, ranking in enumerate(best_rankings)
+    ]
     best_details = [
         {
             "id": cases[case_index].get("id"),
@@ -337,7 +394,7 @@ def evaluate(cache: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
     ]
     report = {
         "cache_metadata": cache["metadata"],
-        "evaluation_dataset_sha256": sha256(DATASET_PATH),
+        "evaluation_dataset_sha256": dataset_sha256(args),
         "configurations": configurations,
         "best_details": best_details,
     }

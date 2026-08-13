@@ -10,7 +10,7 @@ from typing import Any
 import numpy as np
 
 from retrieval.bm25 import build_bm25
-from retrieval.chunking import split_chunks, split_table_chunks
+from retrieval.chunking import split_chunks, split_table_chunks, table_retrieval_text
 from retrieval.config import (
     BM25_B,
     BM25_K1,
@@ -84,6 +84,8 @@ def _source_records(artifacts_root: Path) -> list[dict[str, Any]]:
                 "chunk_index": chunk_index,
                 "text": chunk,
             }
+            if source_type == "table":
+                record["retrieval_text"] = table_retrieval_text(chunk)
             for key in (
                 "source_sha256",
                 "content_sha256",
