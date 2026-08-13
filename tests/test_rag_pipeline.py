@@ -1,6 +1,9 @@
 import sys
 import unittest
 from pathlib import Path
+from unittest.mock import patch
+
+import numpy as np
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -15,14 +18,18 @@ from retrieval import (
     build_index,
     load_index,
     rrf_fuse,
+    retrieve,
     search,
     split_chunks,
     status,
     vector_search,
 )
 from retrieval.chunking import split_table_chunks, table_retrieval_text, token_count
+from retrieval.bm25 import bm25_search as raw_bm25_search, build_bm25
+from retrieval.embeddings import vector_search as raw_vector_search
 from retrieval.index import _source_digest
 from retrieval.query_expansion import expand_query
+from retrieval.hybrid import _active_candidates, clear_search_cache
 
 
 class TableRetrievalTextTests(unittest.TestCase):
@@ -134,6 +141,29 @@ class RAGPipelineTests(unittest.TestCase):
         self.assertEqual(fused[1]["matched_by"], ["bm25"])
         self.assertEqual(fused[2]["matched_by"], ["vector"])
 
+    def test_search_channels_only_score_active_record_indices(self):
+        chunks = [{"text": "alpha"}, {"text": "beta"}]
+        index = {
+            "chunks": chunks,
+            "bm25": build_bm25(chunks),
+            "embeddings": np.asarray([[1.0, 0.0], [0.0, 1.0]], dtype=np.float32),
+        }
+
+        bm25 = raw_bm25_search("alpha beta", 5, index=index, record_indices=[1])
+        with patch("retrieval.embeddings.encode_query", return_value=np.asarray([1.0, 0.0], dtype=np.float32)):
+            vector = raw_vector_search("query", 5, index=index, record_indices=[1])
+
+        self.assertEqual([item["record_index"] for item in bm25], [1])
+        self.assertEqual([item["record_index"] for item in vector], [1])
+
+    def test_inactive_document_versions_are_not_retrieved(self):
+        chunks = [{"active": False}, {"active": True}, {}]
+        candidates = [{"record_index": 0}, {"record_index": 1}, {"record_index": 2}]
+        self.assertEqual(
+            _active_candidates(candidates, chunks, 2),
+            [{"record_index": 1}, {"record_index": 2}],
+        )
+
     def test_retrieval_returns_traceable_scholarship_evidence(self):
         results = search("2024年研究生学业奖学金评审实施细则", limit=3)
         self.assertTrue(results)
@@ -144,16 +174,32 @@ class RAGPipelineTests(unittest.TestCase):
         self.assertTrue(all(result["matched_by"] for result in results))
         self.assertTrue(all("reranker_score" in result for result in results))
         self.assertTrue(all("rrf_score" in result for result in results))
+        self.assertTrue(all("chunk_id" in result for result in results))
+
+    def test_retrieve_returns_structured_evidence_assessment(self):
+        clear_search_cache()
+        payload = retrieve("本科学生国家奖学金奖励标准是多少", limit=3)
+        self.assertEqual(payload["query"], "本科学生国家奖学金奖励标准是多少")
+        self.assertTrue(payload["evidence_sufficient"])
+        self.assertTrue(payload["results"])
+        self.assertIn("signals", payload["assessment"])
+        self.assertFalse(payload["diagnostics"]["cache_hit"])
+        cached = retrieve("本科学生国家奖学金奖励标准是多少", limit=3)
+        self.assertTrue(cached["diagnostics"]["cache_hit"])
 
     def test_status_matches_built_index(self):
-        self.assertEqual(status()["chunks"], self.summary["chunks"])
-        self.assertEqual(status()["retrieval_mode"], "hybrid_rrf_cross_encoder_rerank")
-        self.assertEqual(status()["candidate_limit"], 20)
-        self.assertEqual(status()["rerank_candidate_limit"], 20)
-        self.assertEqual(status()["embedding_model"], "BAAI/bge-base-zh-v1.5")
-        self.assertEqual(status()["chunk_target_tokens"], 410)
-        self.assertEqual(status()["chunk_max_tokens"], 512)
-        self.assertEqual(status()["chunk_overlap_tokens"], 41)
+        index_status = status()
+        self.assertEqual(index_status["chunks"], self.summary["chunks"])
+        self.assertEqual(index_status["retrieval_mode"], "hybrid_rrf_cross_encoder_rerank")
+        self.assertEqual(index_status["candidate_limit"], 20)
+        self.assertEqual(index_status["rerank_candidate_limit"], 20)
+        self.assertEqual(index_status["embedding_model"], "BAAI/bge-base-zh-v1.5")
+        self.assertEqual(index_status["chunk_target_tokens"], 410)
+        self.assertEqual(index_status["chunk_max_tokens"], 512)
+        self.assertEqual(index_status["chunk_overlap_tokens"], 41)
+        self.assertEqual(index_status["answer_generation"], "mcp_client")
+        self.assertEqual(index_status["search_cache"]["maxsize"], 128)
+        self.assertFalse(index_status["freshness"]["pending_update"])
 
     def test_search_rejects_invalid_arguments(self):
         with self.assertRaises(ValueError):

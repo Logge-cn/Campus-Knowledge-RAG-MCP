@@ -1,14 +1,18 @@
 """Shared paths and retrieval settings."""
 
+import os
 from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-DEFAULT_ARTIFACTS_ROOT = PROJECT_ROOT / "storage" / "artifacts"
-DEFAULT_INDEX_ROOT = PROJECT_ROOT / "storage" / "index"
+ASSET_ROOT = Path(os.environ.get("RAG_ASSET_ROOT", PROJECT_ROOT)).resolve()
+if ASSET_ROOT.parent == ASSET_ROOT:
+    raise ValueError("RAG_ASSET_ROOT must not be a filesystem root")
+DEFAULT_ARTIFACTS_ROOT = ASSET_ROOT / "storage" / "artifacts"
+DEFAULT_INDEX_ROOT = ASSET_ROOT / "storage" / "index"
 DEFAULT_INDEX_PATH = DEFAULT_INDEX_ROOT / "metadata.json"
-DEFAULT_MODEL_PATH = PROJECT_ROOT / "models" / "bge-base-zh-v1.5"
-DEFAULT_RERANKER_PATH = PROJECT_ROOT / "models" / "bge-reranker-base"
+DEFAULT_MODEL_PATH = ASSET_ROOT / "models" / "bge-base-zh-v1.5"
+DEFAULT_RERANKER_PATH = ASSET_ROOT / "models" / "bge-reranker-base"
 CHUNKS_PATH_NAME = "chunks.json"
 BM25_PATH_NAME = "bm25.json"
 EMBEDDINGS_PATH_NAME = "embeddings.npy"
@@ -40,8 +44,24 @@ TOKENIZER_VERSION = "char-bigram-v1"
 
 def inside_project(path: Path) -> Path:
     resolved = path.resolve()
-    try:
-        resolved.relative_to(PROJECT_ROOT)
-    except ValueError as error:
-        raise ValueError(f"Path must be inside the project: {path}") from error
-    return resolved
+    for root in dict.fromkeys((PROJECT_ROOT, ASSET_ROOT)):
+        try:
+            resolved.relative_to(root)
+            return resolved
+        except ValueError:
+            continue
+    raise ValueError(f"Path must be inside the project or configured asset root: {path}")
+
+
+def relative_asset_path(path: Path) -> Path:
+    """Return a stable project-style path for project or asset files."""
+    resolved = inside_project(path)
+    # Prefer the explicit asset root when it is nested inside the code worktree.
+    # This keeps persisted paths stable as ``storage/...`` instead of exposing
+    # an environment-specific ``.local-assets/storage/...`` prefix.
+    for root in dict.fromkeys((ASSET_ROOT, PROJECT_ROOT)):
+        try:
+            return resolved.relative_to(root)
+        except ValueError:
+            continue
+    raise AssertionError("inside_project accepted a path without an allowed root")

@@ -1,6 +1,6 @@
 """Local Chinese embedding model loading and vector retrieval."""
 
-from typing import Any
+from typing import Any, Iterable
 
 import numpy as np
 
@@ -51,6 +51,7 @@ def vector_search(
     candidate_limit: int = CANDIDATE_LIMIT,
     *,
     index: dict[str, Any],
+    record_indices: Iterable[int] | None = None,
 ) -> list[dict[str, Any]]:
     if not query.strip():
         raise ValueError("query must not be empty")
@@ -58,9 +59,15 @@ def vector_search(
     embeddings = index["embeddings"]
     if query_vector.shape[0] != embeddings.shape[1]:
         raise ValueError("Query vector dimension does not match the index. Rebuild the index.")
-    scores = np.asarray(embeddings @ query_vector)
+    indices = np.asarray(
+        list(record_indices) if record_indices is not None else range(len(index["chunks"])),
+        dtype=np.int64,
+    )
+    if not len(indices):
+        return []
+    scores = np.asarray(embeddings[indices] @ query_vector)
     order = np.argsort(-scores, kind="stable")[:candidate_limit]
     return [
-        {"record_index": int(record_index), "score": float(scores[record_index])}
-        for record_index in order
+        {"record_index": int(indices[position]), "score": float(scores[position])}
+        for position in order
     ]

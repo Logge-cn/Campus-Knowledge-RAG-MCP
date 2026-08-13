@@ -2,6 +2,7 @@ data/
 .worktrees/
 .cache/
 .venv/
+.local-assets/
 __pycache__/
 *.pyc
 .agents
@@ -9,4 +10,3 @@ models/
 storage/
 evaluation/reports/
 slides/
-docs/

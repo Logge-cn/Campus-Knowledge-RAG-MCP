@@ -1,10 +1,12 @@
 """Expose the local PDF knowledge base through the Model Context Protocol."""
 
 import asyncio
+import os
 
 from mcp.server.mcpserver import MCPServer
 
-from retrieval import search, status
+from retrieval import retrieve, status
+from retrieval.runtime import warmup
 
 
 server = MCPServer(
@@ -19,12 +21,14 @@ def knowledge_base_status() -> dict:
     return status()
 
 
-@server.tool(description="使用 BM25 与中文语义向量混合检索最相关的 PDF 文本片段，并返回融合排名、来源文件、页码和原始提取文件路径。")
+@server.tool(description="检索最相关的 PDF 证据，返回证据充分性判断、置信度、chunk ID、来源文件和页码。证据不足时不要据此生成答案。")
 def search_knowledge_base(query: str, limit: int = 5) -> dict:
-    return {"query": query, "results": search(query, limit)}
+    return retrieve(query, limit)
 
 
 def main() -> None:
+    if os.environ.get("RAG_PREWARM", "1") != "0":
+        warmup()
     asyncio.run(server.run_stdio_async())
 
 

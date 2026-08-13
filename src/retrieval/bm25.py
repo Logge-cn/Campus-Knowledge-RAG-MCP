@@ -2,7 +2,7 @@
 
 import math
 from collections import Counter
-from typing import Any
+from typing import Any, Iterable
 
 from retrieval.chunking import tokenize
 from retrieval.config import BM25_B, BM25_K1, CANDIDATE_LIMIT, QUERY_EXPANSION_WEIGHT, TOKENIZER_VERSION
@@ -34,6 +34,7 @@ def bm25_search(
     candidate_limit: int = CANDIDATE_LIMIT,
     *,
     index: dict[str, Any],
+    record_indices: Iterable[int] | None = None,
 ) -> list[dict[str, Any]]:
     if not query.strip():
         raise ValueError("query must not be empty")
@@ -43,20 +44,28 @@ def bm25_search(
     if expanded_query != query:
         expansion = expanded_query[len(query) :].strip()
         query_tokens.extend(tokenize(expansion) * QUERY_EXPANSION_WEIGHT)
-    count = len(index["chunks"])
-    average_length = bm25["average_document_length"] or 1.0
+    indices = list(record_indices) if record_indices is not None else list(range(len(index["chunks"])))
+    count = len(indices)
+    if not count:
+        return []
+    average_length = sum(bm25["document_lengths"][record_index] for record_index in indices) / count or 1.0
     k1 = bm25["k1"]
     b = bm25["b"]
     scored: list[tuple[float, int]] = []
-    for record_index, frequencies in enumerate(bm25["term_frequencies"]):
+    document_frequency = {
+        token: sum(token in bm25["term_frequencies"][record_index] for record_index in indices)
+        for token in set(query_tokens)
+    }
+    for record_index in indices:
+        frequencies = bm25["term_frequencies"][record_index]
         document_length = bm25["document_lengths"][record_index]
         score = 0.0
         for token in query_tokens:
             frequency = frequencies.get(token, 0)
             if not frequency:
                 continue
-            document_frequency = bm25["document_frequency"].get(token, 0)
-            idf = math.log(1 + (count - document_frequency + 0.5) / (document_frequency + 0.5))
+            frequency_count = document_frequency.get(token, 0)
+            idf = math.log(1 + (count - frequency_count + 0.5) / (frequency_count + 0.5))
             denominator = frequency + k1 * (1 - b + b * document_length / average_length)
             score += idf * frequency * (k1 + 1) / denominator
         if score > 0:

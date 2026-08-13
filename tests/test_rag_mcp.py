@@ -1,5 +1,6 @@
 import asyncio
 import json
+import os
 import sys
 import unittest
 from pathlib import Path
@@ -25,6 +26,7 @@ class RAGMCPTests(unittest.TestCase):
                 command=sys.executable,
                 args=["src/mcp_server.py"],
                 cwd=PROJECT_ROOT,
+                env=os.environ.copy(),
             )
             async with stdio_client(parameters) as (read_stream, write_stream):
                 async with ClientSession(read_stream, write_stream) as session:
@@ -39,6 +41,9 @@ class RAGMCPTests(unittest.TestCase):
                     response = await session.call_tool("search_knowledge_base", {"query": "奖学金", "limit": 2})
                     payload = json.loads(response.content[0].text)
                     self.assertEqual(payload["query"], "奖学金")
+                    self.assertIn("evidence_sufficient", payload)
+                    self.assertIn("confidence", payload)
+                    self.assertIn("reason", payload)
                     self.assertTrue(payload["results"])
                     self.assertTrue(all("page" in result for result in payload["results"]))
                     self.assertTrue(
@@ -48,6 +53,7 @@ class RAGMCPTests(unittest.TestCase):
                         )
                     )
                     self.assertTrue(all("reranker_score" in result for result in payload["results"]))
+                    self.assertTrue(all("chunk_id" in result for result in payload["results"]))
                     self.assertTrue(all(result["matched_by"] for result in payload["results"]))
 
         asyncio.run(exercise_server())

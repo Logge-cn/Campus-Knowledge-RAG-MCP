@@ -13,7 +13,10 @@ from pathlib import Path
 import fitz
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-PADDLEX_CACHE_DIR = PROJECT_ROOT / "models" / "paddlex"
+ASSET_ROOT = Path(os.environ.get("RAG_ASSET_ROOT", PROJECT_ROOT)).resolve()
+if ASSET_ROOT.parent == ASSET_ROOT:
+    raise ValueError("RAG_ASSET_ROOT must not be a filesystem root")
+PADDLEX_CACHE_DIR = ASSET_ROOT / "models" / "paddlex"
 os.environ["PADDLE_PDX_CACHE_HOME"] = str(PADDLEX_CACHE_DIR)
 
 from paddleocr import PaddleOCR
