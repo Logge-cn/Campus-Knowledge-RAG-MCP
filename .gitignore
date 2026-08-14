@@ -1,4 +1,5 @@
-data/
+data/*
+!data/*.pdf
 .worktrees/
 .cache/
 .pytest_cache/

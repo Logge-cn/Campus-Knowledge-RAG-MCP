@@ -32,7 +32,7 @@ $env:RAG_ASSET_ROOT="$PWD\.local-assets"
 
 ## 导入和更新 PDF
 
-把 PDF 放入 `data/`，使用统一入口自动判断原生或扫描类型：
+仓库的 `data/` 已包含并跟踪两份用于复现的项目 PDF。使用统一入口可以自动判断原生或扫描类型，并从这些输入重新生成提取产物和索引：
 
 ```powershell
 uv run python src/ingest.py "data/文档.pdf" --dry-run
@@ -175,7 +175,7 @@ uv run python evaluation/reproduce_release.py `
 
 ```text
 rag/
-├── data/                 # 原始 PDF，不提交 Git
+├── data/                 # 复现所需的两份原始 PDF，纳入 Git
 ├── docs/                 # 设计、调优路线、当前计划与实施报告
 ├── evaluation/           # 数据集、冻结、评测和基准工具
 ├── models/               # 本地模型，不提交 Git
