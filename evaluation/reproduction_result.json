@@ -1,32 +1,36 @@
 {
   "schema_version": 1,
-  "completed_at": "2026-08-14T01:40:54+08:00",
-  "worktree_branch": "codex/rag-production-readiness",
-  "frozen_commit": "ac98ddf613ba89c0c47482e8a09a7ad0bb6a1c84",
-  "release_manifest_commit": "729dfcc3eaca0c4944758f3ce29198e0a5cc6dfc",
+  "completed_at": "2026-08-15T00:22:58+08:00",
+  "worktree_branch": "master",
+  "frozen_commit": "04aafd5055dca6091f427347350bf1cb92833ca8",
+  "release_manifest_commit": "04aafd5055dca6091f427347350bf1cb92833ca8",
   "environment": {
     "platform": "Windows-11-10.0.26200-SP0",
     "processor": "AMD64 Family 25 Model 97 Stepping 2, AuthenticAMD",
     "logical_cpus": 24,
     "python": "3.12.13",
+    "uv": "0.11.14",
     "concurrency": 1
   },
   "result": {
     "valid": true,
-    "duration_seconds": 1628.15,
+    "duration_seconds": 1519.25,
     "documents": 2,
     "pages": 393,
     "chunks": 731,
     "render_dpi": 160,
-    "tests_passed": 90,
+    "mcp_tools_discovered": 2,
+    "knowledge_base_status_chunks": 731,
+    "tests_passed": 96,
     "tests_failed": 0
   },
   "steps": [
-    {"id": "rebuild-index-from-pdfs", "passed": true, "duration_seconds": 1237.17},
-    {"id": "unit-tests", "passed": true, "duration_seconds": 42.99},
-    {"id": "evidence-development", "passed": true, "duration_seconds": 247.29},
-    {"id": "evidence-locked-no-answer", "passed": true, "duration_seconds": 61.86},
-    {"id": "runtime-benchmark", "passed": true, "duration_seconds": 38.84}
+    {"id": "rebuild-index-from-pdfs", "passed": true, "duration_seconds": 1119.21},
+    {"id": "mcp-tool-discovery-and-status", "passed": true, "duration_seconds": 1.87},
+    {"id": "unit-tests", "passed": true, "duration_seconds": 43.56},
+    {"id": "evidence-development", "passed": true, "duration_seconds": 258.06},
+    {"id": "evidence-locked-no-answer", "passed": true, "duration_seconds": 63.57},
+    {"id": "runtime-benchmark", "passed": true, "duration_seconds": 32.98}
   ],
   "evidence_development": {
     "answerable_cases": 90,
@@ -45,13 +49,13 @@
   },
   "runtime": {
     "index_bytes": 5817345,
-    "peak_working_set_mb": 1861.54,
-    "cold_initialization_ms": 10156.27,
-    "uncached_p50_ms": 2526.14,
-    "uncached_p95_ms": 3430.72,
-    "cached_p50_ms": 1.29,
-    "cached_p95_ms": 1.5,
-    "reranker_mean_ms": 2675.54
+    "peak_working_set_mb": 1858.18,
+    "cold_initialization_ms": 8218.96,
+    "uncached_p50_ms": 2199.57,
+    "uncached_p95_ms": 2926.33,
+    "cached_p50_ms": 1.05,
+    "cached_p95_ms": 1.16,
+    "reranker_mean_ms": 2279.58
   },
   "ingest_quality": {
     "extraction_failures": 0,
@@ -61,18 +65,19 @@
     "passed": true
   },
   "artifact_sha256": {
-    "full_report": "ae538b3a99341e1a3ad39f4dbf2a01b4f8af35de959748de04430a2969782db3",
+    "full_report": "3660fe2fda3988ec435d2b88d71bcc2061378c8336e11e4af269fd11af0f42b5",
     "evidence_development_report": "771832f1cf8e265d0f6a518e6e215d88dc8680c87f1d94969bf81f8820f84a55",
     "evidence_locked_report": "8d871f200983d97277b3d0126225c8b8e2f8b8d14a5703779fab1a902868c070",
-    "runtime_report": "9044bfc2e701d0f86c50c2483464008a50cc5a3abfaa58c8212285117a2d7848",
-    "index_metadata": "47bfbfd89bcdb2b020739fe2bedc48ad4a837b67910e9b363f794dffa2358a62",
-    "native_extraction_metadata": "381bee425122acb1db3e763c63994319e6178588fc4a51af3f7a768dfc695db0",
-    "scanned_extraction_metadata": "bb3226c932ee906b81297711a73bd2beab0907c70820f27800f61ef2497b088b"
+    "runtime_report": "a4221960112c4d896e57d5d93550b41632132177340eb4f2b1d66c710c05dda2",
+    "index_metadata": "b495c1aad96c9fb830d540aab30e5434bc90b75d75e8d3b3643b006ee4bfd8c3",
+    "native_extraction_metadata": "c81d3e471d5c990c6e12d4282f406a728f0da629f2fcc3baf978b268462e29f3",
+    "scanned_extraction_metadata": "d9cd054b7ba7bfb1d8e9bcb10c92019e9214dd79f3a353cf1206660209f583d3"
   },
   "notes": [
     "The full report and detailed reports remain ignored generated artifacts; their SHA-256 values are recorded above.",
+    "The clean-storage verification used copied, hash-verified model directories and rebuilt every extraction artifact and index file from the two Git-tracked PDFs.",
+    "MCP verification used a real STDIO session to discover both tools and call knowledge_base_status before the full pytest suite.",
     "One Camelot stream candidate on native PDF page 55 was rejected by table quality checks; the page body was extracted and all release gates passed.",
-    "The 347 non-blocking heuristic warnings comprise 333 reading-order anomalies, 7 duplicate-line-ratio warnings and 7 short-text warnings; they are reported for review and are not extraction failures.",
-    "A prior 300 DPI run exceeded 30 minutes at 23/30 OCR pages; its failed transaction preserved the previous index."
+    "The 347 non-blocking heuristic warnings comprise 333 reading-order anomalies, 7 duplicate-line-ratio warnings and 7 short-text warnings; they are reported for review and are not extraction failures."
   ]
 }

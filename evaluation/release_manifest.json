@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
-  "created_at": "2026-08-14T07:21:30.503156+00:00",
-  "commit": "c8c3c749267f0269f91836c564373a98b89cc4df",
+  "created_at": "2026-08-14T16:26:07.576727+00:00",
+  "commit": "04aafd5055dca6091f427347350bf1cb92833ca8",
   "hash_policy": "LF-normalized UTF-8-compatible text; raw bytes for binary files",
   "files": {
     ".codex/config.toml": {
-      "sha256": "66f3a7b18dcb9bf47253dc19919370a2057b533fd086077f3842324a90b79a88",
-      "bytes": 303,
+      "sha256": "4d1d29d826bd98d9e200e2e57ced0d7cc1e6e46d75550563e2bf750e26101ea9",
+      "bytes": 302,
       "portable_text": true
     },
     ".gitignore": {
-      "sha256": "172e638562a3ff0c0d990caeae8ae80b081fe710b0e8f6812bd19535709d3e8c",
-      "bytes": 126,
+      "sha256": "8b857052447d8ed5b3f59632c526e42ef4d61bcc0eb354db4f6948d771a0dbe6",
+      "bytes": 148,
       "portable_text": true
     },
     "AGENTS.md": {
@@ -20,8 +20,68 @@
       "portable_text": true
     },
     "README.md": {
-      "sha256": "e88206c65321a1405df30a24818aadf5369bef4bf889009776414fa123d3b81f",
-      "bytes": 8559,
+      "sha256": "0ba536c83bd749a8f17cbd17519feba95c028787c14322bcb860390197a255ce",
+      "bytes": 14051,
+      "portable_text": true
+    },
+    "data/南京邮电大学学生手册（2023版）+.pdf": {
+      "sha256": "95718365ef1ad87df9e4bbd692bada066a4176328f19983534cf73d61682fc30",
+      "bytes": 2444739,
+      "portable_text": false
+    },
+    "data/奖学金细则.pdf": {
+      "sha256": "d4277dffe694e105ba6b5cfc9551ecd84b37d5a4068b02e3e63395719165a161",
+      "bytes": 4286200,
+      "portable_text": false
+    },
+    "docs/2026-08-14-RAG项目调优路线总结.md": {
+      "sha256": "aadd9b6b6ccee35f8847deae2ddf0cd23f64e25d7e6d954a34aac2a1919bc39a",
+      "bytes": 11160,
+      "portable_text": true
+    },
+    "docs/2026-08-14-第一优先级答案级评测实施报告.md": {
+      "sha256": "4f60d6d7692e1bb5e2bc76ad4cd6efba3da59f7dc870e4574bf835faf6dd2f8f",
+      "bytes": 9504,
+      "portable_text": true
+    },
+    "docs/PDF原生内容处理规范.md": {
+      "sha256": "2422b10d0069fa37415a2372bfa7538e155d074f926704d5e4194b32e90a2f09",
+      "bytes": 3703,
+      "portable_text": true
+    },
+    "docs/PDF扫描件处理规范.md": {
+      "sha256": "3bda8c4c333e69ecf85b19bd6ea3914fab7c3ad70dfd0d7ee748348cb0bbfc66",
+      "bytes": 3226,
+      "portable_text": true
+    },
+    "docs/RAG-MCP后续优化计划.md": {
+      "sha256": "79aa18f7359d763ea23090a1451e632f7b74dd8e780eefc4778a275f89afb9ba",
+      "bytes": 11524,
+      "portable_text": true
+    },
+    "docs/RAG_ISSUES_AND_SOLUTIONS.md": {
+      "sha256": "de673bcf93d196a33107c80af0f9ce3caebb1f2879dfaa00f508882f3c5069bf",
+      "bytes": 28292,
+      "portable_text": true
+    },
+    "docs/README.md": {
+      "sha256": "dd3637f483a75b189cdeb4fc6a5500aa1e464e82b5d110ac590ab0c3eae6d7e1",
+      "bytes": 3078,
+      "portable_text": true
+    },
+    "evaluation/answer_eval_dataset.json": {
+      "sha256": "2c8a18be6cc9325c2b607464c8e53b535efaf75b7ec462154a1f86da1c99479b",
+      "bytes": 5674,
+      "portable_text": true
+    },
+    "evaluation/answer_eval_output_schema.json": {
+      "sha256": "1ef180f56d5b8fcbe0bab8b67200b9ea95d1bd0004f1b0833d165df6e8d1c3dc",
+      "bytes": 1167,
+      "portable_text": true
+    },
+    "evaluation/answer_eval_prompt_v1.md": {
+      "sha256": "fb3542e85bd146db47e085735962d2fd2d1837f0ebdbc053d86156dda48a935e",
+      "bytes": 1165,
       "portable_text": true
     },
     "evaluation/answer_prediction_template.json": {
@@ -105,8 +165,8 @@
       "portable_text": true
     },
     "evaluation/evaluate_answers.py": {
-      "sha256": "b94fd1a7f61c1178aa8de858a7e89a03b55454773db24f19ef9143657b41ff5d",
-      "bytes": 10001,
+      "sha256": "474be5dca4579f52e1a8b39cbe37cb9d6a418b79394d8af70242c72aab09ac31",
+      "bytes": 14322,
       "portable_text": true
     },
     "evaluation/evaluate_evidence.py": {
@@ -150,13 +210,18 @@
       "portable_text": true
     },
     "evaluation/reproduction_plan.json": {
-      "sha256": "9b71e973f01479d66bafec996d0d27a46b4946ec0094e63127e970456f6c6478",
-      "bytes": 2616,
+      "sha256": "04b6aef11b0c4f1ecb5568cdc68d94030c534802662d2b520891a3170eff8b87",
+      "bytes": 2708,
       "portable_text": true
     },
     "evaluation/reproduction_result.json": {
-      "sha256": "1f3932406430487c63948b9a9f3b6e4b3719679f0a08552509b020ee34966661",
-      "bytes": 3208,
+      "sha256": "ccb0de0ed2d058428601a5a25f475021085729f5a8d34934d4a58348a891b269",
+      "bytes": 3545,
+      "portable_text": true
+    },
+    "evaluation/run_answer_evaluation.py": {
+      "sha256": "b279f0fd1acf4af0fe67497d1128dc60199d4ec9cfd818e8e2651b125323e68a",
+      "bytes": 12490,
       "portable_text": true
     },
     "evaluation/test_case_template.json": {
@@ -169,9 +234,14 @@
       "bytes": 39712,
       "portable_text": true
     },
+    "evaluation/verify_mcp.py": {
+      "sha256": "710c7f9ad05223abdc1ec0388a32be9472b5c657226b9658b7bc6ee08186ed22",
+      "bytes": 1785,
+      "portable_text": true
+    },
     "pyproject.toml": {
-      "sha256": "63039e263a8cf53bbf795848c09cf2c57f5d0fd822ec124830fc0fdab508ff7b",
-      "bytes": 267,
+      "sha256": "1a7b7a28876eb9e8d7b530261eaa2403c8ca54783ad4a20527016f1a4045b355",
+      "bytes": 319,
       "portable_text": true
     },
     "src/cli.py": {
@@ -190,8 +260,8 @@
       "portable_text": true
     },
     "src/extraction/scanned_pdf.py": {
-      "sha256": "9458a38971a33913fac1de37bf6a364179083c122dc76283575eab9ef1e28aea",
-      "bytes": 6588,
+      "sha256": "4612e6ca9f60e703bbd97bb2f4c732f533f4e788103a8bfc097c33cca8c1f89e",
+      "bytes": 6630,
       "portable_text": true
     },
     "src/ingest.py": {
@@ -200,13 +270,13 @@
       "portable_text": true
     },
     "src/mcp_server.py": {
-      "sha256": "998f80769a498a7db0f249055042d1cf0bdf2dd19c6bc4c6026de6216d6cc334",
-      "bytes": 1065,
+      "sha256": "4b1667638c6bb2b49fa722f03bceec56c42470dfaf76e8e01b0b65913726baab",
+      "bytes": 1435,
       "portable_text": true
     },
     "src/prepare_model.py": {
-      "sha256": "f821d541438ff1c264a3423743cb7ab7af47d2565d0fcc4ccdfb10c9c58d6a5e",
-      "bytes": 1739,
+      "sha256": "6d67aba98da9cbf4c8c4f26c1488539426ccfdfb6beaa5dad1686669678c7d1b",
+      "bytes": 2656,
       "portable_text": true
     },
     "src/retrieval/__init__.py": {
@@ -260,18 +330,23 @@
       "portable_text": true
     },
     "src/retrieval/runtime.py": {
-      "sha256": "e0a80a7e08ead2299ee592cf66bb7f6726bd687a52d7ddd53ea915b67c327dae",
-      "bytes": 1255,
+      "sha256": "4fd2fd5872ba496fd445c3bec207d806adba0e78e6e74589bbc00b08438d97a1",
+      "bytes": 1405,
+      "portable_text": true
+    },
+    "tests/test_answer_eval_workflow.py": {
+      "sha256": "06380655c8a5d0b80de9b7c0f255bbf6f07addab3cfdd6b2b611f498bb7024e7",
+      "bytes": 3011,
       "portable_text": true
     },
     "tests/test_answer_evaluation.py": {
-      "sha256": "9bb67d932bfefe083d70287737918906aadc2a24959ad734e9d2b5887d533fc6",
-      "bytes": 2113,
+      "sha256": "ddb07c611c2cc41220470b16f3c4cb2427eed4548feb2730e2168fe113b52510",
+      "bytes": 4894,
       "portable_text": true
     },
     "tests/test_benchmark_runtime.py": {
-      "sha256": "e56d6dd9df774bbea2bef2da7e477802e54f75b5f2296c64db8d6679d1e29510",
-      "bytes": 1152,
+      "sha256": "fec63b48d1516f4c7e8f305b34b8173258f668f29566959ab09d52976359ae57",
+      "bytes": 1869,
       "portable_text": true
     },
     "tests/test_dataset_validation.py": {
@@ -305,8 +380,8 @@
       "portable_text": true
     },
     "tests/test_pdf_extraction.py": {
-      "sha256": "1a106d872153690ee37fc30a3b8d849b5406484d6922d84f7a8b6a7902206474",
-      "bytes": 5413,
+      "sha256": "d3d8cfef910ff9bb8ae287841d05ef89d55a6fb1360dd0af774c0202c298c2d0",
+      "bytes": 5415,
       "portable_text": true
     },
     "tests/test_prepare_answer_tasks.py": {
@@ -315,8 +390,8 @@
       "portable_text": true
     },
     "tests/test_rag_mcp.py": {
-      "sha256": "29959e760d831ef204f39b2e0433cda573e979f81e8d3ebdabceab00a2b27235",
-      "bytes": 2805,
+      "sha256": "44f20836ebff3cd739ec9f3eeb0fd66f6a8328baeca748af17b34f83e917043e",
+      "bytes": 3420,
       "portable_text": true
     },
     "tests/test_rag_pipeline.py": {
@@ -345,8 +420,8 @@
       "portable_text": true
     },
     "uv.lock": {
-      "sha256": "fd1d903577ec0af027760330228c251889deea23584fecb293950a0004b6a4a3",
-      "bytes": 651948,
+      "sha256": "b3624a2cfd8d5313ba52996dcad882a4399bf0256de6007a8d9c183ad0789f23",
+      "bytes": 654357,
       "portable_text": true
     }
   }

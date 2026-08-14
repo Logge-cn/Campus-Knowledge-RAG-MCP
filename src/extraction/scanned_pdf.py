@@ -25,6 +25,20 @@ OCR_DETECTION_MODEL = "PP-OCRv6_medium_det"
 OCR_RECOGNITION_MODEL = "PP-OCRv6_medium_rec"
 
 
+def create_ocr_engine() -> PaddleOCR:
+    """Create the OCR engine used by both model preparation and extraction."""
+    return PaddleOCR(
+        lang="ch",
+        device="cpu",
+        enable_mkldnn=False,
+        text_detection_model_name=OCR_DETECTION_MODEL,
+        text_recognition_model_name=OCR_RECOGNITION_MODEL,
+        use_doc_orientation_classify=False,
+        use_doc_unwarping=False,
+        use_textline_orientation=False,
+    )
+
+
 def sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as stream:
@@ -83,16 +97,7 @@ def process(
             page.get_pixmap(matrix=fitz.Matrix(render_dpi / 72, render_dpi / 72), alpha=False).save(image_path)
             raw_dir.mkdir(parents=True, exist_ok=True)
             if ocr is None:
-                ocr = PaddleOCR(
-                    lang="ch",
-                    device="cpu",
-                    enable_mkldnn=False,
-                    text_detection_model_name=OCR_DETECTION_MODEL,
-                    text_recognition_model_name=OCR_RECOGNITION_MODEL,
-                    use_doc_orientation_classify=False,
-                    use_doc_unwarping=False,
-                    use_textline_orientation=False,
-                )
+                ocr = create_ocr_engine()
             ocr.predict(str(image_path))[0].save_to_json(save_path=str(raw_dir))
         payload = json.loads(raw_path.read_text(encoding="utf-8"))
         ordered = sorted(

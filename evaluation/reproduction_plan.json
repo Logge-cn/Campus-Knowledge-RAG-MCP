@@ -3,12 +3,12 @@
   "release_manifest": "evaluation/release_manifest.json",
   "prerequisites": [
     {
-      "root": "assets",
+      "root": "project",
       "path": "data/南京邮电大学学生手册（2023版）+.pdf",
       "sha256": "95718365ef1ad87df9e4bbd692bada066a4176328f19983534cf73d61682fc30"
     },
     {
-      "root": "assets",
+      "root": "project",
       "path": "data/奖学金细则.pdf",
       "sha256": "d4277dffe694e105ba6b5cfc9551ecd84b37d5a4068b02e3e63395719165a161"
     },
@@ -40,11 +40,15 @@
   "steps": [
     {
       "id": "rebuild-index-from-pdfs",
-      "argv": ["{python}", "src/ingest.py", "{asset_root}/data/南京邮电大学学生手册（2023版）+.pdf", "{asset_root}/data/奖学金细则.pdf", "--data-root", "{asset_root}/data", "--render-dpi", "160"]
+      "argv": ["{python}", "src/ingest.py", "{project_root}/data/南京邮电大学学生手册（2023版）+.pdf", "{project_root}/data/奖学金细则.pdf", "--data-root", "{project_root}/data", "--render-dpi", "160"]
+    },
+    {
+      "id": "mcp-tool-discovery-and-status",
+      "argv": ["{python}", "evaluation/verify_mcp.py"]
     },
     {
       "id": "unit-tests",
-      "argv": ["{python}", "-m", "unittest", "discover", "-s", "tests", "-v"]
+      "argv": ["{python}", "-m", "pytest", "-q"]
     },
     {
       "id": "evidence-development",
