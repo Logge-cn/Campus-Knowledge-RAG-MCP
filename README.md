@@ -172,10 +172,6 @@ rag/
 │   └── mcp_server.py
 ├── evaluation/           # 数据集、冻结、评测和基准工具
 ├── tests/
-├── docs/
-│   └── RAG_ISSUES_AND_SOLUTIONS.md
 ├── pyproject.toml
 └── uv.lock
 ```
-
-当前问题、已实现状态和剩余验收条件见 [RAG_ISSUES_AND_SOLUTIONS.md](docs/RAG_ISSUES_AND_SOLUTIONS.md)。
