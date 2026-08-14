@@ -12,12 +12,13 @@ from typing import Any, Iterable
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-TEXT_SUFFIXES = {".json", ".md", ".py", ".toml", ".txt", ".yaml", ".yml"}
+TEXT_SUFFIXES = {".json", ".lock", ".md", ".py", ".toml", ".txt", ".yaml", ".yml"}
+TEXT_FILENAMES = {".editorconfig", ".gitattributes", ".gitignore"}
 
 
 def _portable_bytes(path: Path) -> tuple[bytes, bool]:
     content = path.read_bytes()
-    portable = path.suffix.lower() in TEXT_SUFFIXES
+    portable = path.suffix.lower() in TEXT_SUFFIXES or path.name.lower() in TEXT_FILENAMES
     return (content.replace(b"\r\n", b"\n").replace(b"\r", b"\n") if portable else content), portable
 
 

@@ -23,6 +23,20 @@ class ReleaseManifestTests(unittest.TestCase):
             self.assertFalse(report["valid"])
             self.assertEqual(report["errors"][0]["code"], "sha256_mismatch")
 
+    def test_git_metadata_and_lock_files_have_portable_line_endings(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            gitignore = root / ".gitignore"
+            lock = root / "uv.lock"
+            gitignore.write_bytes(b"storage/\r\n")
+            lock.write_bytes(b"version = 1\r\n")
+            manifest = create_manifest(root, [Path(".gitignore"), Path("uv.lock")])
+
+            gitignore.write_bytes(b"storage/\n")
+            lock.write_bytes(b"version = 1\n")
+
+            self.assertTrue(verify_manifest(root, manifest)["valid"])
+
     def test_binary_size_and_missing_files_are_checked(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
