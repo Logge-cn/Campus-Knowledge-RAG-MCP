@@ -18,12 +18,14 @@ def warmup(index_path: Path = DEFAULT_INDEX_PATH) -> dict[str, Any]:
     index_started = time.perf_counter()
     index = load_index(index_path)
     index_ms = (time.perf_counter() - index_started) * 1000
-    embedding_started = time.perf_counter()
-    load_model()
-    embedding_ms = (time.perf_counter() - embedding_started) * 1000
+    # On Windows, loading the CrossEncoder after SentenceTransformer can
+    # terminate the process before the MCP server starts accepting requests.
     reranker_started = time.perf_counter()
     load_reranker()
     reranker_ms = (time.perf_counter() - reranker_started) * 1000
+    embedding_started = time.perf_counter()
+    load_model()
+    embedding_ms = (time.perf_counter() - embedding_started) * 1000
     return {
         "documents": index["metadata"]["documents"],
         "chunks": index["metadata"]["chunks"],

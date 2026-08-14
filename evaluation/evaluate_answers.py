@@ -47,6 +47,77 @@ def _index_unique(items: list[dict[str, Any]], label: str) -> dict[str, dict[str
     return output
 
 
+def _retrieved_chunk_ids(prediction: dict[str, Any]) -> set[str] | None:
+    results = prediction.get("retrieval_results")
+    if not isinstance(results, list):
+        return None
+    chunk_ids = set()
+    for result in results:
+        if not isinstance(result, dict) or not isinstance(result.get("chunk_id"), str):
+            raise ValueError("retrieval_results must contain objects with string chunk_id fields")
+        chunk_ids.add(result["chunk_id"])
+    return chunk_ids
+
+
+def _citation_metadata_complete(prediction: dict[str, Any], cited_chunk_ids: list[str]) -> bool:
+    citations = prediction.get("citations")
+    if not isinstance(citations, list) or not citations:
+        return False
+    citation_ids = set()
+    for citation in citations:
+        if not isinstance(citation, dict):
+            return False
+        if not isinstance(citation.get("chunk_id"), str):
+            return False
+        if not isinstance(citation.get("source_file"), str) or not citation["source_file"]:
+            return False
+        if not isinstance(citation.get("page"), int):
+            return False
+        citation_ids.add(citation["chunk_id"])
+    return citation_ids == set(cited_chunk_ids)
+
+
+def _failure_stage(
+    case: dict[str, Any],
+    prediction: dict[str, Any],
+    refused: bool,
+    cited_chunk_ids: list[str],
+) -> str:
+    retrieved = _retrieved_chunk_ids(prediction)
+    evidence_sufficient = prediction.get("evidence_sufficient")
+    if retrieved is None or not isinstance(evidence_sufficient, bool):
+        return "unclassified_missing_trace"
+
+    is_answerable = case.get("source_file") is not None
+    if not is_answerable:
+        if evidence_sufficient:
+            return "evidence_judgment_error"
+        return "passed" if refused else "generation_error"
+
+    relevant = set(case.get("relevant_chunk_ids", []))
+    if not relevant.intersection(retrieved):
+        return "retrieval_error"
+    if not evidence_sufficient:
+        return "evidence_judgment_error"
+    if refused or not relevant.intersection(cited_chunk_ids):
+        return "generation_error"
+
+    review = prediction.get("review")
+    if not isinstance(review, dict):
+        return "pending_manual_review"
+    required_review = ("correct", "complete", "citation_supported", "uses_model_memory_or_guess")
+    if not all(isinstance(review.get(name), bool) for name in required_review):
+        return "pending_manual_review"
+    if (
+        not review["correct"]
+        or not review["complete"]
+        or not review["citation_supported"]
+        or review["uses_model_memory_or_guess"]
+    ):
+        return "generation_error"
+    return "passed"
+
+
 def evaluate_answers(cases: list[dict[str, Any]], predictions: list[dict[str, Any]]) -> dict[str, Any]:
     case_by_id = _index_unique(cases, "dataset")
     prediction_by_id = _index_unique(predictions, "prediction")
@@ -61,10 +132,19 @@ def evaluate_answers(cases: list[dict[str, Any]], predictions: list[dict[str, An
     citation_precisions: list[float] = []
     citation_recalls: list[float] = []
     citation_supported: list[float] = []
+    citation_metadata_complete: list[float] = []
     answerable_not_refused: list[float] = []
     no_answer_refused: list[float] = []
-    review_values: dict[str, list[float]] = {"correct": [], "complete": [], "citation_supported": []}
+    evidence_false_refused: list[float] = []
+    answered_review_correct: list[float] = []
+    review_values: dict[str, list[float]] = {
+        "correct": [],
+        "complete": [],
+        "citation_supported": [],
+        "uses_model_memory_or_guess": [],
+    }
     reviewed_answerable = 0
+    failure_stages: Counter[str] = Counter()
 
     for case_id, case in case_by_id.items():
         prediction = prediction_by_id[case_id]
@@ -78,8 +158,19 @@ def evaluate_answers(cases: list[dict[str, Any]], predictions: list[dict[str, An
         if not isinstance(cited_chunk_ids, list) or not all(isinstance(value, str) for value in cited_chunk_ids):
             raise ValueError(f"Prediction {case_id} cited_chunk_ids must be a list of strings")
 
+        evidence_sufficient = prediction.get("evidence_sufficient")
+        if isinstance(evidence_sufficient, bool) and not evidence_sufficient:
+            evidence_false_refused.append(float(refused))
+
         is_answerable = case.get("source_file") is not None
-        detail: dict[str, Any] = {"id": case_id, "answerable": is_answerable, "refused": refused}
+        stage = _failure_stage(case, prediction, refused, cited_chunk_ids)
+        failure_stages[stage] += 1
+        detail: dict[str, Any] = {
+            "id": case_id,
+            "answerable": is_answerable,
+            "refused": refused,
+            "failure_stage": stage,
+        }
         if not is_answerable:
             no_answer_refused.append(float(refused))
             detail["refusal_correct"] = refused
@@ -110,6 +201,7 @@ def evaluate_answers(cases: list[dict[str, Any]], predictions: list[dict[str, An
         citation_precisions.append(citation_precision)
         citation_recalls.append(citation_recall)
         citation_supported.append(float(has_supported_citation))
+        citation_metadata_complete.append(float(_citation_metadata_complete(prediction, cited_chunk_ids)))
         detail.update(
             {
                 "required_fact_lexical_recall": round(fact_recall, 4),
@@ -122,13 +214,16 @@ def evaluate_answers(cases: list[dict[str, Any]], predictions: list[dict[str, An
 
         review = prediction.get("review")
         if isinstance(review, dict) and any(isinstance(review.get(name), bool) for name in review_values):
-            reviewed_answerable += 1
             detail["review"] = {}
             for name in review_values:
                 value = review.get(name)
                 if isinstance(value, bool):
                     review_values[name].append(float(value))
                     detail["review"][name] = value
+            if all(isinstance(review.get(name), bool) for name in review_values):
+                reviewed_answerable += 1
+            if not refused and isinstance(review.get("correct"), bool):
+                answered_review_correct.append(float(review["correct"]))
         details.append(detail)
 
     answerable_count = sum(case.get("source_file") is not None for case in cases)
@@ -145,12 +240,24 @@ def evaluate_answers(cases: list[dict[str, Any]], predictions: list[dict[str, An
             "citation_precision": _average(citation_precisions),
             "citation_recall": _average(citation_recalls),
             "answer_with_supported_citation_rate": _average(citation_supported),
+            "citation_metadata_complete_rate": _average(citation_metadata_complete),
+            "incorrect_answer_rate": (
+                round(1 - mean(answered_review_correct), 4) if answered_review_correct else None
+            ),
+            "false_answer_rate": (
+                round(1 - mean(no_answer_refused), 4) if no_answer_refused else None
+            ),
+            "false_refusal_rate": (
+                round(1 - mean(answerable_not_refused), 4) if answerable_not_refused else None
+            ),
+            "evidence_insufficient_refusal_compliance": _average(evidence_false_refused),
         },
         "manual_review": {
             "reviewed_answerable_cases": reviewed_answerable,
             "coverage": round(reviewed_answerable / answerable_count, 4) if answerable_count else None,
             **{f"{name}_rate": _average(values) for name, values in review_values.items()},
         },
+        "failure_stage_counts": dict(sorted(failure_stages.items())),
         "note": (
             "Required-fact lexical and character-bigram coverage are deterministic diagnostics, not semantic "
             "correctness judges. Use the manual review fields for final correctness, completeness and "

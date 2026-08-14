@@ -9,6 +9,15 @@ from retrieval import retrieve, status
 from retrieval.runtime import warmup
 
 
+SEARCH_TOOL_DESCRIPTION_VERSION = "answer-eval-v1"
+SEARCH_TOOL_DESCRIPTION = (
+    "检索南京邮电大学本地 PDF 知识库。"
+    "当用户询问学校规章制度、奖助学金、学籍、培养方案等校园文档事实时，应先调用本工具。"
+    "仅当 evidence_sufficient=true 时根据 results 回答，并引用 source_file、page 和 chunk_id；"
+    "如果 evidence_sufficient=false，应明确说明知识库证据不足，不得使用模型记忆补充或猜测。"
+)
+
+
 server = MCPServer(
     name="njupt-rag",
     title="南邮文档知识库",
@@ -21,7 +30,7 @@ def knowledge_base_status() -> dict:
     return status()
 
 
-@server.tool(description="检索最相关的 PDF 证据，返回证据充分性判断、置信度、chunk ID、来源文件和页码。证据不足时不要据此生成答案。")
+@server.tool(description=SEARCH_TOOL_DESCRIPTION)
 def search_knowledge_base(query: str, limit: int = 5) -> dict:
     return retrieve(query, limit)
 

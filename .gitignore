@@ -1,6 +1,7 @@
 data/
 .worktrees/
 .cache/
+.pytest_cache/
 .venv/
 .local-assets/
 __pycache__/
@@ -10,4 +11,3 @@ models/
 storage/
 evaluation/reports/
 slides/
-docs/

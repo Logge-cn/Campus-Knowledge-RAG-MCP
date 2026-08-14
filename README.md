@@ -4,6 +4,15 @@
 
 项目定位是 **MCP 检索工具**：仓库负责检索、证据充分性判断和评测接口；最终自然语言答案由 Codex 或其他 MCP 客户端生成。检索 Recall 不等于最终答案正确率。
 
+## 当前进度（2026-08-14）
+
+- 当前位于 `master`，第一优先级“答案级评测”的本地基础设施已完成：固定 12 题、版本化 Prompt/Schema、真实 STDIO MCP 运行器和答案评估器均已实现。
+- 真实 12 题答案生成与人工复核尚未执行，因为该步骤会把本地校园 PDF 证据发送给 OpenAI/Codex，仍等待明确的数据外发授权；因此当前没有可声明的答案正确率、引用准确率或拒答遵守率。
+- 第二优先级及以后尚未按后续计划启动；现有仓库中此前已完成的复现、缓存和性能基准能力继续保留，但不代表新计划阶段已经验收。
+- 当前运行索引为 schema 4、2 份 PDF、731 个 chunk；完整测试套件实际为 96 项并已通过。
+- 第一优先级实现已纳入当前代码基线，但现有 `evaluation/release_manifest.json` 仍属于更早的冻结周期，校验当前源码会出现预期的哈希差异；真实评测完成前不覆盖历史冻结记录。
+- `docs/` 已纳入版本控制；`slides/` 仍被 `.gitignore` 忽略，只作为本地演示保留。
+
 ## 安装
 
 需要 Python 3.12 或更高版本以及 [uv](https://docs.astral.sh/uv/)。
@@ -70,8 +79,10 @@ MCP 服务默认启动时预加载索引和两个模型。设置 `RAG_PREWARM=0`
 运行全部测试：
 
 ```powershell
-uv run python -m unittest discover -s tests -v
+uv run --with pytest python -m pytest -q
 ```
+
+`pytest` 当前未写入运行依赖，以上命令通过 uv 临时提供测试工具；`unittest discover` 不能完整收集当前以 pytest 风格编写的测试。
 
 校准或验证证据充分性时，必须在开发数据校准，再对文档隔离的未见数据使用固定阈值：
 
@@ -86,25 +97,25 @@ uv run python evaluation/evaluate_evidence.py `
 
 当前开发集固定阈值结果为：90 条可回答问题误拒答 1 条（1.11%），10 条不可回答问题误答 0 条。20 条四类不可回答回归集误答 0 条；该回归集已用于规则开发，不能冒充下一轮独立未见验收集。
 
-为指定 MCP 客户端准备带证据和预测契约的答案任务：
+固定答案级评测使用 Codex CLI、`gpt-5.6-sol`、`answer-eval-v1` Prompt、`answer-eval-v1` 工具 description 和 Top 5 证据。问题集覆盖普通文本、表格、扫描 PDF、知识库外问题、错误学校和时效性问题。运行真实客户端评测：
 
 ```powershell
-uv run python evaluation/prepare_answer_tasks.py `
-  --dataset evaluation/dataset.json `
-  --output evaluation/reports/answer-tasks.json `
-  --client codex --model "实际模型名" --prompt-version v1
+uv run python evaluation/run_answer_evaluation.py `
+  --output-dir evaluation/reports/answer-eval-v1
 ```
 
-客户端完成回答、拒答和 chunk 引用后，使用现有答案评估器：
+该命令通过真实 STDIO MCP 工具逐题检索，保存客户端原始 JSONL 事件、`evidence_sufficient`、`confidence`、`reason`、完整检索结果、最终答案和引用，并生成自动诊断报告。运行会把问题和检索到的校园 PDF 证据发送给所配置的 OpenAI/Codex 服务，执行前必须确认这些材料允许外发。
+
+在 `predictions.json` 中人工复核 `correct`、`complete`、`citation_supported` 和 `uses_model_memory_or_guess` 后，重新生成最终报告：
 
 ```powershell
 uv run python evaluation/evaluate_answers.py `
-  --dataset evaluation/dataset.json `
-  --predictions evaluation/predictions.json `
-  --report evaluation/reports/answers.json
+  --dataset evaluation/answer_eval_dataset.json `
+  --predictions evaluation/reports/answer-eval-v1/predictions.json `
+  --report evaluation/reports/answer-eval-v1/report-reviewed.json
 ```
 
-正确性、完整性和引用支持需要人工复核；字符匹配只作诊断。
+报告同时给出正确性、完整性、引用 Precision/Recall、错误回答率、错误拒答率、证据不足拒答遵守率和模型记忆/猜测率，并将失败区分为检索错误、证据判断错误和生成错误。字符匹配只作自动诊断，最终结论以人工复核字段为准。
 
 运行本机冷启动、非缓存和缓存基准：
 
@@ -138,6 +149,9 @@ uv run python evaluation/release_manifest.py create `
 uv run python evaluation/release_manifest.py verify evaluation/release_manifest.json
 ```
 
+当前第一优先级改动尚未进入新的冻结周期，所以现有清单对当前工作区校验失败是预期状态。只有在本轮实现、真实评测状态和提交范围确定后，才应创建新的发布清单。
+现有 `evaluation/reproduction_plan.json` 的测试步骤仍是上一周期的 `unittest discover`，不包含当前全部 pytest 风格测试；当前完整回归以本节前面的 96 项 pytest 命令为准，不在本轮文档同步中改写历史复现计划。
+
 文本文件按 LF 归一化后计算哈希，二进制文件按原始字节计算；校验同时检查规范化大小。任何冻结输入变化都必须开启新的评测周期。
 
 单一复现入口会先校验发布清单、两份 PDF，以及 Embedding、reranker、OCR 检测和 OCR 识别四个完整模型目录的 SHA-256。目录哈希同时覆盖模型权重、配置和 tokenizer；随后从 PDF 原子重建索引，依次运行测试、固定阈值证据评测和性能基准：
@@ -162,7 +176,10 @@ uv run python evaluation/reproduce_release.py `
 ```text
 rag/
 ├── data/                 # 原始 PDF，不提交 Git
+├── docs/                 # 设计、调优路线、当前计划与实施报告
+├── evaluation/           # 数据集、冻结、评测和基准工具
 ├── models/               # 本地模型，不提交 Git
+├── slides/               # 本地 HTML 演示；当前被 Git 忽略
 ├── storage/              # 提取产物和索引，不提交 Git
 ├── src/
 │   ├── extraction/       # 原生/扫描 PDF 提取
@@ -170,8 +187,7 @@ rag/
 │   ├── ingest.py         # 统一导入和原子更新
 │   ├── cli.py
 │   └── mcp_server.py
-├── evaluation/           # 数据集、冻结、评测和基准工具
-├── tests/
-├── pyproject.toml
-└── uv.lock
+├── tests/                # pytest 测试套件
+├── pyproject.toml        # Python 3.12+ 运行依赖
+└── uv.lock               # 锁定依赖版本
 ```

@@ -1,9 +1,11 @@
 import unittest
 import tempfile
 from pathlib import Path
+from unittest.mock import patch
 
 
 from evaluation.benchmark_runtime import hardware_info, index_size_bytes, percentile
+from retrieval.runtime import warmup
 
 
 class RuntimeBenchmarkTests(unittest.TestCase):
@@ -27,6 +29,20 @@ class RuntimeBenchmarkTests(unittest.TestCase):
             (root / "metadata.json").write_bytes(b"12")
             (root / "chunks.json").write_bytes(b"345")
             self.assertEqual(index_size_bytes(root / "metadata.json"), 5)
+
+    def test_warmup_loads_reranker_before_embedding_model(self):
+        calls = []
+        index = {"metadata": {"documents": 2, "chunks": 731}}
+        with (
+            patch("retrieval.runtime.load_index", return_value=index),
+            patch("retrieval.runtime.load_reranker", side_effect=lambda: calls.append("reranker")),
+            patch("retrieval.runtime.load_model", side_effect=lambda: calls.append("embedding")),
+        ):
+            result = warmup(Path("unused.json"))
+
+        self.assertEqual(calls, ["reranker", "embedding"])
+        self.assertEqual(result["documents"], 2)
+        self.assertEqual(result["chunks"], 731)
 
 
 if __name__ == "__main__":

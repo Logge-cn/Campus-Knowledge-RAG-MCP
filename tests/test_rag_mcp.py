@@ -22,17 +22,25 @@ class RAGMCPTests(unittest.TestCase):
 
     def test_mcp_lists_and_calls_knowledge_base_tools(self):
         async def exercise_server():
+            env = os.environ.copy()
+            # The uv --with pytest overlay uses a temporary Python executable;
+            # test warmup order separately and exercise the MCP process lazily here.
+            env["RAG_PREWARM"] = "0"
             parameters = StdioServerParameters(
                 command=sys.executable,
                 args=["src/mcp_server.py"],
                 cwd=PROJECT_ROOT,
-                env=os.environ.copy(),
+                env=env,
             )
             async with stdio_client(parameters) as (read_stream, write_stream):
                 async with ClientSession(read_stream, write_stream) as session:
                     await session.initialize()
                     tools = await session.list_tools()
                     self.assertEqual({tool.name for tool in tools.tools}, {"knowledge_base_status", "search_knowledge_base"})
+                    search_tool = next(tool for tool in tools.tools if tool.name == "search_knowledge_base")
+                    self.assertIn("evidence_sufficient=true", search_tool.description)
+                    self.assertIn("source_file、page 和 chunk_id", search_tool.description)
+                    self.assertIn("不得使用模型记忆补充或猜测", search_tool.description)
                     status_response = await session.call_tool("knowledge_base_status", {})
                     status_payload = json.loads(status_response.content[0].text)
                     self.assertGreater(status_payload["chunks"], 400)
