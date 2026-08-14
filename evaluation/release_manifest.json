@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "created_at": "2026-08-13T17:43:42.627013+00:00",
-  "commit": "8cbdeb53f975aec9995bc3dc359c622022eb2858",
+  "created_at": "2026-08-14T05:40:41.652524+00:00",
+  "commit": "6333a697dc7698064c6b119a12b8d37290585930",
   "hash_policy": "LF-normalized UTF-8-compatible text; raw bytes for binary files",
   "files": {
     ".codex/config.toml": {
@@ -10,9 +10,9 @@
       "portable_text": true
     },
     ".gitignore": {
-      "sha256": "f354d55c6549020c932fd39b16b89c9f0f249b22961814e82eab0201cd76653a",
-      "bytes": 130,
-      "portable_text": false
+      "sha256": "547131959a81c2def461cf93be7d64ff87f8ab3ff1291bf2b4af15b2bbbc26c0",
+      "bytes": 120,
+      "portable_text": true
     },
     "AGENTS.md": {
       "sha256": "c0da8201ad0083b519e2862c5a34d4c5f7bfd9b00e5b33ff2feb61564da84113",
@@ -25,8 +25,8 @@
       "portable_text": true
     },
     "docs/RAG_ISSUES_AND_SOLUTIONS.md": {
-      "sha256": "1c8a6fcdebe2a40e05bee02996e940ef455d51fc4f14f84ba32e7111fcc7357c",
-      "bytes": 26425,
+      "sha256": "665ed123f8c3f71cf9a598b59d1ac4e307d85e7e13ae957aa4e6d4809cc3d23e",
+      "bytes": 26453,
       "portable_text": true
     },
     "evaluation/answer_prediction_template.json": {
@@ -145,8 +145,8 @@
       "portable_text": true
     },
     "evaluation/release_manifest.py": {
-      "sha256": "110c211dd8a5e179b593c515ce91bcb87e0d0f486d5c87d58f4a66d870ab0e1b",
-      "bytes": 5410,
+      "sha256": "3d3b046aeef6232bdb432f73338799aefc5c86b54ae37d48a8a808a4125aa9fe",
+      "bytes": 5525,
       "portable_text": true
     },
     "evaluation/reproduce_release.py": {
@@ -330,8 +330,8 @@
       "portable_text": true
     },
     "tests/test_release_manifest.py": {
-      "sha256": "c723cd27243fc100dac4a09ebb2190f7c870a6e170480df4b92f57bb3dbf9f99",
-      "bytes": 1851,
+      "sha256": "0930bcfe5752cb32f7b8726aab043ad763a61f588cb0b2e51aaed3c23cd594d6",
+      "bytes": 2451,
       "portable_text": true
     },
     "tests/test_reproduce_release.py": {
@@ -350,9 +350,9 @@
       "portable_text": true
     },
     "uv.lock": {
-      "sha256": "9fc18dce69bb412a0d14b348026c5ad9e4a66d900c3ee356b0ac46463abfbffa",
-      "bytes": 655394,
-      "portable_text": false
+      "sha256": "fd1d903577ec0af027760330228c251889deea23584fecb293950a0004b6a4a3",
+      "bytes": 651948,
+      "portable_text": true
     }
   }
 }
