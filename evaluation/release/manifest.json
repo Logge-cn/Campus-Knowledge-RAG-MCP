@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "created_at": "2026-08-15T08:58:14.175930+00:00",
-  "commit": "6d5f7abdd0036812d60defc0919f3b427cbd80b7",
+  "created_at": "2026-08-15T09:35:06.986885+00:00",
+  "commit": "c438b70131e9872ad2deab29a29482c7759e1a05",
   "hash_policy": "LF-normalized UTF-8-compatible text; raw bytes for binary files",
   "files": {
     ".agents/skills/rag-answer-evaluation/SKILL.md": {
@@ -19,6 +19,11 @@
       "bytes": 302,
       "portable_text": true
     },
+    ".github/workflows/pages.yml": {
+      "sha256": "57d0a6e2b94877852ac153b8bdc2058a0f17776cd1973da742b6ab5cdc5f6675",
+      "bytes": 859,
+      "portable_text": true
+    },
     ".gitignore": {
       "sha256": "41611ec3af0fe25fa391afd427f3685ddb2a4fd36a004fac68bbd432304e80b1",
       "bytes": 230,
@@ -30,8 +35,8 @@
       "portable_text": true
     },
     "README.md": {
-      "sha256": "53e847e65d6a9ff36c77e88147d68cc46303a5923865e4fb8ec647227133d20b",
-      "bytes": 7158,
+      "sha256": "f837d994673c5f3973c4394ad3d41d0b52a176f9dc4c2b381d178b6a5cd0140c",
+      "bytes": 7508,
       "portable_text": true
     },
     "data/demo/index.html": {
