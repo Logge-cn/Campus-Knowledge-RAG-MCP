@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "id", "query", "tool_call", "prediction"],
+  "properties": {
+    "protocol_version": {"const": "answer-eval-subagent-v1"},
+    "id": {"type": "string", "minLength": 1},
+    "query": {"type": "string", "minLength": 1},
+    "tool_call": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "arguments", "result"],
+      "properties": {
+        "name": {"const": "search_knowledge_base"},
+        "arguments": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["query", "limit"],
+          "properties": {
+            "query": {"type": "string", "minLength": 1},
+            "limit": {"type": "integer", "minimum": 1}
+          }
+        },
+        "result": {"type": "object"}
+      }
+    },
+    "prediction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "answer", "refused", "cited_chunk_ids", "citations"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "answer": {"type": "string"},
+        "refused": {"type": "boolean"},
+        "cited_chunk_ids": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1},
+          "uniqueItems": true
+        },
+        "citations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["chunk_id", "source_file", "page"],
+            "properties": {
+              "chunk_id": {"type": "string", "minLength": 1},
+              "source_file": {"type": "string", "minLength": 1},
+              "page": {"type": "integer", "minimum": 1}
+            }
+          }
+        }
+      }
+    }
+  }
+}

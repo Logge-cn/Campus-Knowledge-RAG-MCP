@@ -6,10 +6,10 @@
 
 ## 当前进度（2026-08-15）
 
-- 当前位于 `master`，第一优先级“答案级评测”的本地基础设施已完成：固定 12 题、版本化 Prompt/Schema、真实 STDIO MCP 运行器和答案评估器均已实现。
-- 真实 12 题答案生成与人工复核尚未执行，因为该步骤会把本地校园 PDF 证据发送给 OpenAI/Codex，仍等待明确的数据外发授权；因此当前没有可声明的答案正确率、引用准确率或拒答遵守率。
+- 当前位于 `master`，第一优先级“答案级评测”的本地基础设施已完成：固定 12 题、版本化 Prompt/Schema、每题一个干净 Codex 子 agent 的编排协议、确定性结果汇总器和答案评估器均已实现。
+- 真实 12 题答案生成与人工复核尚未执行。运行时会把固定问题和每题最多 5 条校园 PDF 证据发送给当前 Codex 服务；因此当前没有可声明的答案正确率、引用准确率或拒答遵守率。
 - 第二优先级“干净环境复现”已完成：依赖和四个模型输入可固定校验，两份 Git PDF 可从零重建索引，项目级 MCP 配置、工具发现、`knowledge_base_status` 和完整测试均已验收；第三优先级及以后尚未启动。
-- 当前运行索引为 schema 4、2 份 PDF、731 个 chunk；完整测试套件实际为 96 项并已通过。
+- 当前运行索引为 schema 4、2 份 PDF、731 个 chunk；完整测试套件实际为 100 项并已通过。
 - 当前 `evaluation/release_manifest.json` 已按第二优先级工作区重新生成，覆盖 84 个发布输入并通过校验；这不表示仍待授权的第一优先级真实答案评测已经完成。
 - `docs/` 已纳入版本控制；`slides/` 仍被 `.gitignore` 忽略，只作为本地演示保留。
 
@@ -137,14 +137,23 @@ uv run python evaluation/evaluate_evidence.py `
 
 当前开发集固定阈值结果为：90 条可回答问题误拒答 1 条（1.11%），10 条不可回答问题误答 0 条。20 条四类不可回答回归集误答 0 条；该回归集已用于规则开发，不能冒充下一轮独立未见验收集。
 
-固定答案级评测使用 Codex CLI、`gpt-5.6-sol`、`answer-eval-v1` Prompt、`answer-eval-v1` 工具 description 和 Top 5 证据。问题集覆盖普通文本、表格、扫描 PDF、知识库外问题、错误学校和时效性问题。运行真实客户端评测：
+固定答案级评测使用当前 Codex 会话、`gpt-5.6-sol`、`answer-eval-v1` Prompt、`answer-eval-v1` 工具 description 和 Top 5 证据。问题集覆盖普通文本、表格、扫描 PDF、知识库外问题、错误学校和时效性问题。通过 `$rag-answer-evaluation` Skill 运行完整评测；Skill 会先准备任务，再以最多 3 个并发槽为每道题创建一个 `fork_turns=none` 的全新子 agent。
+
+Runner 不再启动嵌套 `codex exec`。它只负责准备逐题任务、校验各子 agent 的独立结果文件、按数据集顺序汇总并生成报告。内部命令为：
 
 ```powershell
-uv run python evaluation/run_answer_evaluation.py `
+uv run python evaluation/run_answer_evaluation.py prepare `
+  --output-dir evaluation/reports/answer-eval-v1
+
+uv run python evaluation/run_answer_evaluation.py validate-case `
+  --output-dir evaluation/reports/answer-eval-v1 `
+  --case-id <case-id>
+
+uv run python evaluation/run_answer_evaluation.py finalize `
   --output-dir evaluation/reports/answer-eval-v1
 ```
 
-该命令通过真实 STDIO MCP 工具逐题检索，保存客户端原始 JSONL 事件、`evidence_sufficient`、`confidence`、`reason`、完整检索结果、最终答案和引用，并生成自动诊断报告。运行会把问题和检索到的校园 PDF 证据发送给所配置的 OpenAI/Codex 服务，执行前必须确认这些材料允许外发。
+每个子 agent 只接收一题，直接调用当前会话已连接的 `njupt-rag.search_knowledge_base`，并写入唯一的 `case-results/<id>.json`。Runner 会校验原始 query、Top 5 参数、`evidence_sufficient`、`confidence`、`reason`、完整检索结果、拒答规则和引用元数据，再生成 `predictions.json` 与自动诊断报告。此模式保存的是子 agent 提交并经 Runner 校验的 MCP 结果，不是宿主捕获的原始 JSONL 工具事件。
 
 在 `predictions.json` 中人工复核 `correct`、`complete`、`citation_supported` 和 `uses_model_memory_or_guess` 后，重新生成最终报告：
 
