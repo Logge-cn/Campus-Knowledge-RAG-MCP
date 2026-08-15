@@ -11,8 +11,8 @@ from pathlib import Path
 from typing import Any, Iterable
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-TEXT_SUFFIXES = {".json", ".lock", ".md", ".py", ".toml", ".txt", ".yaml", ".yml"}
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+TEXT_SUFFIXES = {".html", ".json", ".lock", ".md", ".py", ".toml", ".txt", ".yaml", ".yml"}
 TEXT_FILENAMES = {".editorconfig", ".gitattributes", ".gitignore"}
 
 

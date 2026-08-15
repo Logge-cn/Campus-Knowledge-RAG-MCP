@@ -10,7 +10,7 @@ Run the repository's isolated-subagent evaluation workflow. Use the skill for or
 ## Preserve the evaluation boundary
 
 - Keep `gpt-5.6-sol`, Prompt version `answer-eval-v1`, tool-description version `answer-eval-v1`, and retrieval limit 5 unchanged.
-- Treat `data/南京邮电大学学生手册（2023版）+.pdf` and `data/奖学金细则.pdf` as approved public inputs. When the user directly asks to run the evaluation and the dataset references only these inputs, give a brief outbound-data notice and proceed without a separate blocking authorization question.
+- Treat `data/sources/南京邮电大学学生手册（2023版）+.pdf` and `data/sources/奖学金细则.pdf` as approved public inputs. When the user directly asks to run the evaluation and the dataset references only these inputs, give a brief outbound-data notice and proceed without a separate blocking authorization question.
 - Stop and request confirmation if the dataset introduces another source or the user identifies any input as non-public.
 - Send only one fixed question and its MCP-returned evidence through each subagent. Do not upload whole PDFs, model directories, the index, gold answers, or another case's context.
 - Do not modify the dataset, Prompt, output schema, runner, evaluator, MCP description, or retrieval configuration during a run.
@@ -27,25 +27,25 @@ Run the repository's isolated-subagent evaluation workflow. Use the skill for or
 ## Preflight
 
 1. Resolve the repository root with `git rev-parse --show-toplevel` and run all commands there.
-2. Confirm `evaluation/answer_eval_dataset.json`, `evaluation/answer_eval_prompt_v1.md`, `evaluation/answer_eval_output_schema.json`, `evaluation/answer_eval_case_result_schema.json`, `evaluation/run_answer_evaluation.py`, and `evaluation/evaluate_answers.py` exist.
+2. Confirm `evaluation/answer/dataset.json`, `evaluation/answer/prompt_v1.md`, `evaluation/answer/output_schema.json`, `evaluation/answer/case_result_schema.json`, `evaluation/answer/run.py`, and `evaluation/answer/evaluate.py` exist.
 3. Read the dataset and verify that it contains 12 unique cases and that every non-null `source_file` is one of the two approved public PDFs.
-4. Check Git status for `evaluation/answer_eval_dataset.json`, `evaluation/answer_eval_prompt_v1.md`, `evaluation/answer_eval_output_schema.json`, and `src/mcp_server.py`. If any is modified, report the exact files and ask whether this should be treated as a new evaluation cycle. Runner, Skill, test, documentation, and unrelated worktree changes are not blockers.
+4. Check Git status for `evaluation/answer/dataset.json`, `evaluation/answer/prompt_v1.md`, `evaluation/answer/output_schema.json`, and `src/mcp_server.py`. If any is modified, report the exact files and ask whether this should be treated as a new evaluation cycle. Runner, Skill, test, documentation, and unrelated worktree changes are not blockers.
 5. Confirm the current Codex host exposes `njupt-rag.search_knowledge_base` and can create subagents. Do not run `codex login status`: fresh subagents use the current Codex host and its authentication. If either capability is absent, stop and report which capability is unavailable.
-6. Verify `storage/index/metadata.json` reports schema 4, 2 documents, and 731 chunks, and verify the four model directories documented in `README.md` exist.
-7. If the user gives an output directory, require it to be a new path under `evaluation/reports/`. Otherwise let the runner create its timestamped output directory so repeated runs never overwrite earlier evidence.
+6. Verify `runtime/storage/index/metadata.json` reports schema 4, 2 documents, and 731 chunks, and verify the four model directories documented in `README.md` exist.
+7. If the user gives an output directory, require it to be a new path under `runtime/reports/answer/`. Otherwise let the runner create its timestamped output directory so repeated runs never overwrite earlier evidence.
 
 ## Prepare
 
 Briefly state that the fixed public questions and at most five retrieved evidence chunks per question will be sent to the configured Codex service. Then run:
 
 ```powershell
-uv run python evaluation/run_answer_evaluation.py prepare
+uv run python evaluation/answer/run.py prepare
 ```
 
 When the user explicitly requests a named output directory, add:
 
 ```powershell
---output-dir evaluation/reports/<new-run-name>
+--output-dir runtime/reports/answer/<new-run-name>
 ```
 
 Read the generated `agent-tasks.json`. It must contain 12 unique tasks, each with `model=gpt-5.6-sol`, `fork_turns=none`, `limit=5`, a unique result path, and a prompt containing only that task's id and query. Do not pass the dataset or conversation history to a child.
@@ -60,8 +60,8 @@ Use a bounded pool of at most three active subagents. For each task:
 4. When a subagent completes, run:
 
 ```powershell
-uv run python evaluation/run_answer_evaluation.py validate-case `
-  --output-dir evaluation/reports/<run-name> `
+uv run python evaluation/answer/run.py validate-case `
+  --output-dir runtime/reports/answer/<run-name> `
   --case-id <case-id>
 ```
 
@@ -74,8 +74,8 @@ Do not ask a completed subagent to revise a result and do not fill, repair, or i
 After all 12 case results validate, run:
 
 ```powershell
-uv run python evaluation/run_answer_evaluation.py finalize `
-  --output-dir evaluation/reports/<run-name>
+uv run python evaluation/answer/run.py finalize `
+  --output-dir runtime/reports/answer/<run-name>
 ```
 
 The runner must aggregate results in dataset order, generate `predictions.json` and `report.json`, and set the manifest status to `completed`.
@@ -113,10 +113,10 @@ After the user supplies the human decisions, edit only the corresponding `review
 Run:
 
 ```powershell
-uv run python evaluation/evaluate_answers.py `
-  --dataset evaluation/answer_eval_dataset.json `
-  --predictions evaluation/reports/<run-name>/predictions.json `
-  --report evaluation/reports/<run-name>/report-reviewed.json
+uv run python evaluation/answer/evaluate.py `
+  --dataset evaluation/answer/dataset.json `
+  --predictions runtime/reports/answer/<run-name>/predictions.json `
+  --report runtime/reports/answer/<run-name>/report-reviewed.json
 ```
 
 Verify full manual-review coverage for answerable cases. Summarize correctness, completeness, citation precision and recall, false-answer rate, false-refusal rate, insufficient-evidence refusal compliance, model-memory/guess rate, and failure-stage counts.

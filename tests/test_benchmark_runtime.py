@@ -4,7 +4,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 
-from evaluation.benchmark_runtime import hardware_info, index_size_bytes, percentile
+from evaluation.retrieval.benchmark import hardware_info, index_size_bytes, percentile
 from retrieval.runtime import warmup
 
 

@@ -1,7 +1,7 @@
 import unittest
 
 
-from evaluation.evaluate_answers import _character_ngram_recall, evaluate_answers
+from evaluation.answer.evaluate import _character_ngram_recall, evaluate_answers
 
 
 class AnswerEvaluationTests(unittest.TestCase):

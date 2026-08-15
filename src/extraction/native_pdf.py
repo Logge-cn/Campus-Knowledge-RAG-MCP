@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
@@ -15,6 +16,9 @@ import fitz
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+ASSET_ROOT = Path(os.environ.get("RAG_ASSET_ROOT", PROJECT_ROOT / "runtime")).resolve()
+if ASSET_ROOT.parent == ASSET_ROOT:
+    raise ValueError("RAG_ASSET_ROOT must not be a filesystem root")
 MIN_ALNUM_CHARS = 50
 MIN_USABLE_BLOCK_RATIO = 0.01
 MAX_REPLACEMENT_RATIO = 0.15
@@ -411,7 +415,11 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("pdf", nargs="+", type=Path)
     parser.add_argument("--data-root", type=Path, default=Path("data"))
-    parser.add_argument("--output-root", type=Path, default=PROJECT_ROOT / "storage" / "artifacts")
+    parser.add_argument(
+        "--output-root",
+        type=Path,
+        default=ASSET_ROOT / "storage" / "artifacts",
+    )
     args = parser.parse_args()
     for pdf_path in args.pdf:
         metadata = process(pdf_path, args.data_root, args.output_root)

@@ -1,7 +1,7 @@
 import unittest
 
 
-from evaluation.evaluate_evidence import classification_metrics, select_threshold
+from evaluation.evidence.evaluate import classification_metrics, select_threshold
 
 
 class EvidenceEvaluationTests(unittest.TestCase):

@@ -14,7 +14,7 @@ from statistics import mean
 from typing import Any
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from retrieval import bm25_search, load_index, rerank, rrf_fuse, tokenize, vector_search
@@ -28,8 +28,8 @@ from retrieval.config import (
 )
 
 
-EVALUATION_PATH = PROJECT_ROOT / "evaluation" / "dataset.json"
-REPORT_PATH = PROJECT_ROOT / "evaluation" / "reports" / "latest.json"
+EVALUATION_PATH = PROJECT_ROOT / "evaluation" / "evidence" / "development.json"
+REPORT_PATH = PROJECT_ROOT / "runtime" / "reports" / "retrieval" / "latest.json"
 LEGACY_DIMENSIONS = 512
 TOP_K = 5
 

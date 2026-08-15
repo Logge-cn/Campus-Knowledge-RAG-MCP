@@ -12,7 +12,7 @@ from mcp.client.session import ClientSession
 from mcp.client.stdio import StdioServerParameters, stdio_client
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 EXPECTED_TOOLS = {"knowledge_base_status", "search_knowledge_base"}
 
 

@@ -21,8 +21,8 @@ from extraction.native_pdf import (
 
 
 PROJECT_ROOT = Path(__file__).parents[1]
-ASSET_ROOT = Path(os.environ.get("RAG_ASSET_ROOT", PROJECT_ROOT)).resolve()
-DATA = PROJECT_ROOT / "data"
+ASSET_ROOT = Path(os.environ.get("RAG_ASSET_ROOT", PROJECT_ROOT / "runtime")).resolve()
+DATA = PROJECT_ROOT / "data" / "sources"
 ARTIFACTS = ASSET_ROOT / "storage" / "artifacts"
 
 

@@ -12,7 +12,7 @@ from statistics import mean
 from typing import Any
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
 def _normalize(text: str) -> str:

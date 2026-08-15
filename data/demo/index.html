@@ -1,0 +1,913 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="校园文档 RAG-MCP 项目路线、效果与未来计划网页演示稿">
+  <title>校园文档 RAG-MCP｜项目路线与下一步</title>
+  <style>
+    :root {
+      --ink: #111318;
+      --muted: #626a78;
+      --soft: #eef1f5;
+      --paper: #fbfbfa;
+      --blue: #2457e6;
+      --blue-soft: #e9efff;
+      --green: #14845f;
+      --amber: #c77508;
+      --line: #d9dde5;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+      background: #17191e;
+      color: var(--ink);
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", system-ui, sans-serif;
+    }
+
+    button { font: inherit; }
+
+    .stage {
+      position: relative;
+      width: min(100vw, calc(100vh * 16 / 9));
+      height: min(100vh, calc(100vw * 9 / 16));
+      margin: auto;
+      top: 50%;
+      transform: translateY(-50%);
+      overflow: hidden;
+      background: var(--paper);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .38);
+      container-type: size;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      grid-template-rows: auto 1fr auto;
+      gap: 3.4cqh;
+      padding: 6.7cqh 6.2cqw 4.4cqh;
+      background: var(--paper);
+      opacity: 0;
+    }
+
+    .slide.active {
+      display: grid;
+      opacity: 1;
+      animation: enter .28s ease-out;
+    }
+
+    @keyframes enter {
+      from { opacity: 0; transform: translateX(1.3%); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .eyebrow {
+      margin: 0 0 1.2cqh;
+      color: var(--blue);
+      font-size: 1.35cqw;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      margin-bottom: 2.6cqh;
+      max-width: 12em;
+      font-size: 5.45cqw;
+      line-height: 1.06;
+      letter-spacing: -.045em;
+    }
+
+    h2 {
+      margin-bottom: 0;
+      font-size: 3.15cqw;
+      line-height: 1.12;
+      letter-spacing: -.035em;
+    }
+
+    h3 {
+      margin-bottom: 1.2cqh;
+      font-size: 1.62cqw;
+      line-height: 1.2;
+    }
+
+    p, li {
+      font-size: 1.45cqw;
+      line-height: 1.55;
+    }
+
+    .lede {
+      max-width: 42em;
+      color: var(--muted);
+      font-size: 1.78cqw;
+      line-height: 1.5;
+    }
+
+    .source {
+      align-self: end;
+      color: #858c98;
+      font-size: .86cqw;
+      letter-spacing: .01em;
+    }
+
+    .accent-rule {
+      width: 6.5cqw;
+      height: .7cqh;
+      margin-bottom: 3.5cqh;
+      background: var(--blue);
+    }
+
+    .cover {
+      background:
+        linear-gradient(90deg, transparent 0 77%, var(--blue) 77% 78%, transparent 78%),
+        linear-gradient(var(--paper), var(--paper));
+    }
+
+    .cover .cover-copy {
+      align-self: center;
+      max-width: 74%;
+    }
+
+    .cover .stamp {
+      position: absolute;
+      right: 6.2cqw;
+      bottom: 9.5cqh;
+      width: 15cqw;
+      color: var(--muted);
+      font-size: 1.1cqw;
+      line-height: 1.6;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4.5cqw;
+      min-height: 0;
+    }
+
+    .statement {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-top: .45cqh solid var(--ink);
+      padding-top: 2.6cqh;
+    }
+
+    .statement strong {
+      color: var(--blue);
+      font-size: 4.2cqw;
+      line-height: 1;
+      letter-spacing: -.05em;
+    }
+
+    .statement p { margin: 2.2cqh 0 0; }
+
+    .plain-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+
+    .plain-list li {
+      display: grid;
+      grid-template-columns: 2.6cqw 1fr;
+      gap: 1.3cqw;
+      padding: 2.1cqh 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .plain-list b { color: var(--blue); }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      align-items: stretch;
+      gap: .8cqw;
+      margin-top: 3cqh;
+    }
+
+    .pipe-step {
+      position: relative;
+      min-height: 27cqh;
+      padding: 3cqh 1.25cqw 2.2cqh;
+      border-top: .5cqh solid var(--ink);
+      background: white;
+    }
+
+    .pipe-step:not(:last-child)::after {
+      content: "→";
+      position: absolute;
+      z-index: 2;
+      top: 12cqh;
+      right: -1.12cqw;
+      color: var(--blue);
+      font-size: 1.8cqw;
+      font-weight: 900;
+    }
+
+    .pipe-step .num {
+      color: var(--blue);
+      font-size: 1.05cqw;
+      font-weight: 800;
+    }
+
+    .pipe-step h3 { margin-top: 5cqh; }
+    .pipe-step p { color: var(--muted); font-size: 1.08cqw; }
+
+    .route-box {
+      padding: 3.2cqh 2.2cqw;
+      background: white;
+      border-left: .5cqw solid var(--blue);
+    }
+
+    .route-box.alt { border-left-color: var(--green); }
+
+    .route-flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .8cqw;
+      margin-top: 2.5cqh;
+    }
+
+    .route-flow span {
+      padding: 1.1cqh 1.05cqw;
+      background: var(--soft);
+      font-size: 1.05cqw;
+      font-weight: 700;
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.2cqw;
+      align-items: start;
+      padding-top: 7cqh;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 9cqh;
+      left: 2cqw;
+      right: 2cqw;
+      height: .35cqh;
+      background: var(--line);
+    }
+
+    .era {
+      position: relative;
+      padding-top: 5.5cqh;
+    }
+
+    .era::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1.5cqw;
+      aspect-ratio: 1;
+      border: .42cqw solid var(--paper);
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 0 1px var(--blue);
+    }
+
+    .era .range {
+      color: var(--blue);
+      font-size: 1.05cqw;
+      font-weight: 800;
+    }
+
+    .era p { color: var(--muted); font-size: 1.16cqw; }
+
+    .config-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 4cqw;
+      align-items: center;
+    }
+
+    .formula {
+      padding: 4cqh 3cqw;
+      background: #111318;
+      color: white;
+    }
+
+    .formula .big {
+      margin: 0 0 2.6cqh;
+      font-size: 2.25cqw;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .formula .big b { color: #83a4ff; }
+
+    .formula p {
+      margin: 0;
+      color: #c8ced9;
+      font-size: 1.18cqw;
+    }
+
+    .specs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2cqw;
+    }
+
+    .spec {
+      padding: 2.4cqh 1.6cqw;
+      border-top: .35cqh solid var(--line);
+    }
+
+    .spec b {
+      display: block;
+      color: var(--blue);
+      font-size: 2.1cqw;
+    }
+
+    .spec span { color: var(--muted); font-size: 1.05cqw; }
+
+    .bars {
+      display: grid;
+      gap: 2.5cqh;
+      align-content: center;
+      padding-right: 3cqw;
+    }
+
+    .bar-line {
+      display: grid;
+      grid-template-columns: 9cqw 1fr 4.5cqw;
+      gap: 1.2cqw;
+      align-items: center;
+    }
+
+    .bar-label { font-size: 1.2cqw; font-weight: 700; }
+
+    .bar-track { height: 2.6cqh; background: var(--soft); }
+
+    .bar-fill { height: 100%; background: var(--blue); }
+
+    .bar-value { font-size: 1.35cqw; font-weight: 900; text-align: right; }
+
+    .callout {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 3.5cqh 2.6cqw;
+      background: var(--blue-soft);
+    }
+
+    .callout .hero-number {
+      color: var(--blue);
+      font-size: 5.1cqw;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -.06em;
+    }
+
+    .callout p { margin: 2cqh 0 0; }
+
+    .metric-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .metric {
+      padding: 3.7cqh 1.8cqw;
+      background: white;
+    }
+
+    .metric strong {
+      display: block;
+      margin-bottom: 1cqh;
+      color: var(--blue);
+      font-size: 2.8cqw;
+      line-height: 1;
+    }
+
+    .metric span { color: var(--muted); font-size: 1.08cqw; }
+
+    .note-line {
+      padding: 2.5cqh 2cqw;
+      border-left: .45cqw solid var(--green);
+      background: #ecf7f2;
+      font-size: 1.25cqw;
+    }
+
+    .speed {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4cqw;
+      align-items: center;
+    }
+
+    .speed-compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.4cqw;
+    }
+
+    .speed-box {
+      padding: 3.4cqh 2cqw;
+      border-top: .55cqh solid var(--ink);
+      background: white;
+    }
+
+    .speed-box.fast { border-color: var(--green); }
+
+    .speed-box strong {
+      display: block;
+      margin: 2.4cqh 0 1cqh;
+      font-size: 3.4cqw;
+      line-height: 1;
+    }
+
+    .speed-box.fast strong { color: var(--green); }
+    .speed-box span { color: var(--muted); font-size: 1.06cqw; }
+
+    .bottleneck {
+      padding-left: 2.5cqw;
+      border-left: .55cqw solid var(--amber);
+    }
+
+    .bottleneck strong {
+      display: block;
+      color: var(--amber);
+      font-size: 3.4cqw;
+      line-height: 1;
+    }
+
+    .status-flow {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3cqw;
+    }
+
+    .status-block {
+      padding: 3.2cqh 2.4cqw;
+      border-top: .55cqh solid var(--green);
+      background: white;
+    }
+
+    .status-block.pending { border-color: var(--amber); }
+
+    .status-label {
+      color: var(--green);
+      font-size: 1.05cqw;
+      font-weight: 900;
+      letter-spacing: .08em;
+    }
+
+    .pending .status-label { color: var(--amber); }
+
+    .status-block ul { margin: 2.2cqh 0 0; padding-left: 1.4em; }
+    .status-block li { margin: .9cqh 0; font-size: 1.18cqw; }
+
+    .tree-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5cqw;
+      align-items: center;
+    }
+
+    pre.tree {
+      margin: 0;
+      padding: 3.2cqh 2.4cqw;
+      background: #111318;
+      color: #e8eaf0;
+      font: 1.2cqw/1.55 Consolas, "Cascadia Mono", monospace;
+    }
+
+    .tree .blue { color: #83a4ff; }
+    .tree .green { color: #65d3aa; }
+
+    .role-list { margin: 0; padding: 0; list-style: none; }
+
+    .role-list li {
+      padding: 1.8cqh 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 1.2cqw;
+    }
+
+    .role-list b { display: inline-block; width: 8cqw; color: var(--blue); }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2cqw;
+      align-items: stretch;
+    }
+
+    .road {
+      padding: 3.5cqh 2cqw;
+      background: white;
+      border-top: .55cqh solid var(--line);
+    }
+
+    .road.now { border-color: var(--blue); }
+    .road.next { border-color: var(--green); }
+    .road.later { border-color: var(--amber); }
+
+    .road .tag { color: var(--muted); font-size: .98cqw; font-weight: 900; }
+    .road h3 { margin-top: 3.2cqh; }
+    .road p { color: var(--muted); font-size: 1.15cqw; }
+
+    .closing {
+      background: #111318;
+      color: white;
+    }
+
+    .closing h2 { max-width: 16em; font-size: 4.1cqw; }
+    .closing .eyebrow { color: #83a4ff; }
+    .closing .source { color: #868d9b; }
+    .closing .finish { align-self: center; }
+    .closing .finish p { max-width: 38em; color: #c5cad4; font-size: 1.55cqw; }
+
+    .controls {
+      position: fixed;
+      z-index: 10;
+      right: 1.2rem;
+      bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .35rem;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      background: rgba(17, 19, 24, .78);
+      color: white;
+      backdrop-filter: blur(8px);
+    }
+
+    .controls button {
+      display: grid;
+      width: 2.15rem;
+      height: 2.15rem;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      color: white;
+      cursor: pointer;
+    }
+
+    .controls button:hover,
+    .controls button:focus-visible { background: rgba(255,255,255,.14); outline: none; }
+
+    .counter { min-width: 3.7rem; font-size: .82rem; text-align: center; }
+
+    .progress {
+      position: fixed;
+      z-index: 11;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      background: var(--blue);
+      transition: width .22s ease;
+    }
+
+    .hint {
+      position: fixed;
+      z-index: 10;
+      left: 1.2rem;
+      bottom: 1rem;
+      color: rgba(255,255,255,.7);
+      font-size: .76rem;
+    }
+
+    @media (max-width: 720px) {
+      .hint { display: none; }
+      .controls { right: .5rem; bottom: .5rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slide.active { animation: none; }
+      .progress { transition: none; }
+    }
+
+    @media print {
+      html, body { height: auto; overflow: visible; background: white; }
+      .stage { top: 0; width: 100%; height: auto; transform: none; box-shadow: none; overflow: visible; }
+      .slide, .slide.active { position: relative; display: grid; width: 100vw; height: 56.25vw; page-break-after: always; opacity: 1; animation: none; }
+      .controls, .progress, .hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage" aria-live="polite">
+    <section class="slide cover active" data-title="封面">
+      <div></div>
+      <div class="cover-copy">
+        <p class="eyebrow">Project retrospective · 2026</p>
+        <div class="accent-rule"></div>
+        <h1>校园文档<br>RAG-MCP</h1>
+        <p class="lede">从 PDF 内容处理，到可复现、可追溯的证据检索服务。</p>
+      </div>
+      <div class="source">项目路线 · 当前成效 · 目录重构 · 未来方案</div>
+      <div class="stamp">两份制度文档<br>393 页 · 731 个证据块<br>离线优先 · 本地可复现</div>
+    </section>
+
+    <section class="slide" data-title="项目定位">
+      <header>
+        <p class="eyebrow">01 · Why</p>
+        <h2>项目解决的不是“聊天”，而是“证据交付”</h2>
+      </header>
+      <div class="two-col">
+        <div class="statement">
+          <strong>可信答案<br>始于可信证据</strong>
+          <p>先把来源、页码、段落与检索分数做扎实，再让上层智能体生成答案。</p>
+        </div>
+        <ul class="plain-list">
+          <li><b>01</b><span>同时处理原生 PDF 与扫描 PDF，不把 OCR 当作隐藏的黑盒。</span></li>
+          <li><b>02</b><span>每个命中项保留稳定证据标识、来源文件和页码，便于核验。</span></li>
+          <li><b>03</b><span>通过 MCP 暴露检索能力；答案生成与人工判断仍由调用方负责。</span></li>
+        </ul>
+      </div>
+      <footer class="source">来源：README.md · docs/项目路线总结.md</footer>
+    </section>
+
+    <section class="slide" data-title="系统链路">
+      <header>
+        <p class="eyebrow">02 · Architecture</p>
+        <h2>一条从文件到证据的可追溯链路</h2>
+      </header>
+      <div class="pipeline" aria-label="RAG 处理链路">
+        <div class="pipe-step"><span class="num">01</span><h3>来源</h3><p>项目规范 PDF<br>原生 / 扫描</p></div>
+        <div class="pipe-step"><span class="num">02</span><h3>提取</h3><p>文本解析<br>OCR 回退</p></div>
+        <div class="pipe-step"><span class="num">03</span><h3>切分</h3><p>页码与章节感知<br>稳定 chunk ID</p></div>
+        <div class="pipe-step"><span class="num">04</span><h3>召回</h3><p>BM25 + Dense<br>候选融合</p></div>
+        <div class="pipe-step"><span class="num">05</span><h3>重排</h3><p>Cross-encoder<br>证据去重</p></div>
+        <div class="pipe-step"><span class="num">06</span><h3>交付</h3><p>MCP 工具<br>引用与拒答依据</p></div>
+      </div>
+      <footer class="source">来源：src/ · docs/PDF原生内容处理规范.md · docs/PDF扫描件处理规范.md</footer>
+    </section>
+
+    <section class="slide" data-title="双路 PDF 处理">
+      <header>
+        <p class="eyebrow">03 · Ingestion</p>
+        <h2>两类输入，两条明确的质量路径</h2>
+      </header>
+      <div class="two-col">
+        <article class="route-box">
+          <h3>原生 PDF</h3>
+          <p>优先保留数字文本结构；页码、标题和段落边界直接进入后续切分。</p>
+          <div class="route-flow"><span>文字提取</span><span>结构清洗</span><span>章节切分</span><span>质量检查</span></div>
+        </article>
+        <article class="route-box alt">
+          <h3>扫描 PDF</h3>
+          <p>以页为单位渲染和 OCR；失败、低置信度与告警被显式记录，而非静默跳过。</p>
+          <div class="route-flow"><span>页面渲染</span><span>方向检测</span><span>OCR</span><span>置信度审计</span></div>
+        </article>
+      </div>
+      <footer class="source">来源：docs/PDF原生内容处理规范.md · docs/PDF扫描件处理规范.md</footer>
+    </section>
+
+    <section class="slide" data-title="优化路线">
+      <header>
+        <p class="eyebrow">04 · Evolution</p>
+        <h2>13 个优化阶段，归并为四次能力跃迁</h2>
+      </header>
+      <div class="timeline">
+        <article class="era"><span class="range">阶段 1—3</span><h3>先可用</h3><p>搭建抽取、索引与 MCP 基线，修正页码、编码和证据格式。</p></article>
+        <article class="era"><span class="range">阶段 4—7</span><h3>再找准</h3><p>引入混合召回、查询改写、章节感知切分和交叉编码器重排。</p></article>
+        <article class="era"><span class="range">阶段 8—10</span><h3>可度量</h3><p>建立扩展数据集、锁定验收集和运行时基准，避免“凭感觉优化”。</p></article>
+        <article class="era"><span class="range">阶段 11—13</span><h3>可复现</h3><p>冻结配置、发布清单、干净环境重跑，并为答案级评估铺好基础设施。</p></article>
+      </div>
+      <footer class="source">完整逐项动机与效果：docs/项目路线总结.md</footer>
+    </section>
+
+    <section class="slide" data-title="检索策略">
+      <header>
+        <p class="eyebrow">05 · Retrieval</p>
+        <h2>混合召回扩大覆盖，重排模型提升前列质量</h2>
+      </header>
+      <div class="config-grid">
+        <div class="formula">
+          <p class="big"><b>BM25</b> 关键词召回<br>＋ <b>Dense</b> 语义召回<br>→ <b>Reranker</b> 精排</p>
+          <p>融合负责“不漏掉”，重排负责“把对的证据放到前面”。稳定 ID、页码与来源信息贯穿全程。</p>
+        </div>
+        <div class="specs">
+          <div class="spec"><b>0.90</b><span>Recall@1</span></div>
+          <div class="spec"><b>1.00</b><span>Recall@5</span></div>
+          <div class="spec"><b>0.9437</b><span>MRR@5</span></div>
+          <div class="spec"><b>0.9416</b><span>NDCG@5</span></div>
+        </div>
+      </div>
+      <footer class="source">来源：docs/项目路线总结.md · evaluation/release/result.json</footer>
+    </section>
+
+    <section class="slide" data-title="检索效果">
+      <header>
+        <p class="eyebrow">06 · Evidence quality</p>
+        <h2>锁定验收集上的证据级结果</h2>
+      </header>
+      <div class="two-col">
+        <div class="bars" aria-label="证据级指标条形图">
+          <div class="bar-line"><span class="bar-label">Recall@1</span><div class="bar-track"><div class="bar-fill" style="width:90%"></div></div><span class="bar-value">90%</span></div>
+          <div class="bar-line"><span class="bar-label">Recall@3</span><div class="bar-track"><div class="bar-fill" style="width:97.5%"></div></div><span class="bar-value">97.5%</span></div>
+          <div class="bar-line"><span class="bar-label">Recall@5</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bar-value">100%</span></div>
+          <div class="bar-line"><span class="bar-label">NDCG@5</span><div class="bar-track"><div class="bar-fill" style="width:94.16%"></div></div><span class="bar-value">94.16%</span></div>
+        </div>
+        <aside class="callout">
+          <span class="hero-number">1.00</span>
+          <h3>Recall@5</h3>
+          <p>在当前锁定验收范围内，正确证据都能进入前五；下一阶段不再盲目调参，而是用真实答案级失败反推问题。</p>
+        </aside>
+      </div>
+      <footer class="source">口径：v2 锁定验收集；来源：docs/项目路线总结.md</footer>
+    </section>
+
+    <section class="slide" data-title="干净复现">
+      <header>
+        <p class="eyebrow">07 · Reproducibility</p>
+        <h2>从“本机能跑”推进到“干净环境可复现”</h2>
+      </header>
+      <div>
+        <div class="metric-strip">
+          <div class="metric"><strong>2</strong><span>来源文档</span></div>
+          <div class="metric"><strong>393</strong><span>处理页数</span></div>
+          <div class="metric"><strong>731</strong><span>索引证据块</span></div>
+          <div class="metric"><strong>0</strong><span>失败 / 低置信 OCR</span></div>
+        </div>
+        <p class="note-line">2026-08-15 干净复现总耗时 1519.25 秒，其中索引重建 1119.21 秒；冻结周期内 96 项测试通过。347 条非阻断告警被保留用于后续治理。</p>
+      </div>
+      <footer class="source">来源：evaluation/release/result.json · docs/项目路线总结.md</footer>
+    </section>
+
+    <section class="slide" data-title="运行时性能">
+      <header>
+        <p class="eyebrow">08 · Runtime</p>
+        <h2>缓存命中已很快，未缓存查询仍受重排主导</h2>
+      </header>
+      <div class="speed">
+        <div class="speed-compare">
+          <div class="speed-box"><span>未缓存查询 P50</span><strong>2199.57</strong><span>毫秒</span></div>
+          <div class="speed-box fast"><span>缓存查询 P50</span><strong>1.05</strong><span>毫秒</span></div>
+        </div>
+        <div class="bottleneck">
+          <span class="eyebrow">Primary bottleneck</span>
+          <strong>2279.58 ms</strong>
+          <h3>重排器平均耗时</h3>
+          <p>真正值得优化的是未缓存路径上的重排成本；缓存层无需再做复杂化设计。</p>
+        </div>
+      </div>
+      <footer class="source">补充：冷启动 8218.96 ms；未缓存 P95 2926.33 ms；来源：docs/项目路线总结.md</footer>
+    </section>
+
+    <section class="slide" data-title="答案级评估">
+      <header>
+        <p class="eyebrow">09 · Answer evaluation</p>
+        <h2>答案级评估基础已就绪，真实人工复核尚未完成</h2>
+      </header>
+      <div class="status-flow">
+        <article class="status-block">
+          <span class="status-label">READY</span>
+          <h3>评估基础设施</h3>
+          <ul><li>12 个问题、6 类场景</li><li>固定提示词、输出模式与评分器</li><li>每题独立运行，最多 3 个并行任务</li></ul>
+        </article>
+        <article class="status-block pending">
+          <span class="status-label">NEXT</span>
+          <h3>正式答案评估</h3>
+          <ul><li>生成真实答案与引用</li><li>人工复核引用充分性和拒答边界</li><li>用失败样本驱动下一轮检索优化</li></ul>
+        </article>
+      </div>
+      <footer class="source">重要边界：当前证据指标不能替代答案正确性；来源：docs/未来优化方案.md</footer>
+    </section>
+
+    <section class="slide" data-title="目录重构">
+      <header>
+        <p class="eyebrow">10 · Repository</p>
+        <h2>目录按“输入、文档、评估、运行产物、代码”重新分责</h2>
+      </header>
+      <div class="tree-layout">
+        <pre class="tree" aria-label="项目目录树"><span class="blue">data/</span>
+├─ sources/      <span class="green"># 来源 PDF</span>
+└─ demo/         <span class="green"># 网页演示</span>
+<span class="blue">docs/</span>              <span class="green"># 4 份长期文档</span>
+<span class="blue">evaluation/</span>
+├─ answer/       <span class="green"># 答案级评估</span>
+├─ evidence/     <span class="green"># 证据数据集</span>
+├─ retrieval/    <span class="green"># 检索指标 / 性能</span>
+└─ release/      <span class="green"># 发布复现</span>
+<span class="blue">runtime/</span>           <span class="green"># 模型 / 索引 / 报告</span>
+<span class="blue">src/</span> · <span class="blue">tests/</span></pre>
+        <ul class="role-list">
+          <li><b>data</b>可版本管理的项目输入与演示</li>
+          <li><b>docs</b>稳定规范、历史路线与未来计划</li>
+          <li><b>evaluation</b>评估定义、脚本和冻结结果</li>
+          <li><b>runtime</b>可再生成的大体积运行资产</li>
+        </ul>
+      </div>
+      <footer class="source">缓存目录单独保留，未纳入本轮删除。</footer>
+    </section>
+
+    <section class="slide" data-title="未来路线">
+      <header>
+        <p class="eyebrow">11 · Roadmap</p>
+        <h2>下一轮优化只由真实失败样本触发</h2>
+      </header>
+      <div class="roadmap">
+        <article class="road now"><span class="tag">P0 · NOW</span><h3>冻结当前基线</h3><p>完成答案级正式运行、人工复核和重构后的全量测试基线归档。</p></article>
+        <article class="road next"><span class="tag">P1 · NEXT</span><h3>失败驱动优化</h3><p>补充未见问题与对抗样本；区分召回、重排、引用和拒答失败。</p></article>
+        <article class="road later"><span class="tag">P2—P3 · LATER</span><h3>规模与工程化</h3><p>针对重排性能、增量摄取、跨平台复现和告警治理逐项推进。</p></article>
+      </div>
+      <footer class="source">详细优先级、验收口径与非目标：docs/未来优化方案.md</footer>
+    </section>
+
+    <section class="slide closing" data-title="结语">
+      <header><p class="eyebrow">12 · Closing</p></header>
+      <div class="finish">
+        <h2>先让每条答案<br>都能回到证据。</h2>
+        <p>项目已经具备稳定的证据检索与干净复现基础。下一步的价值，不在继续堆叠检索技巧，而在完成真实答案评估并把失败转化为可验证的改进。</p>
+      </div>
+      <footer class="source">校园文档 RAG-MCP · 离线网页演示稿</footer>
+    </section>
+  </main>
+
+  <div class="hint">方向键 / 空格 / 滚轮 / 触摸切换</div>
+  <nav class="controls" aria-label="幻灯片控制">
+    <button id="prev" type="button" aria-label="上一页">←</button>
+    <span class="counter" id="counter">1 / 13</span>
+    <button id="next" type="button" aria-label="下一页">→</button>
+  </nav>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <script>
+    (() => {
+      const slides = [...document.querySelectorAll('.slide')];
+      const counter = document.getElementById('counter');
+      const progress = document.getElementById('progress');
+      let current = 0;
+      let wheelLocked = false;
+      let touchStartX = null;
+
+      function show(index) {
+        current = Math.max(0, Math.min(slides.length - 1, index));
+        slides.forEach((slide, i) => {
+          const active = i === current;
+          slide.classList.toggle('active', active);
+          slide.setAttribute('aria-hidden', String(!active));
+        });
+        counter.textContent = `${current + 1} / ${slides.length}`;
+        progress.style.width = `${((current + 1) / slides.length) * 100}%`;
+        document.title = `${slides[current].dataset.title}｜校园文档 RAG-MCP`;
+      }
+
+      const next = () => show(current + 1);
+      const prev = () => show(current - 1);
+
+      document.getElementById('next').addEventListener('click', next);
+      document.getElementById('prev').addEventListener('click', prev);
+
+      document.addEventListener('keydown', (event) => {
+        if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(event.key)) {
+          event.preventDefault();
+          next();
+        } else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(event.key)) {
+          event.preventDefault();
+          prev();
+        } else if (event.key === 'Home') {
+          event.preventDefault();
+          show(0);
+        } else if (event.key === 'End') {
+          event.preventDefault();
+          show(slides.length - 1);
+        }
+      });
+
+      document.addEventListener('wheel', (event) => {
+        if (wheelLocked || Math.abs(event.deltaY) < 15) return;
+        wheelLocked = true;
+        event.deltaY > 0 ? next() : prev();
+        window.setTimeout(() => { wheelLocked = false; }, 420);
+      }, { passive: true });
+
+      document.addEventListener('touchstart', (event) => {
+        touchStartX = event.changedTouches[0].clientX;
+      }, { passive: true });
+
+      document.addEventListener('touchend', (event) => {
+        if (touchStartX === null) return;
+        const delta = event.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(delta) > 45) delta < 0 ? next() : prev();
+        touchStartX = null;
+      }, { passive: true });
+
+      show(0);
+    })();
+  </script>
+</body>
+</html>

@@ -240,7 +240,7 @@ def ingest_documents(
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("pdf", nargs="+", type=Path)
-    parser.add_argument("--data-root", type=Path, default=PROJECT_ROOT / "data")
+    parser.add_argument("--data-root", type=Path, default=PROJECT_ROOT / "data" / "sources")
     parser.add_argument("--source-type", choices=("auto", "native", "scanned"), default="auto")
     parser.add_argument("--document-id")
     parser.add_argument("--version")

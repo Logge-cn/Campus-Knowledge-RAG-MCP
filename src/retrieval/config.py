@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-ASSET_ROOT = Path(os.environ.get("RAG_ASSET_ROOT", PROJECT_ROOT)).resolve()
+ASSET_ROOT = Path(os.environ.get("RAG_ASSET_ROOT", PROJECT_ROOT / "runtime")).resolve()
 if ASSET_ROOT.parent == ASSET_ROOT:
     raise ValueError("RAG_ASSET_ROOT must not be a filesystem root")
 DEFAULT_ARTIFACTS_ROOT = ASSET_ROOT / "storage" / "artifacts"
@@ -58,7 +58,7 @@ def relative_asset_path(path: Path) -> Path:
     resolved = inside_project(path)
     # Prefer the explicit asset root when it is nested inside the code worktree.
     # This keeps persisted paths stable as ``storage/...`` instead of exposing
-    # an environment-specific ``.local-assets/storage/...`` prefix.
+    # an environment-specific ``runtime/storage/...`` prefix.
     for root in dict.fromkeys((ASSET_ROOT, PROJECT_ROOT)):
         try:
             return resolved.relative_to(root)

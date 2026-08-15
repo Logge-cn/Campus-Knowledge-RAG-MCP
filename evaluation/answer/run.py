@@ -13,15 +13,15 @@ from pathlib import Path
 from typing import Any
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-REPORTS_ROOT = PROJECT_ROOT / "evaluation" / "reports"
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+REPORTS_ROOT = PROJECT_ROOT / "runtime" / "reports" / "answer"
 sys.path.insert(0, str(PROJECT_ROOT))
 sys.path.insert(0, str(PROJECT_ROOT / "src"))
 
 from mcp_server import SEARCH_TOOL_DESCRIPTION, SEARCH_TOOL_DESCRIPTION_VERSION
 from retrieval import status
 
-from evaluation.evaluate_answers import evaluate_answers
+from evaluation.answer.evaluate import evaluate_answers
 
 
 CLIENT = "codex-subagents"
@@ -482,15 +482,15 @@ def finalize_run(output_dir: Path) -> None:
 
 
 def _add_prepare_arguments(parser: argparse.ArgumentParser) -> None:
-    parser.add_argument("--dataset", type=Path, default=PROJECT_ROOT / "evaluation" / "answer_eval_dataset.json")
-    parser.add_argument("--prompt", type=Path, default=PROJECT_ROOT / "evaluation" / "answer_eval_prompt_v1.md")
+    parser.add_argument("--dataset", type=Path, default=PROJECT_ROOT / "evaluation" / "answer" / "dataset.json")
+    parser.add_argument("--prompt", type=Path, default=PROJECT_ROOT / "evaluation" / "answer" / "prompt_v1.md")
     parser.add_argument(
-        "--prediction-schema", type=Path, default=PROJECT_ROOT / "evaluation" / "answer_eval_output_schema.json"
+        "--prediction-schema", type=Path, default=PROJECT_ROOT / "evaluation" / "answer" / "output_schema.json"
     )
     parser.add_argument(
         "--case-result-schema",
         type=Path,
-        default=PROJECT_ROOT / "evaluation" / "answer_eval_case_result_schema.json",
+        default=PROJECT_ROOT / "evaluation" / "answer" / "case_result_schema.json",
     )
     parser.add_argument("--output-dir", type=Path)
     parser.add_argument("--model", default=DEFAULT_MODEL)

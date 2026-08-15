@@ -1,0 +1,353 @@
+{
+  "schema_version": 1,
+  "created_at": "2026-08-15T08:58:14.175930+00:00",
+  "commit": "6d5f7abdd0036812d60defc0919f3b427cbd80b7",
+  "hash_policy": "LF-normalized UTF-8-compatible text; raw bytes for binary files",
+  "files": {
+    ".agents/skills/rag-answer-evaluation/SKILL.md": {
+      "sha256": "74bedbc065e23b3ab426656a26f5ca2d2a279f47365d7b51a59832ce0ddd975b",
+      "bytes": 8586,
+      "portable_text": true
+    },
+    ".agents/skills/rag-answer-evaluation/agents/openai.yaml": {
+      "sha256": "6f65ca37ae3b9b7c8d1bff9bac47c8ed66bd7a4e0752634ee3de91ab32f8820a",
+      "bytes": 271,
+      "portable_text": true
+    },
+    ".codex/config.toml": {
+      "sha256": "4d1d29d826bd98d9e200e2e57ced0d7cc1e6e46d75550563e2bf750e26101ea9",
+      "bytes": 302,
+      "portable_text": true
+    },
+    ".gitignore": {
+      "sha256": "41611ec3af0fe25fa391afd427f3685ddb2a4fd36a004fac68bbd432304e80b1",
+      "bytes": 230,
+      "portable_text": true
+    },
+    "AGENTS.md": {
+      "sha256": "c0da8201ad0083b519e2862c5a34d4c5f7bfd9b00e5b33ff2feb61564da84113",
+      "bytes": 2357,
+      "portable_text": true
+    },
+    "README.md": {
+      "sha256": "53e847e65d6a9ff36c77e88147d68cc46303a5923865e4fb8ec647227133d20b",
+      "bytes": 7158,
+      "portable_text": true
+    },
+    "data/demo/index.html": {
+      "sha256": "df5fcdf60cec70c2b9e8c5e4c42961d760e84ab01064df093e7c7641eabb9337",
+      "bytes": 29344,
+      "portable_text": true
+    },
+    "data/sources/南京邮电大学学生手册（2023版）+.pdf": {
+      "sha256": "95718365ef1ad87df9e4bbd692bada066a4176328f19983534cf73d61682fc30",
+      "bytes": 2444739,
+      "portable_text": false
+    },
+    "data/sources/奖学金细则.pdf": {
+      "sha256": "d4277dffe694e105ba6b5cfc9551ecd84b37d5a4068b02e3e63395719165a161",
+      "bytes": 4286200,
+      "portable_text": false
+    },
+    "docs/PDF原生内容处理规范.md": {
+      "sha256": "2422b10d0069fa37415a2372bfa7538e155d074f926704d5e4194b32e90a2f09",
+      "bytes": 3703,
+      "portable_text": true
+    },
+    "docs/PDF扫描件处理规范.md": {
+      "sha256": "3bda8c4c333e69ecf85b19bd6ea3914fab7c3ad70dfd0d7ee748348cb0bbfc66",
+      "bytes": 3226,
+      "portable_text": true
+    },
+    "docs/未来优化方案.md": {
+      "sha256": "8e20c7d7c4c89264f008778d8f3cbf3bab87423b21aa903cef055d697e3439a7",
+      "bytes": 5630,
+      "portable_text": true
+    },
+    "docs/项目路线总结.md": {
+      "sha256": "2289d366888bc95ae744425e1dde5d2fee9a4e6972a26268d91ae20262992c7c",
+      "bytes": 9471,
+      "portable_text": true
+    },
+    "evaluation/__init__.py": {
+      "sha256": "8874a307109b6949907006915c8d7ffa467f17e1a012dfc107e4df1745229ed0",
+      "bytes": 38,
+      "portable_text": true
+    },
+    "evaluation/answer/__init__.py": {
+      "sha256": "a3542c845d6cebcba6e941286f71f783f89adc5a1130a7579a10e36b12e6d807",
+      "bytes": 31,
+      "portable_text": true
+    },
+    "evaluation/answer/case_result_schema.json": {
+      "sha256": "af8f10c32c0c1e002bb2ce6a42ac0694176d6d85e09414a0ecf4cc14b1a19847",
+      "bytes": 1855,
+      "portable_text": true
+    },
+    "evaluation/answer/dataset.json": {
+      "sha256": "2c8a18be6cc9325c2b607464c8e53b535efaf75b7ec462154a1f86da1c99479b",
+      "bytes": 5674,
+      "portable_text": true
+    },
+    "evaluation/answer/evaluate.py": {
+      "sha256": "fe7ed6a9cb259f1f33f8b519fa912623b50a414a2396902d7383a5d1af3b5ffd",
+      "bytes": 14322,
+      "portable_text": true
+    },
+    "evaluation/answer/output_schema.json": {
+      "sha256": "1ef180f56d5b8fcbe0bab8b67200b9ea95d1bd0004f1b0833d165df6e8d1c3dc",
+      "bytes": 1167,
+      "portable_text": true
+    },
+    "evaluation/answer/prompt_v1.md": {
+      "sha256": "fb3542e85bd146db47e085735962d2fd2d1837f0ebdbc053d86156dda48a935e",
+      "bytes": 1165,
+      "portable_text": true
+    },
+    "evaluation/answer/run.py": {
+      "sha256": "9223217673aa7a9918ca996c996a3cad5b8b2518b03dbdaf9b2e404e04e75e87",
+      "bytes": 23563,
+      "portable_text": true
+    },
+    "evaluation/evidence/__init__.py": {
+      "sha256": "827ef9e2dd4830e51a101704a1d21cf22e4bd8a4a4eadbc1f6f69f939937e909",
+      "bytes": 39,
+      "portable_text": true
+    },
+    "evaluation/evidence/development.json": {
+      "sha256": "a24e844e15eb90f859a49904d69f87a9f21be3e6f56b48a4f1941b620b02bd0f",
+      "bytes": 16003,
+      "portable_text": true
+    },
+    "evaluation/evidence/evaluate.py": {
+      "sha256": "4060d589cb564058a74c5ae838e125e2ec17c557915509e0c3150c9863bb72b7",
+      "bytes": 6665,
+      "portable_text": true
+    },
+    "evaluation/evidence/regression_no_answer.json": {
+      "sha256": "5fb4a02e1141b2fe0fde0d19ec5dc6f84ae30b6b67b198fef1e443f37f13d8b3",
+      "bytes": 5558,
+      "portable_text": true
+    },
+    "evaluation/release/__init__.py": {
+      "sha256": "61a9a00fb606f195f52a75d86b6cf566f7f586d60c0009c29e769dfd06bca928",
+      "bytes": 49,
+      "portable_text": true
+    },
+    "evaluation/release/manifest.py": {
+      "sha256": "597602590480d0cfafe2ad562a335ad54c7a3057be5d40cef5ca41314f6ea403",
+      "bytes": 5534,
+      "portable_text": true
+    },
+    "evaluation/release/plan.json": {
+      "sha256": "08cde1bce0a1becb2b24ff98f4c2bb401a033bb301f1f69d16129b7b819aff8b",
+      "bytes": 2784,
+      "portable_text": true
+    },
+    "evaluation/release/reproduce.py": {
+      "sha256": "c943e686867b6cc373096c31ffd7768d7b5ef2ec11a481d5e2335806dd479378",
+      "bytes": 6989,
+      "portable_text": true
+    },
+    "evaluation/release/result.json": {
+      "sha256": "ccb0de0ed2d058428601a5a25f475021085729f5a8d34934d4a58348a891b269",
+      "bytes": 3545,
+      "portable_text": true
+    },
+    "evaluation/release/verify_mcp.py": {
+      "sha256": "b542600717ea8f20538becfcb5655ae770988837a4237687bbd8747895deab7b",
+      "bytes": 1785,
+      "portable_text": true
+    },
+    "evaluation/retrieval/__init__.py": {
+      "sha256": "dfa56516f9ad95208c5ed1469d3606ebcc391dc85e73633bbf61e8527e64d7de",
+      "bytes": 48,
+      "portable_text": true
+    },
+    "evaluation/retrieval/benchmark.py": {
+      "sha256": "8c999d8d850321b9a9134ac1b4b369b2c705251646e4473c65708498aea78d4f",
+      "bytes": 4405,
+      "portable_text": true
+    },
+    "evaluation/retrieval/evaluate.py": {
+      "sha256": "50b31127ea0d942443521600927be182a5c12945c91be1cb4e5181c28ff9c73e",
+      "bytes": 25553,
+      "portable_text": true
+    },
+    "pyproject.toml": {
+      "sha256": "1a7b7a28876eb9e8d7b530261eaa2403c8ca54783ad4a20527016f1a4045b355",
+      "bytes": 319,
+      "portable_text": true
+    },
+    "src/cli.py": {
+      "sha256": "9a01b66411e6104c77ed471492b016348ebc5c8360c120f2adac94c7fb2e2aa7",
+      "bytes": 980,
+      "portable_text": true
+    },
+    "src/extraction/__init__.py": {
+      "sha256": "c5f0f5107bee681e6d71d389c774a2b701a44b33e16646e2f8a8938d5a0372b0",
+      "bytes": 49,
+      "portable_text": true
+    },
+    "src/extraction/native_pdf.py": {
+      "sha256": "f9d10f24f5c3b0b804dfa6af9a118c88e34cd49921ebdf2febec2bec6ed69cf0",
+      "bytes": 17697,
+      "portable_text": true
+    },
+    "src/extraction/scanned_pdf.py": {
+      "sha256": "90072f000dc2fcdce3464d4a8c207bbdea304149a7dce42fdbae5cfc5e566954",
+      "bytes": 6671,
+      "portable_text": true
+    },
+    "src/ingest.py": {
+      "sha256": "f8cc294015c02adabd5ce9a70ee4cf036f624ba632ad815ef9de9aa06c337dea",
+      "bytes": 10781,
+      "portable_text": true
+    },
+    "src/mcp_server.py": {
+      "sha256": "4b1667638c6bb2b49fa722f03bceec56c42470dfaf76e8e01b0b65913726baab",
+      "bytes": 1435,
+      "portable_text": true
+    },
+    "src/prepare_model.py": {
+      "sha256": "6d67aba98da9cbf4c8c4f26c1488539426ccfdfb6beaa5dad1686669678c7d1b",
+      "bytes": 2656,
+      "portable_text": true
+    },
+    "src/retrieval/__init__.py": {
+      "sha256": "4c6f3003fd1773d073dbb4bad25aeb877379e11d73bf93f0e5ef7f080ef2f13d",
+      "bytes": 769,
+      "portable_text": true
+    },
+    "src/retrieval/bm25.py": {
+      "sha256": "08bb16b7585fdcdb876f8e0c6b67f0e40683ecde3ca59095080ee5610df25b0b",
+      "bytes": 3068,
+      "portable_text": true
+    },
+    "src/retrieval/chunking.py": {
+      "sha256": "deba8f27457f814b61be5caa3da314558038f1cfe8d824767f774f304ee53bf7",
+      "bytes": 8079,
+      "portable_text": true
+    },
+    "src/retrieval/config.py": {
+      "sha256": "3078c64a8de3f0a4e3053e573ed0db37ac21f5218a5137d576d9aaaaf9352e2f",
+      "bytes": 2466,
+      "portable_text": true
+    },
+    "src/retrieval/embeddings.py": {
+      "sha256": "d8b71a0beda35fa4356740aa9ae8378b4c404a0f0a3f856ae39352380ea3c8cc",
+      "bytes": 2312,
+      "portable_text": true
+    },
+    "src/retrieval/evidence.py": {
+      "sha256": "ff2e038c8e76849dcc35276d74fdb3cd3577efeaa54453fdb02fa065f9fad6a4",
+      "bytes": 6126,
+      "portable_text": true
+    },
+    "src/retrieval/hybrid.py": {
+      "sha256": "1bd40616f1d3d9bb6df4d88cde2578520bd8fc18fa3e7d73fbd81ce4afb84497",
+      "bytes": 10521,
+      "portable_text": true
+    },
+    "src/retrieval/index.py": {
+      "sha256": "1f87ca0da68ddf2a8a8e5e76ccc19b25332d0c7195428e68a31c541f58782f99",
+      "bytes": 15440,
+      "portable_text": true
+    },
+    "src/retrieval/query_expansion.py": {
+      "sha256": "267d8bcaec4dd148b4e7c8d56971ec2e1eced9302e78ea1904ba64cdfcdf6383",
+      "bytes": 830,
+      "portable_text": true
+    },
+    "src/retrieval/reranker.py": {
+      "sha256": "5ec98568dd337ab85f7d0a25b823d772efd38605f7c181ae1fdeba82e1cdd39b",
+      "bytes": 5609,
+      "portable_text": true
+    },
+    "src/retrieval/runtime.py": {
+      "sha256": "4fd2fd5872ba496fd445c3bec207d806adba0e78e6e74589bbc00b08438d97a1",
+      "bytes": 1405,
+      "portable_text": true
+    },
+    "tests/test_answer_eval_workflow.py": {
+      "sha256": "62aa6e61df4ca6e69773e81713a848ed7374b972ecff684db943e8094f959e8e",
+      "bytes": 7241,
+      "portable_text": true
+    },
+    "tests/test_answer_evaluation.py": {
+      "sha256": "097163aebd5d4495de15c592ffd9737a986464ba065ed476fe781245bd956b13",
+      "bytes": 4893,
+      "portable_text": true
+    },
+    "tests/test_benchmark_runtime.py": {
+      "sha256": "028e5a570ecc1fa5b9db04f58305b42a2fceae1b7e86b229feee14bfedb7d754",
+      "bytes": 1871,
+      "portable_text": true
+    },
+    "tests/test_evaluation_metrics.py": {
+      "sha256": "3a889b52d0fae0116133ed2782c19de624b5d72f276386e05d9d9eceb6013c37",
+      "bytes": 5197,
+      "portable_text": true
+    },
+    "tests/test_evidence.py": {
+      "sha256": "7346529c7d98dbfe9f3efcc9e125795cc8f52c2ba343b5754aa60582390179b9",
+      "bytes": 3955,
+      "portable_text": true
+    },
+    "tests/test_evidence_evaluation.py": {
+      "sha256": "90e8760464b41ae8034409eee6cb32d3c49f6a98c9c9f74574ef36e71990a66b",
+      "bytes": 1410,
+      "portable_text": true
+    },
+    "tests/test_index_atomic.py": {
+      "sha256": "8f90f6859564480916f93dc422a05c2f3936167f1540ecaa180999cb54da97cc",
+      "bytes": 4732,
+      "portable_text": true
+    },
+    "tests/test_ingest.py": {
+      "sha256": "0700ac3589092a98a6ba51af79d123e487cd88836f1347de9eff8df3f7764acd",
+      "bytes": 8533,
+      "portable_text": true
+    },
+    "tests/test_pdf_extraction.py": {
+      "sha256": "bb497c67285588bb4f5b00a742859c510932ddee04009c37252f35369f8946c0",
+      "bytes": 5439,
+      "portable_text": true
+    },
+    "tests/test_rag_mcp.py": {
+      "sha256": "44f20836ebff3cd739ec9f3eeb0fd66f6a8328baeca748af17b34f83e917043e",
+      "bytes": 3420,
+      "portable_text": true
+    },
+    "tests/test_rag_pipeline.py": {
+      "sha256": "5776cfbeafd1d50172761be3f9c136b0e288c6725f6658ed502a25bb65cde12a",
+      "bytes": 10183,
+      "portable_text": true
+    },
+    "tests/test_release_manifest.py": {
+      "sha256": "bbf13c30b1cc1f927c7ac3039d9c5989ca9b5c195c97cbb349367d30d255b5cd",
+      "bytes": 2451,
+      "portable_text": true
+    },
+    "tests/test_reproduce_release.py": {
+      "sha256": "be7a7a8c6e64752b1a08b5e261b7befcfbaca788ca001245d583f529e1d680b6",
+      "bytes": 3184,
+      "portable_text": true
+    },
+    "tests/test_reranker.py": {
+      "sha256": "a88c58974087f40de78dcef51d28b6baa1e62a419610f57839d575b9ea519a08",
+      "bytes": 5031,
+      "portable_text": true
+    },
+    "tests/test_scanned_pdf_continuation.py": {
+      "sha256": "e51609c82e2621eb7a33ebc28feeaa33aa6fd438893255bef09291e9aae4b088",
+      "bytes": 922,
+      "portable_text": true
+    },
+    "uv.lock": {
+      "sha256": "b3624a2cfd8d5313ba52996dcad882a4399bf0256de6007a8d9c183ad0789f23",
+      "bytes": 654357,
+      "portable_text": true
+    }
+  }
+}

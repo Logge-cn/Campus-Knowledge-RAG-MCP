@@ -1,15 +1,15 @@
 {
   "schema_version": 1,
-  "release_manifest": "evaluation/release_manifest.json",
+  "release_manifest": "evaluation/release/manifest.json",
   "prerequisites": [
     {
       "root": "project",
-      "path": "data/南京邮电大学学生手册（2023版）+.pdf",
+      "path": "data/sources/南京邮电大学学生手册（2023版）+.pdf",
       "sha256": "95718365ef1ad87df9e4bbd692bada066a4176328f19983534cf73d61682fc30"
     },
     {
       "root": "project",
-      "path": "data/奖学金细则.pdf",
+      "path": "data/sources/奖学金细则.pdf",
       "sha256": "d4277dffe694e105ba6b5cfc9551ecd84b37d5a4068b02e3e63395719165a161"
     },
     {
@@ -40,27 +40,27 @@
   "steps": [
     {
       "id": "rebuild-index-from-pdfs",
-      "argv": ["{python}", "src/ingest.py", "{project_root}/data/南京邮电大学学生手册（2023版）+.pdf", "{project_root}/data/奖学金细则.pdf", "--data-root", "{project_root}/data", "--render-dpi", "160"]
+      "argv": ["{python}", "src/ingest.py", "{project_root}/data/sources/南京邮电大学学生手册（2023版）+.pdf", "{project_root}/data/sources/奖学金细则.pdf", "--data-root", "{project_root}/data/sources", "--render-dpi", "160"]
     },
     {
       "id": "mcp-tool-discovery-and-status",
-      "argv": ["{python}", "evaluation/verify_mcp.py"]
+      "argv": ["{python}", "evaluation/release/verify_mcp.py"]
     },
     {
       "id": "unit-tests",
-      "argv": ["{python}", "-m", "pytest", "-q"]
+      "argv": ["{python}", "-m", "pytest", "-q", "-p", "no:cacheprovider"]
     },
     {
       "id": "evidence-development",
-      "argv": ["{python}", "evaluation/evaluate_evidence.py", "--dataset", "evaluation/dataset.json", "--report", "evaluation/reports/evidence-development-fixed.json", "--threshold", "0.60", "--enforce"]
+      "argv": ["{python}", "evaluation/evidence/evaluate.py", "--dataset", "evaluation/evidence/development.json", "--report", "runtime/reports/evidence-development-fixed.json", "--threshold", "0.60", "--enforce"]
     },
     {
       "id": "evidence-locked-no-answer",
-      "argv": ["{python}", "evaluation/evaluate_evidence.py", "--dataset", "evaluation/dataset_expanded_locked_no_answer.json", "--report", "evaluation/reports/evidence-locked-fixed.json", "--threshold", "0.60", "--enforce"]
+      "argv": ["{python}", "evaluation/evidence/evaluate.py", "--dataset", "evaluation/evidence/regression_no_answer.json", "--report", "runtime/reports/evidence-locked-fixed.json", "--threshold", "0.60", "--enforce"]
     },
     {
       "id": "runtime-benchmark",
-      "argv": ["{python}", "evaluation/benchmark_runtime.py", "--query", "挂科了还能参加奖学金评选吗", "--query", "学生宿舍如何办理退宿", "--query", "仙林校区体育馆羽毛球场怎样预约", "--query", "大学生体测中50米跑项目的权重是多少", "--query", "学校附近明天会不会下雨", "--output", "evaluation/reports/runtime-current.json"]
+      "argv": ["{python}", "evaluation/retrieval/benchmark.py", "--query", "挂科了还能参加奖学金评选吗", "--query", "学生宿舍如何办理退宿", "--query", "仙林校区体育馆羽毛球场怎样预约", "--query", "大学生体测中50米跑项目的权重是多少", "--query", "学校附近明天会不会下雨", "--output", "runtime/reports/runtime-current.json"]
     }
   ]
 }

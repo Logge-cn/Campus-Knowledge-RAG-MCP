@@ -13,10 +13,10 @@ from pathlib import Path
 from typing import Any
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from evaluation.release_manifest import verify_manifest
+from evaluation.release.manifest import verify_manifest
 
 
 def _sha256(path: Path) -> str:
@@ -158,8 +158,8 @@ def reproduce(
 
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--plan", type=Path, default=PROJECT_ROOT / "evaluation" / "reproduction_plan.json")
-    parser.add_argument("--asset-root", type=Path, default=PROJECT_ROOT)
+    parser.add_argument("--plan", type=Path, default=PROJECT_ROOT / "evaluation" / "release" / "plan.json")
+    parser.add_argument("--asset-root", type=Path, default=PROJECT_ROOT / "runtime")
     parser.add_argument("--python", type=Path, default=Path(sys.executable))
     parser.add_argument("--execute", action="store_true")
     parser.add_argument("--report", type=Path)

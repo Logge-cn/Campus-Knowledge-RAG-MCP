@@ -8,7 +8,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from evaluation.reproduce_release import _tree_sha256, check_prerequisites, expand_argv, reproduce
+from evaluation.release.reproduce import _tree_sha256, check_prerequisites, expand_argv, reproduce
 
 
 class ReproduceReleaseTests(unittest.TestCase):

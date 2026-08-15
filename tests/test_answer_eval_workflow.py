@@ -6,7 +6,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 
-from evaluation.run_answer_evaluation import (
+from evaluation.answer.run import (
     SUBAGENT_PROTOCOL_VERSION,
     build_agent_tasks,
     build_prompt,
@@ -27,7 +27,7 @@ def make_task(case_id: str = "case-1", query: str = "question") -> dict:
         "model": "gpt-5.6-sol",
         "fork_turns": "none",
         "limit": 5,
-        "result_path": f"evaluation/reports/test/case-results/{case_id}.json",
+        "result_path": f"runtime/reports/answer/test/case-results/{case_id}.json",
         "prompt": "prompt",
     }
 
@@ -71,7 +71,7 @@ def make_result(*, evidence_sufficient: bool = True) -> dict:
 
 class AnswerEvaluationWorkflowTests(unittest.TestCase):
     def test_fixed_dataset_covers_required_scenarios(self):
-        cases = json.loads((PROJECT_ROOT / "evaluation" / "answer_eval_dataset.json").read_text(encoding="utf-8"))
+        cases = json.loads((PROJECT_ROOT / "evaluation" / "answer" / "dataset.json").read_text(encoding="utf-8"))
 
         self.assertEqual(len({case["id"] for case in cases}), len(cases))
         self.assertTrue(
@@ -104,7 +104,7 @@ class AnswerEvaluationWorkflowTests(unittest.TestCase):
             cases,
             5,
             "gpt-5.6-sol",
-            PROJECT_ROOT / "evaluation" / "reports" / "test-run",
+            PROJECT_ROOT / "runtime" / "reports" / "answer" / "test-run",
         )
 
         self.assertEqual([task["id"] for task in tasks], ["case-1", "case-2"])
@@ -141,7 +141,9 @@ class AnswerEvaluationWorkflowTests(unittest.TestCase):
             validate_case_result(make_task(), result)
 
     def test_prepares_and_finalizes_a_subagent_run_without_codex_cli(self):
-        with tempfile.TemporaryDirectory(dir=PROJECT_ROOT / "evaluation" / "reports") as temp_dir:
+        reports_root = PROJECT_ROOT / "runtime" / "reports" / "answer"
+        reports_root.mkdir(parents=True, exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=reports_root) as temp_dir:
             temp_root = Path(temp_dir)
             dataset_path = temp_root / "dataset.json"
             dataset_path.write_text(
@@ -151,15 +153,15 @@ class AnswerEvaluationWorkflowTests(unittest.TestCase):
             output_dir = temp_root / "run"
             args = argparse.Namespace(
                 dataset=dataset_path,
-                prompt=PROJECT_ROOT / "evaluation" / "answer_eval_prompt_v1.md",
-                prediction_schema=PROJECT_ROOT / "evaluation" / "answer_eval_output_schema.json",
-                case_result_schema=PROJECT_ROOT / "evaluation" / "answer_eval_case_result_schema.json",
+                prompt=PROJECT_ROOT / "evaluation" / "answer" / "prompt_v1.md",
+                prediction_schema=PROJECT_ROOT / "evaluation" / "answer" / "output_schema.json",
+                case_result_schema=PROJECT_ROOT / "evaluation" / "answer" / "case_result_schema.json",
                 output_dir=output_dir,
                 model="gpt-5.6-sol",
                 limit=5,
                 max_concurrency=3,
             )
-            with patch("evaluation.run_answer_evaluation.status", return_value={"schema_version": 4}):
+            with patch("evaluation.answer.run.status", return_value={"schema_version": 4}):
                 prepare_run(args)
 
             tasks = json.loads((output_dir / "agent-tasks.json").read_text(encoding="utf-8"))

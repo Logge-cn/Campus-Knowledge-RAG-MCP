@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 
-from evaluation.release_manifest import create_manifest, verify_manifest
+from evaluation.release.manifest import create_manifest, verify_manifest
 
 
 class ReleaseManifestTests(unittest.TestCase):
