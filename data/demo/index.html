@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="校园文档 RAG-MCP 架构、能力与验证结果网页演示稿">
-  <title>校园文档 RAG-MCP｜架构与验证结果</title>
+  <meta name="description" content="校园文档 RAG-MCP 项目结构、技术方案、能力边界与验证结果">
+  <title>校园文档 RAG-MCP｜项目结构与技术方案</title>
   <style>
     :root {
       --ink: #111318;
@@ -462,7 +462,7 @@
       background: white;
     }
 
-    .status-block.pending { border-color: var(--amber); }
+    .status-block.contract { border-color: var(--blue); }
 
     .status-label {
       color: var(--green);
@@ -471,7 +471,7 @@
       letter-spacing: .08em;
     }
 
-    .pending .status-label { color: var(--amber); }
+    .contract .status-label { color: var(--blue); }
 
     .status-block ul { margin: 2.2cqh 0 0; padding-left: 1.4em; }
     .status-block li { margin: .9cqh 0; font-size: 1.18cqw; }
@@ -504,26 +504,26 @@
 
     .role-list b { display: inline-block; width: 8cqw; color: var(--blue); }
 
-    .roadmap {
+    .scope-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 2cqw;
       align-items: stretch;
     }
 
-    .road {
+    .scope-card {
       padding: 3.5cqh 2cqw;
       background: white;
       border-top: .55cqh solid var(--line);
     }
 
-    .road.now { border-color: var(--blue); }
-    .road.next { border-color: var(--green); }
-    .road.later { border-color: var(--amber); }
+    .scope-card.ingest { border-color: var(--blue); }
+    .scope-card.output { border-color: var(--green); }
+    .scope-card.boundary { border-color: var(--amber); }
 
-    .road .tag { color: var(--muted); font-size: .98cqw; font-weight: 900; }
-    .road h3 { margin-top: 3.2cqh; }
-    .road p { color: var(--muted); font-size: 1.15cqw; }
+    .scope-card .tag { color: var(--muted); font-size: .98cqw; font-weight: 900; }
+    .scope-card h3 { margin-top: 3.2cqh; }
+    .scope-card p { color: var(--muted); font-size: 1.15cqw; }
 
     .closing {
       background: #111318;
@@ -611,29 +611,29 @@
     <section class="slide cover active" data-title="封面">
       <div></div>
       <div class="cover-copy">
-        <p class="eyebrow">Project retrospective · 2026</p>
+        <p class="eyebrow">System overview · 2026</p>
         <div class="accent-rule"></div>
         <h1>校园文档<br>RAG-MCP</h1>
-        <p class="lede">从 PDF 内容处理，到可复现、可追溯的证据检索服务。</p>
+        <p class="lede">项目结构、技术方案与当前能力的完整说明。</p>
       </div>
-      <div class="source">系统架构 · 检索效果 · 复现结果 · 使用边界</div>
-      <div class="stamp">两份制度文档<br>393 页 · 731 个证据块<br>离线优先 · 本地可复现</div>
+      <div class="source">系统架构 · 文档处理 · 检索链路 · MCP 服务 · 验证结果</div>
+      <div class="stamp">Python 3.12+<br>2 份 PDF · 393 页 · 731 chunks<br>本地模型 · 离线运行</div>
     </section>
 
     <section class="slide" data-title="项目定位">
       <header>
-        <p class="eyebrow">01 · Why</p>
-        <h2>项目解决的不是“聊天”，而是“证据交付”</h2>
+        <p class="eyebrow">01 · Positioning</p>
+        <h2>一个面向 MCP 客户端的本地 PDF 证据检索服务</h2>
       </header>
       <div class="two-col">
         <div class="statement">
-          <strong>可信答案<br>始于可信证据</strong>
-          <p>先把来源、页码、段落与检索分数做扎实，再让上层智能体生成答案。</p>
+          <strong>处理文档<br>检索证据<br>判断充分性</strong>
+          <p>项目到证据交付为止；Codex 或其他 MCP 客户端根据证据生成最终答案。</p>
         </div>
         <ul class="plain-list">
-          <li><b>01</b><span>同时处理原生 PDF 与扫描 PDF，不把 OCR 当作隐藏的黑盒。</span></li>
-          <li><b>02</b><span>每个命中项保留稳定证据标识、来源文件和页码，便于核验。</span></li>
-          <li><b>03</b><span>通过 MCP 暴露检索能力；答案生成与人工判断仍由调用方负责。</span></li>
+          <li><b>输入</b><span>受版本管理的中文原生 PDF、表格与扫描 PDF。</span></li>
+          <li><b>处理</b><span>提取、质量检查、切块、混合召回、重排与充分性判断。</span></li>
+          <li><b>输出</b><span>带文件名、页码、稳定 chunk ID、正文与诊断信号的证据。</span></li>
         </ul>
       </div>
       <footer class="source">来源：README.md · src/</footer>
@@ -642,15 +642,15 @@
     <section class="slide" data-title="系统链路">
       <header>
         <p class="eyebrow">02 · Architecture</p>
-        <h2>一条从文件到证据的可追溯链路</h2>
+        <h2>六个阶段组成从 PDF 到 MCP 证据的完整链路</h2>
       </header>
       <div class="pipeline" aria-label="RAG 处理链路">
-        <div class="pipe-step"><span class="num">01</span><h3>来源</h3><p>项目规范 PDF<br>原生 / 扫描</p></div>
-        <div class="pipe-step"><span class="num">02</span><h3>提取</h3><p>文本解析<br>OCR 回退</p></div>
-        <div class="pipe-step"><span class="num">03</span><h3>切分</h3><p>页码与章节感知<br>稳定 chunk ID</p></div>
-        <div class="pipe-step"><span class="num">04</span><h3>召回</h3><p>BM25 + Dense<br>候选融合</p></div>
-        <div class="pipe-step"><span class="num">05</span><h3>重排</h3><p>Cross-encoder<br>证据去重</p></div>
-        <div class="pipe-step"><span class="num">06</span><h3>交付</h3><p>MCP 工具<br>引用与拒答依据</p></div>
+        <div class="pipe-step"><span class="num">01</span><h3>识别</h3><p>抽样检测文本<br>原生 / 扫描分流</p></div>
+        <div class="pipe-step"><span class="num">02</span><h3>提取</h3><p>文本与表格解析<br>逐页 OCR</p></div>
+        <div class="pipe-step"><span class="num">03</span><h3>索引</h3><p>Token 感知切块<br>BM25 + Embedding</p></div>
+        <div class="pipe-step"><span class="num">04</span><h3>召回</h3><p>双路 Top 20<br>加权 RRF 融合</p></div>
+        <div class="pipe-step"><span class="num">05</span><h3>重排</h3><p>Cross-Encoder<br>前列保护策略</p></div>
+        <div class="pipe-step"><span class="num">06</span><h3>交付</h3><p>充分性判断<br>MCP 结构化结果</p></div>
       </div>
       <footer class="source">来源：src/ · docs/PDF原生内容处理规范.md · docs/PDF扫描件处理规范.md</footer>
     </section>
@@ -658,82 +658,82 @@
     <section class="slide" data-title="双路 PDF 处理">
       <header>
         <p class="eyebrow">03 · Ingestion</p>
-        <h2>两类输入，两条明确的质量路径</h2>
+        <h2>自动识别 PDF 类型，再进入各自的可审计提取流程</h2>
       </header>
       <div class="two-col">
         <article class="route-box">
           <h3>原生 PDF</h3>
-          <p>优先保留数字文本结构；页码、标题和段落边界直接进入后续切分。</p>
-          <div class="route-flow"><span>文字提取</span><span>结构清洗</span><span>章节切分</span><span>质量检查</span></div>
+          <p>PyMuPDF 按阅读顺序提取正文；表格先用 PyMuPDF 识别，必要时由 Camelot lattice / stream 补充，并把正文与表格分别保存为 Markdown。</p>
+          <div class="route-flow"><span>版面指标</span><span>正文去表格</span><span>表格规范化</span><span>质量告警</span></div>
         </article>
         <article class="route-box alt">
           <h3>扫描 PDF</h3>
-          <p>以页为单位渲染和 OCR；失败、低置信度与告警被显式记录，而非静默跳过。</p>
-          <div class="route-flow"><span>页面渲染</span><span>方向检测</span><span>OCR</span><span>置信度审计</span></div>
+          <p>PyMuPDF 逐页渲染，PaddleOCR 使用 PP-OCRv6 检测与识别模型；按坐标重排文本，并记录页级置信度、原始结果和跨页续文。</p>
+          <div class="route-flow"><span>页面渲染</span><span>中文 OCR</span><span>坐标排序</span><span>置信度门禁</span></div>
         </article>
       </div>
       <footer class="source">来源：docs/PDF原生内容处理规范.md · docs/PDF扫描件处理规范.md</footer>
     </section>
 
-    <section class="slide" data-title="设计原则">
+    <section class="slide" data-title="模块结构">
       <header>
-        <p class="eyebrow">04 · Principles</p>
-        <h2>四条原则约束系统设计</h2>
+        <p class="eyebrow">04 · Modules</p>
+        <h2>源码按“导入、索引、检索、服务”四层分工</h2>
       </header>
       <div class="timeline">
-        <article class="era"><span class="range">LOCAL</span><h3>本地优先</h3><p>模型、索引和文档处理均在本地完成，不依赖外部推理服务。</p></article>
-        <article class="era"><span class="range">TRACEABLE</span><h3>证据可追溯</h3><p>每条命中结果保留来源文件、页码和稳定 chunk ID。</p></article>
-        <article class="era"><span class="range">MEASURABLE</span><h3>效果可度量</h3><p>以固定数据集、检索指标和运行时基准验证实际质量。</p></article>
-        <article class="era"><span class="range">REPRODUCIBLE</span><h3>结果可复现</h3><p>固定依赖、模型哈希和发布清单，支持从原始 PDF 重建。</p></article>
+        <article class="era"><span class="range">INGEST</span><h3>导入事务</h3><p>识别文档类型，在临时目录完成提取、质量检查与索引构建，成功后整体切换。</p></article>
+        <article class="era"><span class="range">INDEX</span><h3>证据索引</h3><p>正文按 410 目标、512 上限与 41 Token 重叠切块；表格仅在行间切分并重复表头。</p></article>
+        <article class="era"><span class="range">RETRIEVAL</span><h3>检索策略</h3><p>BM25 与 BGE 中文向量并行召回，加权 RRF 融合后由 Cross-Encoder 重排。</p></article>
+        <article class="era"><span class="range">SERVICE</span><h3>服务接口</h3><p>内存加载本地索引与模型，查询结果使用 128 项 LRU 缓存，并通过 STDIO MCP 暴露。</p></article>
       </div>
-      <footer class="source">来源：README.md · evaluation/release/</footer>
+      <footer class="source">来源：src/ingest.py · src/retrieval/ · src/mcp_server.py</footer>
     </section>
 
     <section class="slide" data-title="检索策略">
       <header>
         <p class="eyebrow">05 · Retrieval</p>
-        <h2>混合召回扩大覆盖，重排模型提升前列质量</h2>
+        <h2>关键词覆盖、语义覆盖与相关性精排组合工作</h2>
       </header>
       <div class="config-grid">
         <div class="formula">
-          <p class="big"><b>BM25</b> 关键词召回<br>＋ <b>Dense</b> 语义召回<br>→ <b>Reranker</b> 精排</p>
-          <p>融合负责“不漏掉”，重排负责“把对的证据放到前面”。稳定 ID、页码与来源信息贯穿全程。</p>
+          <p class="big"><b>BM25 × 3</b> 关键词召回<br>＋ <b>BGE × 1</b> 语义召回<br>→ <b>Cross-Encoder</b> 精排</p>
+          <p>两路各取最多 20 个候选，以 RRF 融合；重排分数与检索先验组合，并保护高置信或表格类 Hybrid Top-5 证据。</p>
         </div>
         <div class="specs">
-          <div class="spec"><b>0.90</b><span>Recall@1</span></div>
-          <div class="spec"><b>1.00</b><span>Recall@5</span></div>
-          <div class="spec"><b>0.9437</b><span>MRR@5</span></div>
-          <div class="spec"><b>0.9416</b><span>NDCG@5</span></div>
+          <div class="spec"><b>20</b><span>每路候选上限</span></div>
+          <div class="spec"><b>3 : 1</b><span>BM25 / Vector 权重</span></div>
+          <div class="spec"><b>0.16</b><span>重排中的检索先验</span></div>
+          <div class="spec"><b>128</b><span>查询 LRU 缓存</span></div>
         </div>
       </div>
-      <footer class="source">来源：evaluation/release/result.json</footer>
+      <footer class="source">模型：BAAI/bge-base-zh-v1.5 · BAAI/bge-reranker-base；来源：src/retrieval/config.py</footer>
     </section>
 
     <section class="slide" data-title="检索效果">
       <header>
         <p class="eyebrow">06 · Evidence quality</p>
-        <h2>锁定验收集上的证据级结果</h2>
+        <h2>两组证据门禁验证“有依据才回答”的边界</h2>
       </header>
       <div class="two-col">
         <div class="bars" aria-label="证据级指标条形图">
-          <div class="bar-line"><span class="bar-label">Recall@1</span><div class="bar-track"><div class="bar-fill" style="width:90%"></div></div><span class="bar-value">90%</span></div>
-          <div class="bar-line"><span class="bar-label">Recall@3</span><div class="bar-track"><div class="bar-fill" style="width:97.5%"></div></div><span class="bar-value">97.5%</span></div>
-          <div class="bar-line"><span class="bar-label">Recall@5</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bar-value">100%</span></div>
-          <div class="bar-line"><span class="bar-label">NDCG@5</span><div class="bar-track"><div class="bar-fill" style="width:94.16%"></div></div><span class="bar-value">94.16%</span></div>
+          <div class="bar-line"><span class="bar-label">平衡准确率</span><div class="bar-track"><div class="bar-fill" style="width:99.44%"></div></div><span class="bar-value">99.44%</span></div>
+          <div class="bar-line"><span class="bar-label">可回答样本</span><div class="bar-track"><div class="bar-fill" style="width:90%"></div></div><span class="bar-value">90</span></div>
+          <div class="bar-line"><span class="bar-label">错误放行</span><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div><span class="bar-value">0</span></div>
+          <div class="bar-line"><span class="bar-label">拒答召回率</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bar-value">100%</span></div>
         </div>
         <aside class="callout">
-          <span class="hero-number">1.00</span>
-          <h3>Recall@5</h3>
-          <p>在当前锁定验收范围内，正确证据都能进入前五；证据指标仅验证检索质量，不能替代最终答案正确性。</p>
+          <span class="hero-number">0</span>
+          <h3>错误放行</h3>
+          <p>开发集包含 90 个可回答与 10 个不可回答问题；另有 20 个锁定拒答样本。两组门禁均未把无依据问题误判为可回答。</p>
         </aside>
       </div>
-      <footer class="source">口径：v2 锁定验收集；来源：evaluation/release/result.json</footer>
+      <footer class="source">开发集：1 次错误拒答，平衡准确率 99.44%；锁定拒答集：拒答召回率 100%。来源：evaluation/release/result.json</footer>
     </section>
 
     <section class="slide" data-title="干净复现">
       <header>
         <p class="eyebrow">07 · Reproducibility</p>
-        <h2>从“本机能跑”推进到“干净环境可复现”</h2>
+        <h2>复现流程固定源码版本、输入哈希、模型目录与验证步骤</h2>
       </header>
       <div>
         <div class="metric-strip">
@@ -742,7 +742,7 @@
           <div class="metric"><strong>731</strong><span>索引证据块</span></div>
           <div class="metric"><strong>0</strong><span>失败 / 低置信 OCR</span></div>
         </div>
-        <p class="note-line">2026-08-15 干净复现总耗时 1519.25 秒，其中索引重建 1119.21 秒；冻结周期内 96 项测试通过。347 条非阻断告警被保留用于后续治理。</p>
+        <p class="note-line">2026-08-15 干净环境从两份 Git 跟踪的 PDF 重建全部提取产物和索引，MCP 工具发现、96 项测试、两组证据门禁与性能基准全部通过。</p>
       </div>
       <footer class="source">来源：evaluation/release/result.json</footer>
     </section>
@@ -750,7 +750,7 @@
     <section class="slide" data-title="运行时性能">
       <header>
         <p class="eyebrow">08 · Runtime</p>
-        <h2>缓存命中已很快，未缓存查询仍受重排主导</h2>
+        <h2>长驻服务预热模型，查询缓存缩短重复检索路径</h2>
       </header>
       <div class="speed">
         <div class="speed-compare">
@@ -761,36 +761,36 @@
           <span class="eyebrow">Primary bottleneck</span>
           <strong>2279.58 ms</strong>
           <h3>重排器平均耗时</h3>
-          <p>基准结果表明，未缓存查询的主要耗时来自重排阶段；缓存命中路径保持在 2 毫秒以内。</p>
+          <p>服务启动时预加载索引、重排模型与向量模型；未缓存查询主要耗时来自重排，缓存命中路径保持在 2 毫秒以内。</p>
         </div>
       </div>
       <footer class="source">补充：冷启动 8218.96 ms；未缓存 P95 2926.33 ms；来源：evaluation/release/result.json</footer>
     </section>
 
-    <section class="slide" data-title="答案级评估">
+    <section class="slide" data-title="MCP 服务">
       <header>
-        <p class="eyebrow">09 · Answer evaluation</p>
-        <h2>答案级评估基础已就绪，真实人工复核尚未完成</h2>
+        <p class="eyebrow">09 · MCP service</p>
+        <h2>两个工具构成稳定、可检查的客户端接口</h2>
       </header>
       <div class="status-flow">
         <article class="status-block">
-          <span class="status-label">READY</span>
-          <h3>评估基础设施</h3>
-          <ul><li>12 个问题、6 类场景</li><li>固定提示词、输出模式与评分器</li><li>每题独立运行，最多 3 个并行任务</li></ul>
+          <span class="status-label">TOOLS</span>
+          <h3>服务入口</h3>
+          <ul><li><b>knowledge_base_status</b>：索引、模型、文档数与新鲜度</li><li><b>search_knowledge_base</b>：查询本地知识库，返回最多 1–10 条证据</li><li>STDIO 传输；默认启动时预热索引与两个本地模型</li></ul>
         </article>
-        <article class="status-block pending">
-          <span class="status-label">NOT YET VERIFIED</span>
-          <h3>答案质量边界</h3>
-          <ul><li>生成真实答案与引用</li><li>人工复核引用充分性和拒答边界</li><li>用失败样本驱动下一轮检索优化</li></ul>
+        <article class="status-block contract">
+          <span class="status-label">RESPONSE CONTRACT</span>
+          <h3>证据与判断</h3>
+          <ul><li><b>evidence_sufficient / confidence / reason</b> 明确能否据此回答</li><li>signals 展示词面覆盖、双通道一致性、来源一致性与时效检查</li><li>results 保留来源、页码、chunk ID、正文与分数；diagnostics 给出缓存命中和耗时</li></ul>
         </article>
       </div>
-      <footer class="source">重要边界：当前证据指标不能替代答案正确性；来源：README.md</footer>
+      <footer class="source">来源：src/mcp_server.py · src/retrieval/hybrid.py · src/retrieval/evidence.py</footer>
     </section>
 
-    <section class="slide" data-title="目录重构">
+    <section class="slide" data-title="项目目录">
       <header>
         <p class="eyebrow">10 · Repository</p>
-        <h2>目录按“输入、文档、评估、运行产物、代码”重新分责</h2>
+        <h2>仓库按输入、规范、评测、运行资产与源码分责</h2>
       </header>
       <div class="tree-layout">
         <pre class="tree" aria-label="项目目录树"><span class="blue">data/</span>
@@ -807,11 +807,11 @@
         <ul class="role-list">
           <li><b>data</b>可版本管理的项目输入与演示</li>
           <li><b>docs</b>公开的 PDF 内容处理规范</li>
-          <li><b>evaluation</b>评估定义、脚本和冻结结果</li>
-          <li><b>runtime</b>可再生成的大体积运行资产</li>
+          <li><b>evaluation</b>答案、证据、检索与发布四类验证</li>
+          <li><b>runtime</b>本地模型、提取产物、索引和运行报告</li>
         </ul>
       </div>
-      <footer class="source">缓存目录单独保留，未纳入本轮删除。</footer>
+      <footer class="source">src/extraction 负责原生与扫描提取；src/retrieval 负责切块、索引、召回、重排与证据判断。</footer>
     </section>
 
     <section class="slide" data-title="适用边界">
@@ -819,10 +819,10 @@
         <p class="eyebrow">11 · Scope</p>
         <h2>能力边界比功能数量更重要</h2>
       </header>
-      <div class="roadmap">
-        <article class="road now"><span class="tag">GOOD FIT</span><h3>本地校园文档</h3><p>适合需要离线处理中文原生 PDF 与扫描 PDF 的知识检索场景。</p></article>
-        <article class="road next"><span class="tag">OUTPUT</span><h3>返回证据</h3><p>系统输出检索证据和充分性判断，不代替客户端生成最终答案。</p></article>
-        <article class="road later"><span class="tag">NOT INCLUDED</span><h3>不是通用搜索</h3><p>不覆盖实时互联网信息，也不把证据级指标等同于答案正确率。</p></article>
+      <div class="scope-grid">
+        <article class="scope-card ingest"><span class="tag">INPUT</span><h3>本地校园 PDF</h3><p>面向受控知识库中的中文原生 PDF、结构化表格与扫描 PDF。</p></article>
+        <article class="scope-card output"><span class="tag">OUTPUT</span><h3>可引用证据</h3><p>输出检索证据、来源定位与充分性判断，由 MCP 客户端生成答案。</p></article>
+        <article class="scope-card boundary"><span class="tag">BOUNDARY</span><h3>非实时搜索</h3><p>不覆盖互联网实时信息；证据级指标描述检索能力，不代表答案正确率。</p></article>
       </div>
       <footer class="source">来源：README.md · src/mcp_server.py</footer>
     </section>
@@ -830,8 +830,8 @@
     <section class="slide closing" data-title="结语">
       <header><p class="eyebrow">12 · Closing</p></header>
       <div class="finish">
-        <h2>先让每条答案<br>都能回到证据。</h2>
-        <p>项目已经具备稳定的证据检索与干净复现基础。下一步的价值，不在继续堆叠检索技巧，而在完成真实答案评估并把失败转化为可验证的改进。</p>
+        <h2>从本地 PDF<br>到可核验的证据。</h2>
+        <p>当前项目由双路文档提取、Token 感知索引、混合召回、Cross-Encoder 重排、证据充分性判断与 MCP 服务组成，并通过固定数据集和发布复现流程验证。</p>
       </div>
       <footer class="source">校园文档 RAG-MCP · 离线网页演示稿</footer>
     </section>
