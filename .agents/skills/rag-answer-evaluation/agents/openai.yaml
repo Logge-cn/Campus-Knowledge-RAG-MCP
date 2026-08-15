@@ -1,0 +1,4 @@
+interface:
+  display_name: "RAG 答案评测"
+  short_description: "按冻结配置重复运行 RAG 答案评测并整理人工复核材料"
+  default_prompt: "使用 $rag-answer-evaluation 按冻结配置运行一次答案级评测并整理人工复核材料。"
