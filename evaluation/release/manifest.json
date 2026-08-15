@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "created_at": "2026-08-15T09:40:46.759496+00:00",
-  "commit": "5b4723e16987052fd663a7b7390e62007775e3dd",
+  "created_at": "2026-08-15T09:49:49.266174+00:00",
+  "commit": "09668feb899f4a177658afb8327307fe78680966",
   "hash_policy": "LF-normalized UTF-8-compatible text; raw bytes for binary files",
   "files": {
     ".agents/skills/rag-answer-evaluation/SKILL.md": {
@@ -35,13 +35,13 @@
       "portable_text": true
     },
     "README.md": {
-      "sha256": "f837d994673c5f3973c4394ad3d41d0b52a176f9dc4c2b381d178b6a5cd0140c",
-      "bytes": 7508,
+      "sha256": "2295d25bfafd08b48f11d5c60cdee1626a8532883b7bda2abbf6b2334c204b2a",
+      "bytes": 7370,
       "portable_text": true
     },
     "data/demo/index.html": {
-      "sha256": "df5fcdf60cec70c2b9e8c5e4c42961d760e84ab01064df093e7c7641eabb9337",
-      "bytes": 29344,
+      "sha256": "8b22ce82e0f036ff17ed5e13f2798d2560fe436d489760eb0aac87317d1e23f9",
+      "bytes": 29129,
       "portable_text": true
     },
     "data/sources/南京邮电大学学生手册（2023版）+.pdf": {
@@ -62,16 +62,6 @@
     "docs/PDF扫描件处理规范.md": {
       "sha256": "3bda8c4c333e69ecf85b19bd6ea3914fab7c3ad70dfd0d7ee748348cb0bbfc66",
       "bytes": 3226,
-      "portable_text": true
-    },
-    "docs/未来优化方案.md": {
-      "sha256": "8e20c7d7c4c89264f008778d8f3cbf3bab87423b21aa903cef055d697e3439a7",
-      "bytes": 5630,
-      "portable_text": true
-    },
-    "docs/项目路线总结.md": {
-      "sha256": "2289d366888bc95ae744425e1dde5d2fee9a4e6972a26268d91ae20262992c7c",
-      "bytes": 9471,
       "portable_text": true
     },
     "evaluation/__init__.py": {

@@ -6,7 +6,7 @@
 
 <p>原生 PDF 与表格 · 扫描件 OCR · BM25 + 中文向量混合召回 · Cross-Encoder 重排 · MCP</p>
 
-<p><a href="https://logge-cn.github.io/Campus-Knowledge-RAG-MCP/"><strong>▶ 在线查看项目演示</strong></a> · <a href="#安装">快速开始</a> · <a href="docs/项目路线总结.md">项目路线</a> · <a href="docs/未来优化方案.md">未来方案</a></p>
+<p><a href="https://logge-cn.github.io/Campus-Knowledge-RAG-MCP/"><strong>▶ 在线查看项目演示</strong></a> · <a href="#安装">快速开始</a></p>
 
 </div>
 
@@ -202,7 +202,7 @@ rag/
 ├── data/
 │   ├── sources/              # 两份受版本控制的原始 PDF
 │   └── demo/                 # 可离线打开的 HTML 演示
-├── docs/                     # 两份 PDF 规范、路线总结、未来方案
+├── docs/                     # 两份 PDF 处理规范
 ├── evaluation/
 │   ├── answer/               # 答案级评测
 │   ├── evidence/             # 证据充分性评测
